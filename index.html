@@ -9,19 +9,15 @@
 body{background:#0a0a0a;color:#fff;font-family:Arial;padding:15px;margin:0}
 .card{background:#1a1a1a;border:1px solid #333;border-radius:15px;padding:20px;margin-bottom:15px}
 .btn{background:linear-gradient(90deg,#FFD700,#FF8C00);color:#000;border:none;padding:15px 25px;border-radius:10px;font-weight:bold;width:100%;font-size:16px;cursor:pointer;margin-top:10px}
-input,textarea,select{width:100%;background:#222;color:#fff;border:1px solid #444;border-radius:8px;padding:12px;margin-top:8px;box-sizing:border-box}
+textarea,select{width:100%;background:#222;color:#fff;border:1px solid #444;border-radius:8px;padding:12px;margin-top:8px;box-sizing:border-box}
 h1{color:#FFD700;text-align:center}
-.status{min-height:10px}
-.recording{animation:pulse 1s infinite;background:red !important;color:white !important}
-@keyframes pulse{0%{opacity:1}50%{opacity:0.5}100%{opacity:1}}
 </style>
 </head>
 <body>
 <h1>JCV-AI</h1>
-<p class="status"></p>
 
 <div class="card">
-<h3>1. TU VOX - GRABA TU VOZ REAL</h3>
+<h3>1. TU VOX</h3>
 <button class="btn" id="btnRec">🎤 GRABAR MI VOX (5 seg)</button>
 <p id="voxStatus">No hay voz grabada aún</p>
 <audio id="audioVox" controls style="display:none;width:100%"></audio>
@@ -29,9 +25,7 @@ h1{color:#FFD700;text-align:center}
 
 <div class="card">
 <h3>2. CREA TU HIT GLOBAL</h3>
-<label>Crea tu estilo de musica:</label>
-<textarea id="prompt" rows="3">Cumbia triste con trompeta poderosa, letra sobre salir adelante desde Ecatepec</textarea>
-<label>Estilo:</label>
+<textarea id="prompt" rows="3" placeholder="crea tu estilo de musica"></textarea>
 <select id="style">
 <option>Reggaeton Potente</option>
 <option>Cumbia Sonidera</option>
@@ -45,53 +39,43 @@ h1{color:#FFD700;text-align:center}
 
 <div class="card">
 <h3>3. TU SPOTIFY PRIVADO</h3>
-<div id="playlist"><p>No hay rolas aún. Crea la primera.</p></div>
+<div id="playlist"><p>No hay rolas aún.</p></div>
 </div>
 
 <script>
 let mediaRecorder,audioChunks=[],voxBlob=null;
 document.getElementById('btnRec').onclick=async()=>{
 let btn=document.getElementById('btnRec');
-try{
-let stream=await navigator.mediaDevices.getUserMedia({audio:true});
-mediaRecorder=new MediaRecorder(stream);
+let s=await navigator.mediaDevices.getUserMedia({audio:true});
+mediaRecorder=new MediaRecorder(s);
 mediaRecorder.ondataavailable=e=>audioChunks.push(e.data);
 mediaRecorder.onstop=()=>{
 voxBlob=new Blob(audioChunks,{type:'audio/wav'});
-let url=URL.createObjectURL(voxBlob);
-let audio=document.getElementById('audioVox');
-audio.src=url;audio.style.display='block';
+let u=URL.createObjectURL(voxBlob);
+let a=document.getElementById('audioVox');a.src=u;a.style.display='block';
 document.getElementById('voxStatus').innerText='✅ VOX CAPTURADA';
-btn.classList.remove('recording');btn.innerText='🎤 RE-GRABAR MI VOX';
 };
 audioChunks=[];mediaRecorder.start();
-btn.classList.add('recording');btn.innerText='🔴 GRABANDO... (5 seg)';
+btn.innerText='🔴 GRABANDO...';
 setTimeout(()=>mediaRecorder.stop(),5000);
-}catch(err){alert('Da permiso al microfono: '+err);}
 };
 document.getElementById('btnCreate').onclick=async()=>{
 await Tone.start();
-let status=document.getElementById('createStatus');
-status.innerText='🎹 GENERANDO BEAT REAL...';
+document.getElementById('createStatus').innerText='🎹 GENERANDO...';
 const synth=new Tone.PolySynth(Tone.Synth).toDestination();
 const kick=new Tone.MembraneSynth().toDestination();
-let style=document.getElementById('style').value;
-let chords=style.includes('Cumbia')?[["C4","E4","G4"],["F4","A4","C5"]]:[["A3","C4","E4"],["G3","B3","D4"]];
 let now=Tone.now();
-for(let i=0;i<8;i++){
-kick.triggerAttackRelease("C2","8n",now+i*0.5);
-if(i%2==0) synth.triggerAttackRelease(chords[i%2],"4n",now+i*0.5);
-}
+for(let i=0;i<8;i++){kick.triggerAttackRelease("C2","8n",now+i*0.5); if(i%2==0) synth.triggerAttackRelease(["C4","E4","G4"],"4n",now+i*0.5);}
 setTimeout(()=>{
-let promptText=document.getElementById('prompt').value;
-let playlist=document.getElementById('playlist');
-if(playlist.innerHTML.includes('No hay rolas')) playlist.innerHTML='';
-let id=Date.now();
-let item=document.createElement('div');item.className='card';
-item.innerHTML=`<b>${promptText.substring(0,30)} - ${style}</b><br><small>JCV-${id}</small><br><p>🔊 BEAT REAL + TU VOX</p><audio controls src="${voxBlob?URL.createObjectURL(voxBlob):''}"></audio>`;
-playlist.prepend(item);
-status.innerText='✅ ¡HIT CREADO!';
-},2000);
+let p=document.getElementById('prompt').value||"Mi estilo";
+let style=document.getElementById('style').value;
+let pl=document.getElementById('playlist');
+if(pl.innerHTML.includes('No hay rolas')) pl.innerHTML='';
+let d=document.createElement('div');d.className='card';
+d.innerHTML=`<b>${p.substring(0,30)} - ${style}</b><br><audio controls src="${voxBlob?URL.createObjectURL(voxBlob):''}"></audio>`;
+pl.prepend(d);
+document.getElementById('createStatus').innerText='✅ ¡HIT CREADO!';
+},1500);
 };
 </script>
 </body>
