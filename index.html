@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>JCV-AI v2.1 IMPERIO - Jose C Valadez</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+body{background:#000;color:#FFD700;text-align:center;font-family:Arial;padding:20px}
+.btn{background:gold;color:#000;padding:18px 35px;font-weight:bold;border:none;border-radius:12px;font-size:20px;margin:15px}
+select,input{padding:12px;border-radius:8px;font-size:16px;width:85%;margin:8px}
+.box{border:2px solid gold;border-radius:15px;padding:15px;margin-top:20px}
+</style>
+</head>
+<body>
+<h1>👑 JCV-AI-CORE-v2.1</h1>
+<h3>Dueño 100%: Jose C Valadez<br>HASH: 87b804c SELLADO ORO</h3>
+<div class="box">
+<h2>🌍 IMPERIO 8 IDIOMAS - TU VOZ CLONADA</h2>
+<select id="idioma">
+<option value="es">🇲🇽 Español</option>
+<option value="en">🇺🇸 English</option>
+<option value="pt">🇧🇷 Portugues</option>
+<option value="fr">🇫🇷 Frances</option>
+<option value="de">🇩🇪 Aleman</option>
+<option value="ja">🇯🇵 Japones</option>
+<option value="zh">🇨🇳 Chino</option>
+<option value="ko">🇰🇷 Coreano</option>
+</select>
+<input id="tema" placeholder="Escribe tu hit: cumbia del arquitecto">
+<br>
+<button class="btn" onclick="crear()">🚀 CREAR HIT GLOBAL</button>
+<p id="status">Listo - Propiedad 100% Jose C Valadez</p>
+</div>
+<script>
+function crear(){
+ let t=document.getElementById('tema').value||"cumbia del arquitecto";
+ let i=document.getElementById('idioma').value;
+ document.getElementById('status').innerHTML=">>> CREANDO: "+t+" en "+i+"<br>Motor 5 Capas Activo<br>Dueño: Jose C Valadez";
+ alert("¡HIT CREADO! Tema: "+t+" Idioma: "+i+" Dueño 100%: Jose C Valadez SELLADO ORO");
+}
+</script>
+</body>
+</html>
