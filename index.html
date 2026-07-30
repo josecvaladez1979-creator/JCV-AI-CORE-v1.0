@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JCV AI CORE - REAL ENGINE V2</title>
+<title>JCV-AI</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
 <style>
 body{background:#0a0a0a;color:#fff;font-family:Arial;padding:15px;margin:0}
@@ -11,14 +11,14 @@ body{background:#0a0a0a;color:#fff;font-family:Arial;padding:15px;margin:0}
 .btn{background:linear-gradient(90deg,#FFD700,#FF8C00);color:#000;border:none;padding:15px 25px;border-radius:10px;font-weight:bold;width:100%;font-size:16px;cursor:pointer;margin-top:10px}
 input,textarea,select{width:100%;background:#222;color:#fff;border:1px solid #444;border-radius:8px;padding:12px;margin-top:8px;box-sizing:border-box}
 h1{color:#FFD700;text-align:center}
-.status{color:#00ff88;text-align:center;font-weight:bold}
+.status{min-height:10px}
 .recording{animation:pulse 1s infinite;background:red !important;color:white !important}
 @keyframes pulse{0%{opacity:1}50%{opacity:0.5}100%{opacity:1}}
 </style>
 </head>
 <body>
-<h1>JCV AI CORE V2 - MOTOR REAL</h1>
-<p class="status">● SISTEMA REAL CONECTADO - LISTO PARA CREAR</p>
+<h1>JCV-AI</h1>
+<p class="status"></p>
 
 <div class="card">
 <h3>1. TU VOX - GRABA TU VOZ REAL</h3>
@@ -29,7 +29,7 @@ h1{color:#FFD700;text-align:center}
 
 <div class="card">
 <h3>2. CREA TU HIT GLOBAL</h3>
-<label>Letra / Prompt:</label>
+<label>Crea tu estilo de musica:</label>
 <textarea id="prompt" rows="3">Cumbia triste con trompeta poderosa, letra sobre salir adelante desde Ecatepec</textarea>
 <label>Estilo:</label>
 <select id="style">
@@ -49,49 +49,49 @@ h1{color:#FFD700;text-align:center}
 </div>
 
 <script>
-let mediaRecorder, audioChunks=[], voxBlob=null;
-document.getElementById('btnRec').onclick = async () => {
-  let btn=document.getElementById('btnRec');
-  try{
-    let stream=await navigator.mediaDevices.getUserMedia({audio:true});
-    mediaRecorder=new MediaRecorder(stream);
-    mediaRecorder.ondataavailable=e=>audioChunks.push(e.data);
-    mediaRecorder.onstop=()=>{
-      voxBlob=new Blob(audioChunks,{type:'audio/wav'});
-      let url=URL.createObjectURL(voxBlob);
-      let audio=document.getElementById('audioVox');
-      audio.src=url; audio.style.display='block';
-      document.getElementById('voxStatus').innerText='✅ VOX CAPTURADA';
-      btn.classList.remove('recording'); btn.innerText='🎤 RE-GRABAR MI VOX';
-    };
-    audioChunks=[]; mediaRecorder.start();
-    btn.classList.add('recording'); btn.innerText='🔴 GRABANDO... (5 seg)';
-    setTimeout(()=>mediaRecorder.stop(),5000);
-  }catch(err){alert('Da permiso al microfono: '+err);}
+let mediaRecorder,audioChunks=[],voxBlob=null;
+document.getElementById('btnRec').onclick=async()=>{
+let btn=document.getElementById('btnRec');
+try{
+let stream=await navigator.mediaDevices.getUserMedia({audio:true});
+mediaRecorder=new MediaRecorder(stream);
+mediaRecorder.ondataavailable=e=>audioChunks.push(e.data);
+mediaRecorder.onstop=()=>{
+voxBlob=new Blob(audioChunks,{type:'audio/wav'});
+let url=URL.createObjectURL(voxBlob);
+let audio=document.getElementById('audioVox');
+audio.src=url;audio.style.display='block';
+document.getElementById('voxStatus').innerText='✅ VOX CAPTURADA';
+btn.classList.remove('recording');btn.innerText='🎤 RE-GRABAR MI VOX';
 };
-document.getElementById('btnCreate').onclick = async () => {
-  await Tone.start();
-  let status=document.getElementById('createStatus');
-  status.innerText='🎹 GENERANDO BEAT REAL...';
-  const synth=new Tone.PolySynth(Tone.Synth).toDestination();
-  const kick=new Tone.MembraneSynth().toDestination();
-  let style=document.getElementById('style').value;
-  let chords=style.includes('Cumbia')?[["C4","E4","G4"],["F4","A4","C5"]]:[["A3","C4","E4"],["G3","B3","D4"]];
-  let now=Tone.now();
-  for(let i=0;i<8;i++){
-    kick.triggerAttackRelease("C2","8n",now+i*0.5);
-    if(i%2==0) synth.triggerAttackRelease(chords[i%2],"4n",now+i*0.5);
-  }
-  setTimeout(()=>{
-    let promptText=document.getElementById('prompt').value;
-    let playlist=document.getElementById('playlist');
-    if(playlist.innerHTML.includes('No hay rolas')) playlist.innerHTML='';
-    let id=Date.now();
-    let item=document.createElement('div'); item.className='card';
-    item.innerHTML=`<b>${promptText.substring(0,30)} - ${style}</b><br><small>JCV-${id}</small><br><p>🔊 BEAT REAL + TU VOX</p><audio controls src="${voxBlob?URL.createObjectURL(voxBlob):''}"></audio>`;
-    playlist.prepend(item);
-    status.innerText='✅ ¡HIT CREADO Y GUARDADO! Reprodúcelo arriba.';
-  },2000);
+audioChunks=[];mediaRecorder.start();
+btn.classList.add('recording');btn.innerText='🔴 GRABANDO... (5 seg)';
+setTimeout(()=>mediaRecorder.stop(),5000);
+}catch(err){alert('Da permiso al microfono: '+err);}
+};
+document.getElementById('btnCreate').onclick=async()=>{
+await Tone.start();
+let status=document.getElementById('createStatus');
+status.innerText='🎹 GENERANDO BEAT REAL...';
+const synth=new Tone.PolySynth(Tone.Synth).toDestination();
+const kick=new Tone.MembraneSynth().toDestination();
+let style=document.getElementById('style').value;
+let chords=style.includes('Cumbia')?[["C4","E4","G4"],["F4","A4","C5"]]:[["A3","C4","E4"],["G3","B3","D4"]];
+let now=Tone.now();
+for(let i=0;i<8;i++){
+kick.triggerAttackRelease("C2","8n",now+i*0.5);
+if(i%2==0) synth.triggerAttackRelease(chords[i%2],"4n",now+i*0.5);
+}
+setTimeout(()=>{
+let promptText=document.getElementById('prompt').value;
+let playlist=document.getElementById('playlist');
+if(playlist.innerHTML.includes('No hay rolas')) playlist.innerHTML='';
+let id=Date.now();
+let item=document.createElement('div');item.className='card';
+item.innerHTML=`<b>${promptText.substring(0,30)} - ${style}</b><br><small>JCV-${id}</small><br><p>🔊 BEAT REAL + TU VOX</p><audio controls src="${voxBlob?URL.createObjectURL(voxBlob):''}"></audio>`;
+playlist.prepend(item);
+status.innerText='✅ ¡HIT CREADO!';
+},2000);
 };
 </script>
 </body>
