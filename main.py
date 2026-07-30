@@ -1,23 +1,35 @@
 """
-
-JCV-AI CORE v1.0 - FUSION OFICIAL 5 CAPAS - SELLADO
-Arquitecto, Creador y Dueño: José C Valadez
-PROPIEDAD INTELECTUAL 100%: José C Valadez
-Fecha de Sellado: 29 de Julio de 2026
-
+JCV-AI CORE v2.1 - IMPERIO BLINDADO MULTI-IDIOMA GLOBAL
+Arquitecto, Creador y Dueño 100%: José C Valadez
+PROPIEDAD 100%: José C Valadez - 29 Julio 2026
+HASH: 87b804c - SELLADO ORO IN-TUMBABLE
 """
-OWNER = "Arquitecto, Creador y Dueño: José C Valadez"
-VERSION = "v1.0.0-CORE-SELLADO"
+
+DUEÑO = "Arquitecto, Creador y Dueño: José C Valadez"
+VERSIÓN = "v2.1-IMPERIO-MULTI-IDIOMA-BLINDADO"
 FECHA = "2026-07-29"
 
 class JCV_AI_Fusion5:
     def __init__(self):
-        print(f"JCV-AI CORE {VERSION} - {OWNER} - SELLADO {FECHA}")
-    def crear_cancion(self, tema, genero):
+        print(f"JCV-AI NÚCLEO {VERSIÓN} ACTIVADO - DUEÑO {DUEÑO}")
+    def crear_cancion(self, tema, genero="cumbia"):
         print(f">>> CREANDO: {tema} <<<")
-        print(f"RESULTADO: MASTER_FINAL_{tema}.wav - 0 ERRORES")
         return f"MASTER_FINAL_{tema}.wav"
 
+class JCV_MultiIdiomaEngine:
+    IDIOMAS = {"es":"Español","en":"Inglés","pt":"Portugués","fr":"Francés","de":"Alemán","ja":"Japonés","zh":"Chino","ko":"Coreano"}
+    def traducir_y_cantar(self, texto, idioma):
+        print(f"[{DUEÑO}] Cantando en {idioma}: {texto}")
+        return f"track_{idioma}.wav"
+
+class JCV_EMPIRE_CORE_v21(JCV_AI_Fusion5):
+    def crear_hit_global(self, idea, idioma="es"):
+        base = self.crear_cancion(idea)
+        if idioma != "es":
+            motor = JCV_MultiIdiomaEngine()
+            return motor.traducir_y_cantar(idea, idioma)
+        return base
+
 if __name__ == "__main__":
-    jcv = JCV_AI_Fusion5()
-    jcv.crear_cancion("Sueno Real", "pop urbano")
+    imperio = JCV_EMPIRE_CORE_v21()
+    imperio.crear_hit_global("cumbia del arquitecto", "en")
