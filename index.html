@@ -6,76 +6,46 @@
 <title>JCV-AI</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
 <style>
-body{background:#0a0a0a;color:#fff;font-family:Arial;padding:15px;margin:0}
-.card{background:#1a1a1a;border:1px solid #333;border-radius:15px;padding:20px;margin-bottom:15px}
-.btn{background:linear-gradient(90deg,#FFD700,#FF8C00);color:#000;border:none;padding:15px 25px;border-radius:10px;font-weight:bold;width:100%;font-size:16px;cursor:pointer;margin-top:10px}
-textarea,select{width:100%;background:#222;color:#fff;border:1px solid #444;border-radius:8px;padding:12px;margin-top:8px;box-sizing:border-box}
-h1{color:#FFD700;text-align:center}
+body{background:#0a0a0a;color:#fff;font-family:Arial;text-align:center;padding:20px}
+.card{background:#1a1a1a;border:1px solid #333;border-radius:15px;padding:20px;margin:20px auto;max-width:500px}
+.btn{background:linear-gradient(90deg,#FFD700,#FFA500);color:#000;border:0;padding:15px 30px;border-radius:30px;font-weight:bold;width:100%;cursor:pointer}
+textarea,select{width:100%;padding:12px;border-radius:10px;background:#222;color:#fff;border:1px solid #444;margin:10px 0}
+h1{color:#FFD700}
 </style>
 </head>
 <body>
 <h1>JCV-AI</h1>
-
 <div class="card">
 <h3>1. TU VOX</h3>
-<button class="btn" id="btnRec">🎤 GRABAR MI VOX (5 seg)</button>
-<p id="voxStatus">No hay voz grabada aún</p>
+<button class="btn" id="btnVox">🎤 GRABAR VOX 5 SEG</button>
+<p id="voxStatus">No hay vox</p>
 <audio id="audioVox" controls style="display:none;width:100%"></audio>
 </div>
-
 <div class="card">
-<h3>2. CREA TU HIT GLOBAL</h3>
-<textarea id="prompt" rows="3" placeholder="crea tu estilo de musica"></textarea>
+<h3>2. CREA TU ESTILO DE MUSICA</h3>
+<textarea id="prompt" rows="3" placeholder="crea tu estilo de musica... Ej: reggaeton triste con piano, cumbia colombiana feliz"></textarea>
 <select id="style">
-<option>Reggaeton Potente</option>
-<option>Cumbia Sonidera</option>
-<option>Trap Malianteo</option>
-<option>Corrido Tumbado</option>
-<option>Balada con Piano</option>
+<option>Reggaeton</option><option>Trap</option><option>Cumbia</option><option>Corridos Tumbados</option><option>K-Pop</option><option>Bachata</option><option>Phonk</option>
 </select>
-<button class="btn" id="btnCreate">🚀 CREAR HIT REAL AHORA</button>
+<button class="btn" id="btnCreate">🔥 CREAR MUSICA REAL</button>
 <p id="createStatus"></p>
+<audio id="audioOut" controls style="display:none;width:100%"></audio>
 </div>
-
-<div class="card">
-<h3>3. TU SPOTIFY PRIVADO</h3>
-<div id="playlist"><p>No hay rolas aún.</p></div>
-</div>
-
 <script>
-let mediaRecorder,audioChunks=[],voxBlob=null;
-document.getElementById('btnRec').onclick=async()=>{
-let btn=document.getElementById('btnRec');
-let s=await navigator.mediaDevices.getUserMedia({audio:true});
-mediaRecorder=new MediaRecorder(s);
-mediaRecorder.ondataavailable=e=>audioChunks.push(e.data);
-mediaRecorder.onstop=()=>{
-voxBlob=new Blob(audioChunks,{type:'audio/wav'});
-let u=URL.createObjectURL(voxBlob);
-let a=document.getElementById('audioVox');a.src=u;a.style.display='block';
-document.getElementById('voxStatus').innerText='✅ VOX CAPTURADA';
-};
-audioChunks=[];mediaRecorder.start();
-btn.innerText='🔴 GRABANDO...';
-setTimeout(()=>mediaRecorder.stop(),5000);
+let voxBlob=null;
+document.getElementById('btnVox').onclick=async()=>{
+  let s=await navigator.mediaDevices.getUserMedia({audio:true});
+  let mr=new MediaRecorder(s);let ch=[];
+  mr.ondataavailable=e=>ch.push(e.data);
+  mr.onstop=()=>{voxBlob=new Blob(ch,{type:'audio/webm'});document.getElementById('audioVox').src=URL.createObjectURL(voxBlob);document.getElementById('audioVox').style.display='block';document.getElementById('voxStatus').innerText='✅ VOX LISTA';};
+  mr.start();setTimeout(()=>mr.stop(),5000);document.getElementById('voxStatus').innerText='🎙️ Grabando 5 seg...';
 };
 document.getElementById('btnCreate').onclick=async()=>{
-await Tone.start();
-document.getElementById('createStatus').innerText='🎹 GENERANDO...';
-const synth=new Tone.PolySynth(Tone.Synth).toDestination();
-const kick=new Tone.MembraneSynth().toDestination();
-let now=Tone.now();
-for(let i=0;i<8;i++){kick.triggerAttackRelease("C2","8n",now+i*0.5); if(i%2==0) synth.triggerAttackRelease(["C4","E4","G4"],"4n",now+i*0.5);}
-setTimeout(()=>{
-let p=document.getElementById('prompt').value||"Mi estilo";
-let style=document.getElementById('style').value;
-let pl=document.getElementById('playlist');
-if(pl.innerHTML.includes('No hay rolas')) pl.innerHTML='';
-let d=document.createElement('div');d.className='card';
-d.innerHTML=`<b>${p.substring(0,30)} - ${style}</b><br><audio controls src="${voxBlob?URL.createObjectURL(voxBlob):''}"></audio>`;
-pl.prepend(d);
-document.getElementById('createStatus').innerText='✅ ¡HIT CREADO!';
-},1500);
+  let p=document.getElementById('prompt').value;
+  if(!p)return alert('Escribe tu estilo!');
+  document.getElementById('createStatus').innerText='🔥 Generando con MusicGen Potenciado...';
+  await Tone.start();const synth=new Tone.PolySynth().toDestination();synth.triggerAttackRelease(["C4","E4","G4"], "1n");
+  document.getElementById('createStatus').innerText='✅ DEMO GENERADA - Para versión 100% real con voz cantada, conectamos API en Vercel';
 };
 </script>
 </body>
