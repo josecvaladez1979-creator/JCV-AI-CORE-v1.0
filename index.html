@@ -1,52 +1,32 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JCV-AI</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
-<style>
-body{background:#0a0a0a;color:#fff;font-family:Arial;text-align:center;padding:20px}
-.card{background:#1a1a1a;border:1px solid #333;border-radius:15px;padding:20px;margin:20px auto;max-width:500px}
-.btn{background:linear-gradient(90deg,#FFD700,#FFA500);color:#000;border:0;padding:15px 30px;border-radius:30px;font-weight:bold;width:100%;cursor:pointer}
-textarea,select{width:100%;padding:12px;border-radius:10px;background:#222;color:#fff;border:1px solid #444;margin:10px 0}
-h1{color:#FFD700}
-</style>
-</head>
-<body>
-<h1>JCV-AI</h1>
-<div class="card">
-<h3>1. TU VOX</h3>
-<button class="btn" id="btnVox">🎤 GRABAR VOX 5 SEG</button>
-<p id="voxStatus">No hay vox</p>
-<audio id="audioVox" controls style="display:none;width:100%"></audio>
-</div>
-<div class="card">
-<h3>2. CREA TU ESTILO DE MUSICA</h3>
-<textarea id="prompt" rows="3" placeholder="crea tu estilo de musica... Ej: reggaeton triste con piano, cumbia colombiana feliz"></textarea>
-<select id="style">
-<option>Reggaeton</option><option>Trap</option><option>Cumbia</option><option>Corridos Tumbados</option><option>K-Pop</option><option>Bachata</option><option>Phonk</option>
-</select>
-<button class="btn" id="btnCreate">🔥 CREAR MUSICA REAL</button>
-<p id="createStatus"></p>
-<audio id="audioOut" controls style="display:none;width:100%"></audio>
-</div>
 <script>
 let voxBlob=null;
 document.getElementById('btnVox').onclick=async()=>{
   let s=await navigator.mediaDevices.getUserMedia({audio:true});
   let mr=new MediaRecorder(s);let ch=[];
   mr.ondataavailable=e=>ch.push(e.data);
-  mr.onstop=()=>{voxBlob=new Blob(ch,{type:'audio/webm'});document.getElementById('audioVox').src=URL.createObjectURL(voxBlob);document.getElementById('audioVox').style.display='block';document.getElementById('voxStatus').innerText='✅ VOX LISTA';};
-  mr.start();setTimeout(()=>mr.stop(),5000);document.getElementById('voxStatus').innerText='🎙️ Grabando 5 seg...';
+  mr.onstop=()=>{voxBlob=new Blob(ch,{type:'audio/webm'});document.getElementById('voxStatus').innerText='¡Vox lista!';document.getElementById('audioVox').src=URL.createObjectURL(voxBlob);document.getElementById('audioVox').style.display='block';};
+  mr.start();setTimeout(()=>mr.stop(),5000);document.getElementById('voxStatus').innerText='Grabando 5 seg...';
 };
 document.getElementById('btnCreate').onclick=async()=>{
   let p=document.getElementById('prompt').value;
+  let st=document.getElementById('style').value;
   if(!p)return alert('Escribe tu estilo!');
-  document.getElementById('createStatus').innerText='🔥 Generando con MusicGen Potenciado...';
-  await Tone.start();const synth=new Tone.PolySynth().toDestination();synth.triggerAttackRelease(["C4","E4","G4"], "1n");
-  document.getElementById('createStatus').innerText='✅ DEMO GENERADA - Para versión 100% real con voz cantada, conectamos API en Vercel';
+  let status=document.getElementById('createStatus');
+  status.innerText='⏳ Creando música REAL con Suno... espera 30 seg';
+  try{
+    let res=await fetch('/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt:p,style:st,title:p})});
+    let data=await res.json();
+    console.log(data);
+    if(data.error){status.innerText='Error: '+data.error;return;}
+    // Suno devuelve audio_url
+    let url=data.audio_url || data.data?.audio_url || data.data?.[0]?.audio_url || data.url;
+    if(url){
+      status.innerText='✅ ¡MÚSICA REAL CREADA!';
+      let a=document.getElementById('audioOut');
+      a.src=url;a.style.display='block';a.play();
+    } else {
+      status.innerText='Respuesta: '+JSON.stringify(data).substring(0,200);
+    }
+  }catch(e){status.innerText='Error conexion: '+e;}
 };
-</script>
-</body>
-</html>
+                                         </script>
