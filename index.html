@@ -1,32 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JCV IMPERIO REAL</title>
+<style>
+body{background:#000;color:#FFD700;font-family:Arial;text-align:center;padding:20px}
+h1{font-size:26px;text-shadow:0 0 10px gold}
+textarea,input{width:95%;border-radius:10px;padding:12px;margin:8px 0;font-size:16px}
+button{background:linear-gradient(45deg,#FFD700,#FFA500);color:#000;border:none;padding:16px 30px;font-size:19px;font-weight:bold;border-radius:30px;margin:10px}
+#status{margin:20px;color:#fff;font-size:18px;word-break:break-all}
+audio{width:95%;margin:20px 0}
+</style>
+</head>
+<body>
+<h1>👑 JCV IMPERIO v2.0 REAL 👑</h1>
+<p>Arrieros Somos</p>
+<textarea id="prompt" placeholder="Escribe tu letra... Ej: Arrieros somos y en el camino andamos"></textarea>
+<input id="style" value="Mexican Regional, Corridos Tumbados" placeholder="Estilo">
+<br>
+<button id="btnCreate">🔥 CREAR MUSICA REAL 🔥</button>
+<button id="btnVox">🎤 Grabar Voz (5s)</button>
+<div id="status">Listo para crear hit REAL</div>
+<audio id="audioPlayer" controls style="display:none"></audio>
+<div id="extra"></div>
 <script>
 let voxBlob=null;
 document.getElementById('btnVox').onclick=async()=>{
-  let s=await navigator.mediaDevices.getUserMedia({audio:true});
-  let mr=new MediaRecorder(s);let ch=[];
-  mr.ondataavailable=e=>ch.push(e.data);
-  mr.onstop=()=>{voxBlob=new Blob(ch,{type:'audio/webm'});document.getElementById('voxStatus').innerText='¡Vox lista!';document.getElementById('audioVox').src=URL.createObjectURL(voxBlob);document.getElementById('audioVox').style.display='block';};
-  mr.start();setTimeout(()=>mr.stop(),5000);document.getElementById('voxStatus').innerText='Grabando 5 seg...';
+ let s=await navigator.mediaDevices.getUserMedia({audio:true});
+ let mr=new MediaRecorder(s);let ch=[];
+ mr.ondataavailable=e=>ch.push(e.data);
+ mr.onstop=()=>{voxBlob=new Blob(ch,{type:'audio/webm'});document.getElementById('status').innerText='✅ Voz grabada, ahora crea música';};
+ mr.start();setTimeout(()=>mr.stop(),5000);
 };
 document.getElementById('btnCreate').onclick=async()=>{
-  let p=document.getElementById('prompt').value;
-  let st=document.getElementById('style').value;
-  if(!p)return alert('Escribe tu estilo!');
-  let status=document.getElementById('createStatus');
-  status.innerText='⏳ Creando música REAL con Suno... espera 30 seg';
-  try{
-    let res=await fetch('/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt:p,style:st,title:p})});
-    let data=await res.json();
-    console.log(data);
-    if(data.error){status.innerText='Error: '+data.error;return;}
-    // Suno devuelve audio_url
-    let url=data.audio_url || data.data?.audio_url || data.data?.[0]?.audio_url || data.url;
-    if(url){
-      status.innerText='✅ ¡MÚSICA REAL CREADA!';
-      let a=document.getElementById('audioOut');
-      a.src=url;a.style.display='block';a.play();
-    } else {
-      status.innerText='Respuesta: '+JSON.stringify(data).substring(0,200);
-    }
-  }catch(e){status.innerText='Error conexion: '+e;}
+ let p=document.getElementById('prompt').value||'Arrieros somos';
+ let st=document.getElementById('style').value;
+ if(!p)return alert('Escribe tu letra!');
+ let status=document.getElementById('status');
+ status.innerText='⏳ Creando música REAL con Suno... espera 40s';
+ try{
+  let res=await fetch('/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt:p,style:st,title:'JCV Song'})});
+  let data=await res.json();
+  console.log(data);
+  if(data.error){status.innerText='Error: '+data.error;return;}
+  let url=data.audio_url||data.url||data.data?.audio_url||data.songs?.[0]?.audio_url||data.data?.[0]?.audio_url;
+  if(url){
+   status.innerHTML='✅ ¡MÚSICA REAL CREADA! 🎉';
+   let a=document.getElementById('audioPlayer');a.src=url;a.style.display='block';a.play();
+   document.getElementById('extra').innerHTML=`<br><a href="${url}" download style="color:gold">⬇️ Descargar MP3 REAL</a>`;
+  }else{
+   status.innerText='Respuesta: '+JSON.stringify(data).substring(0,500);
+  }
+ }catch(e){status.innerText='Error conexión: '+e.message}
 };
-                                         </script>
+</script>
+</body>
+</html>
