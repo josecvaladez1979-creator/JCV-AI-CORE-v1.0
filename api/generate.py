@@ -22,7 +22,7 @@ class handler(BaseHTTPRequestHandler):
 
             api_key = os.environ.get('SUNO_API_KEY')
             if not api_key:
-                self.send_response(500)
+                self.send_response(200)
                 self.send_header('Content-type', 'application/json')
                 self.send_header('Access-Control-Allow-Origin', '*')
                 self.end_headers()
@@ -52,7 +52,7 @@ class handler(BaseHTTPRequestHandler):
             self.wfile.write(json.dumps(result).encode())
 
         except Exception as e:
-            self.send_response(500)
+            self.send_response(200)
             self.send_header('Content-type', 'application/json')
             self.send_header('Access-Control-Allow-Origin', '*')
             self.end_headers()
