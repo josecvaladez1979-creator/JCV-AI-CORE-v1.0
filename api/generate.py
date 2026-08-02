@@ -7,7 +7,7 @@ class handler(BaseHTTPRequestHandler):
 
     def do_POST(self):
         try:
-            # 1. Leer los datos JSON que envía el index.html
+            # 1. Leer los datos enviados por el index.html
             content_length = int(self.headers.get('Content-Length', 0))
             if content_length == 0:
                 self.enviar_json(400, {"error": "Petición vacía"})
@@ -19,50 +19,50 @@ class handler(BaseHTTPRequestHandler):
             prompt = body.get("prompt", "")
             tags = body.get("tags", "Mexican Regional, Corrido")
 
-            # 2. Leer la API KEY desde las Variables de Entorno de Vercel
+            # 2. Obtener la llave desde Vercel
             suno_api_key = os.environ.get("SUNO_API_KEY")
-
             if not suno_api_key:
-                # Si la llave no está en Vercel, arrojará este error claro
-                self.enviar_json(500, {"error": "Backend OK pero falta configurar la variable SUNO_API_KEY en Vercel"})
+                self.enviar_json(500, {"error": "Falta configurar la variable SUNO_API_KEY en Vercel"})
                 return
 
-            # 3. Configurar la petición real hacia los servidores de Suno
-            # Nota: Cambia esta URL si usas un Proxy/Gateway específico de Suno (ej: http://localhost:3000/api/generate)
-            url_suno = "https://suno.ai" 
+            # ==========================================
+            # CONFIGURACIÓN OFICIAL PARA SUNOAPI.ORG
+            # ==========================================
+            url_suno = "https://api.sunoapi.org/api/v1/generate" 
             
             headers = {
                 "Authorization": f"Bearer {suno_api_key}",
                 "Content-Type": "application/json"
             }
             
+            # Estructura de parámetros requerida por la documentación de sunoapi
             payload = json.dumps({
+                "customMode": True,
+                "instrumental": False,
+                "model": "V3_5",  # Puedes cambiar a "V4_0" o "V4_5ALL" si tu plan lo soporta
                 "prompt": prompt,
-                "tags": tags,
-                "make_instrumental": False,
-                "wait_audio": True
+                "style": tags,
+                "title": "Hit Real JCV"
             }).encode('utf-8')
+            # ==========================================
 
-            # 4. Hacer la llamada HTTP tradicional (Python Vanilla)
+            # 3. Ejecutar la llamada HTTP nativa
             req = urllib.request.Request(url_suno, data=payload, headers=headers, method="POST")
             
             with urllib.request.urlopen(req, timeout=30) as response:
                 res_data = response.read().decode('utf-8')
                 suno_response_json = json.loads(res_data)
                 
-                # Devolver la respuesta de Suno directa a tu HTML
+                # Devolvemos la respuesta directo a tu HTML
                 self.enviar_json(200, suno_response_json)
 
         except urllib.error.HTTPError as e:
-            # Captura si los servidores de Suno rechazan la petición (Ej: Token inválido)
             error_msg = e.read().decode('utf-8')
-            self.enviar_json(e.code, {"error": f"Falta conectar API Suno de forma correcta: {error_msg}"})
+            self.enviar_json(e.code, {"error": f"Error de SunoAPI ({e.code}): {error_msg}"})
         except Exception as e:
-            # Captura fallas de lógica generales
-            self.enviar_json(500, {"error": f"Fallo interno en el backend: {str(e)}"})
+            self.enviar_json(500, {"error": f"Fallo interno en el backend Vercel: {str(e)}"})
 
     def do_OPTIONS(self):
-        # Permite peticiones CORS de prueba
         self.send_response(200)
         self.send_header('Access-Control-Allow-Origin', '*')
         self.send_header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
