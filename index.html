@@ -1,12 +1,12 @@
-<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>JCV-AI TRI</title><script src="https://cdn.tailwindcss.com"></script></head>
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>JCV-AI TRI v1.2</title><script src="https://cdn.tailwindcss.com"></script></head>
 <body class="bg-black text-white min-h-screen flex flex-col items-center justify-center p-6">
 <span data-jcvd="JCVD-2026" style="display:none">JCVD-2026</span>
 <h1 class="text-5xl font-black bg-gradient-to-r from-purple-500 to-cyan-400 bg-clip-text text-transparent">JCV-AI</h1>
-<p class="text-yellow-300 tracking-[0.3em] text-sm">TRI TRANSLATOR v1.1</p>
+<p class="text-yellow-300 tracking-[0.3em] text-sm">TRI TRANSLATOR v1.2 AUTO</p>
 <p class="text-[10px] text-cyan-300">ES • EN • 中文 • Video • Voz</p>
 <div class="mt-6 w-full max-w-sm border-4 border-yellow-400 rounded-[32px] p-5 bg-zinc-900/50">
 <div class="flex gap-2"><button id="b-es" class="flex-1 py-3 rounded-2xl font-black bg-white text-black">ES</button><button id="b-en" class="flex-1 py-3 rounded-2xl font-bold bg-zinc-800">EN</button><button id="b-zh" class="flex-1 py-3 rounded-2xl font-bold bg-zinc-800">中</button></div>
-<textarea id="input" placeholder="Escribe..." class="w-full mt-4 bg-black border border-zinc-800 rounded-2xl p-4 h-24 text-white"></textarea>
+<textarea id="input" placeholder="Escribe en cualquier idioma..." class="w-full mt-4 bg-black border border-zinc-800 rounded-2xl p-4 h-24 text-white"></textarea>
 <div id="output" class="w-full mt-3 bg-zinc-800 rounded-2xl p-4 min-h-[60px] text-cyan-200 text-sm">Traducción...</div>
 <button onclick="doTRI()" class="w-full mt-4 bg-gradient-to-r from-purple-600 to-cyan-400 py-4 rounded-full font-black">TRADUCIR Y HABLAR</button>
 <button onclick="videoCall()" class="w-full mt-3 bg-yellow-400 text-black py-4 rounded-full font-black">VIDEO LLAMADA TRI</button>
@@ -15,6 +15,6 @@
 <script>
 let lang='es';const upd=()=>{document.querySelectorAll('[id^=b-]').forEach(b=>b.className='flex-1 py-3 rounded-2xl font-bold bg-zinc-800');document.getElementById('b-'+(lang=='es'?'es':lang=='en'?'en':'zh')).className='flex-1 py-3 rounded-2xl font-black bg-white text-black';};
 document.getElementById('b-es').onclick=()=>{lang='es';upd()};document.getElementById('b-en').onclick=()=>{lang='en';upd()};document.getElementById('b-zh').onclick=()=>{lang='zh';upd()};
-async function doTRI(){const t=document.getElementById('input').value.trim();if(!t)return;document.getElementById('output').innerText='Traduciendo...';try{let r=await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(t)}&langpair=auto|${lang}`);let j=await r.json();let trad=j.responseData.translatedText;document.getElementById('output').innerText=trad;let u=new SpeechSynthesisUtterance(trad);u.lang=lang=='zh'?'zh-CN':lang=='en'?'en-US':'es-MX';speechSynthesis.speak(u);}catch(e){document.getElementById('output').innerText='Error'}}
+async function doTRI(){const t=document.getElementById('input').value.trim();if(!t)return;document.getElementById('output').innerText='Traduciendo...';try{let tl=lang=='zh'?'zh-CN':lang;let url=`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${tl}&dt=t&q=${encodeURIComponent(t)}`;let r=await fetch(url);let j=await r.json();let trad=j[0].map(x=>x[0]).join('');document.getElementById('output').innerText=trad;let u=new SpeechSynthesisUtterance(trad);u.lang=lang=='zh'?'zh-CN':lang=='en'?'en-US':'es-MX';speechSynthesis.speak(u);}catch(e){document.getElementById('output').innerText='Error, intenta de nuevo'}}
 async function videoCall(){document.getElementById('vbox').classList.remove('hidden');try{let s=await navigator.mediaDevices.getUserMedia({video:true,audio:true});document.getElementById('vid').srcObject=s;}catch(e){alert('Permite cámara')}}
 </script></body></html>
