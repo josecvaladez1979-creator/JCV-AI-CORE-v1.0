@@ -1,107 +1,24 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JCV IMPERIO REAL</title>
-    <style>
-        body { background: #000; color: #FFD700; font-family: sans-serif; text-align: center; padding: 20px; }
-        h1 { font-size: 26px; text-shadow: 0 0 10px gold; }
-        textarea, input { width: 95%; border-radius: 10px; padding: 10px; margin: 10px 0; border: 1px solid #FFD700; background: #111; color: #fff; }
-        button { background: linear-gradient(45deg, #FFD700, #FFA500); border: none; padding: 12px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; margin: 10px 5px; color: #000; }
-        button:hover { opacity: 0.9; }
-        #status { margin: 20px; color: #fff; font-size: 18px; font-weight: bold; }
-        audio { width: 95%; margin: 20px 0; }
-    </style>
-</head>
-<body>
-
-    <h1>👑 JCV IMPERIO v2.0 REAL 🔥</h1>
-    <p>Arrieros Somos</p>
-
-    <textarea id="prompt" placeholder="Escribe tu letra o idea aquí..." rows="4"></textarea>
-    <input id="style" type="text" value="Mexican Regional, Corrido" placeholder="Estilo musical...">
-    
-    <br>
-    <button id="btnCreate">🔥 CREAR MÚSICA REAL 🎸</button>
-    <button id="btnVox">🎤 Grabar Voz (5s)</button>
-
-    <div id="status">Listo para crear hit REAL</div>
-    <audio id="audioPlayer" controls style="display:none;"></audio>
-    <div id="extra"></div>
-
-    <script>
-        let voxBlob = null;
-
-        // Sistema de grabación de voz (Tu lógica original optimizada)
-        document.getElementById('btnVox').onclick = async () => {
-            const statusDiv = document.getElementById('status');
-            statusDiv.innerText = "🎤 Grabando voz (5 segundos)...";
-            try {
-                let s = await navigator.mediaDevices.getUserMedia({ audio: true });
-                let mr = new MediaRecorder(s);
-                let ch = [];
-                mr.ondataavailable = e => ch.push(e.data);
-                mr.onstop = () => {
-                    voxBlob = new Blob(ch, { type: 'audio/webm' });
-                    statusDiv.innerText = "✅ Voz grabada y lista.";
-                };
-                mr.start();
-                setTimeout(() => mr.stop(), 5000);
-            } catch (err) {
-                statusDiv.innerText = "❌ Error al acceder al micrófono.";
-                console.error(err);
-            }
-        };
-
-        // Petición al Backend en Vercel
-        document.getElementById('btnCreate').onclick = async () => {
-            const promptValue = document.getElementById('prompt').value;
-            const styleValue = document.getElementById('style').value;
-            const statusDiv = document.getElementById('status');
-            const player = document.getElementById('audioPlayer');
-
-            if (!promptValue.trim()) {
-                statusDiv.innerText = "⚠️ Por favor, escribe una letra o idea.";
-                return;
-            }
-
-            statusDiv.innerText = "⚡ Conectando con el servidor backend...";
-
-            try {
-                // Apunta exactamente al archivo generate.py dentro de /api
-                const response = await fetch('/api/generate', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        prompt: promptValue,
-                        tags: styleValue
-                    })
-                });
-
-                const data = await response.json();
-
-                if (response.ok) {
-                    statusDiv.innerText = "🎵 ¡Música generada exitosamente!";
-                    // Ajusta 'audio_url' según los parámetros exactos que devuelva tu Gateway de Suno
-                    if (data.audio_url || (data.clips && data.clips[0].audio_url)) {
-                        player.src = data.audio_url || data.clips[0].audio_url;
-                        player.style.display = "block";
-                        player.play();
-                    } else {
-                        statusDiv.innerText = "✅ Procesado, pero no se encontró URL directa de audio en la respuesta.";
-                    }
-                } else {
-                    // Muestra el error exacto que devuelva el script de Python
-                    statusDiv.innerText = `❌ Error: ${data.error || 'No se pudo conectar con Suno'}`;
-                }
-            } catch (error) {
-                statusDiv.innerText = "❌ Error crítico de red o el servidor falló.";
-                console.error(error);
-            }
-        };
-    </script>
-</body>
-</html>
+<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>JCV-AI TRI - JCVD-2026</title><script src="https://cdn.tailwindcss.com"></script></head>
+<body class="bg-black text-white min-h-screen flex flex-col items-center justify-center p-6">
+<!-- JCVD-2026 SECURE | DUEÑO JOSE C VALADEZ -->
+<span data-jcvd="JCVD-2026" style="display:none">JCVD-2026</span>
+<h1 class="text-5xl font-black bg-gradient-to-r from-purple-500 to-cyan-400 bg-clip-text text-transparent">JCV-AI</h1>
+<p class="text-yellow-300 tracking-[0.3em] text-sm mt-1">TRI TRANSLATOR</p>
+<p class="text-[10px] text-cyan-300 mt-1">ES • EN • 中文 • Video • Voz</p>
+<div class="mt-6 w-full max-w-sm border-4 border-yellow-400 rounded-[32px] p-5 bg-zinc-900/50">
+<div class="flex gap-2"><button id="b-es" class="flex-1 py-3 rounded-2xl font-black bg-white text-black">ES</button><button id="b-en" class="flex-1 py-3 rounded-2xl font-bold bg-zinc-800">EN</button><button id="b-zh" class="flex-1 py-3 rounded-2xl font-bold bg-zinc-800">中</button></div>
+<textarea id="input" placeholder="Escribe o habla..." class="w-full mt-4 bg-black border border-zinc-800 rounded-2xl p-4 h-24 text-white"></textarea>
+<div id="output" class="w-full mt-3 bg-zinc-800 rounded-2xl p-4 min-h-[60px] text-cyan-200 text-sm">Traducción...</div>
+<button onclick="speak()" class="w-full mt-4 bg-gradient-to-r from-purple-600 to-cyan-400 py-4 rounded-full font-black">🎙️ TRADUCIR Y HABLAR</button>
+<button onclick="videoCall()" class="w-full mt-3 bg-yellow-400 text-black py-4 rounded-full font-black">📹 VIDEO LLAMADA TRI</button>
+<div id="vbox" class="hidden mt-4"><video id="vid" autoplay muted playsinline class="w-full rounded-2xl bg-black h-48"></video><p class="text-[9px] text-center text-zinc-500 mt-2">P2P JCVD-2026</p></div>
+</div>
+<script>
+let lang='es';
+document.getElementById('b-es').onclick=()=>{lang='es';upd()};document.getElementById('b-en').onclick=()=>{lang='en';upd()};document.getElementById('b-zh').onclick=()=>{lang='zh';upd()};
+function upd(){document.querySelectorAll('[id^=b-]').forEach(b=>b.className='flex-1 py-3 rounded-2xl font-bold bg-zinc-800');document.getElementById('b-'+(lang=='es'?'es':lang=='en'?'en':'zh')).className='flex-1 py-3 rounded-2xl font-black bg-white text-black'}
+async function speak(){const t=document.getElementById('input').value;if(!t)return;try{let r=await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(t)}&langpair=${lang}|${lang=='es'?'en':lang=='en'?'es':'en'}`);let j=await r.json();document.getElementById('output').innerText=j.responseData.translatedText;let u=new SpeechSynthesisUtterance(j.responseData.translatedText);u.lang=lang=='zh'?'zh-CN':lang=='en'?'en-US':'es-ES';speechSynthesis.speak(u);}catch(e){document.getElementById('output').innerText=t}}
+async function videoCall(){document.getElementById('vbox').classList.remove('hidden');try{let s=await navigator.mediaDevices.getUserMedia({video:true,audio:true});document.getElementById('vid').srcObject=s;}catch(e){alert('Permite cámara')}}
+console.log("%cJCVD-2026 SECURE TRI READY","background:#FFD700;color:#000;padding:4px 8px;font-weight:900");
+</script></body></html>
