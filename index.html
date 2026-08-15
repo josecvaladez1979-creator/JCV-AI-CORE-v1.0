@@ -1,25 +1,63 @@
-<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>TRI Translator - Traductor Español Inglés Chino con Video Llamada en Vivo</title>
-<meta name="description" content="TRI Translator es el primer traductor con video llamada que traduce tu voz en vivo en español, inglés y chino mandarín. Traduce, habla y haz video llamadas traducidas.">
-<meta name="keywords" content="traductor chino español, traductor ingles español, traductor video llamada, traductor voz en vivo, chino mandarin traductor, TRI Translator, JCV AI">
-<meta name="author" content="JCV-AI"><meta name="robots" content="index,follow">
-<meta property="og:title" content="TRI Translator - Video Llamada Traducida ES EN 中文">
-<meta property="og:description" content="Traduce y habla en video llamada en 3 idiomas en tiempo real.">
-<meta property="og:type" content="website">
-<link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiVFJJIFRyYW5zbGF0b3IiLCJzaG9ydF9uYW1lIjoiVFJJIFRyYW5zbGF0b3IiLCJzdGFydF91cmwiOiIuIiwiZGlzcGxheSI6InN0YW5kYWxvbmUiLCJiYWNrZ3JvdW5kX2NvbG9yIjoiIzAwMDAwMCJ9">
-<script src="https://cdn.tailwindcss.com"></script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"TRI Translator","description":"Traductor de video llamada ES EN ZH","applicationCategory":"CommunicationApplication","offers":{"@type":"Offer","price":"5.00","priceCurrency":"USD"}}</script>
-</head>
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>JCV TRI Translator v2.0 - Video Llamada Auto Traducida</title><script src="https://cdn.tailwindcss.com"></script><script src="https://unpkg.com/peerjs@1.5.0/dist/peerjs.min.js"></script></head>
 <body class="bg-black text-white min-h-screen flex flex-col items-center p-4">
-<h1 class="text-4xl font-black bg-gradient-to-r from-purple-500 to-cyan-400 bg-clip-text text-transparent">TRI TRANSLATOR</h1><p class="text-yellow-300 text-xs tracking-[0.3em]">v1.4 SEO + APP + PLATAFORMA</p>
-<div class="w-full max-w-sm border-4 border-yellow-400 rounded-[32px] p-4 bg-zinc-900/80 mt-3">
-<h2 class="text-[10px] text-zinc-500 text-center">Traductor profesional Español - Inglés - Chino Mandarín</h2>
-<div class="flex gap-2 mt-2"><button id="b-es" class="flex-1 py-2 rounded-2xl font-black bg-white text-black">ES</button><button id="b-en" class="flex-1 py-2 rounded-2xl bg-zinc-800">EN</button><button id="b-zh" class="flex-1 py-2 rounded-2xl bg-zinc-800">中</button></div>
-<textarea id="input" placeholder="Escribe..." class="w-full mt-3 bg-black border border-zinc-700 rounded-2xl p-3 h-20"></textarea>
-<div id="output" class="w-full mt-2 bg-zinc-800 rounded-2xl p-3 min-h-[50px] text-cyan-200 text-sm">Traducción...</div>
-<button onclick="doTRI()" class="w-full mt-3 bg-gradient-to-r from-purple-600 to-cyan-400 py-3 rounded-full font-black">TRADUCIR Y HABLAR</button>
-<div class="mt-4 border-t border-zinc-700 pt-3"><button id="btnVideo" onclick="videoCall()" class="w-full bg-yellow-400 text-black py-3 rounded-full font-black">VIDEO LLAMADA TRI</button><div id="vbox" class="hidden mt-3"><video id="vid" autoplay muted playsinline class="w-full rounded-2xl bg-black h-56"></video><div id="sub" class="mt-2 text-xs text-yellow-200 bg-black/60 p-2 rounded">Subtitulos aquí...</div><div class="grid grid-cols-3 gap-2 mt-2"><button onclick="toggleMic()" id="micBtn" class="bg-zinc-800 py-2 rounded-full text-xs">🎤 MIC ON</button><button onclick="toggleCam()" id="camBtn" class="bg-zinc-800 py-2 rounded-full text-xs">📷 CAM ON</button><button onclick="hangup()" class="bg-red-600 py-2 rounded-full text-xs font-black">COLGAR</button></div><button onclick="startLiveTranslate()" class="w-full mt-2 bg-purple-600 py-2 rounded-full text-xs">🔴 TRADUCIR MI VOZ EN VIVO</button></div></div>
-<div class="mt-4 bg-gradient-to-r from-yellow-600 to-yellow-300 text-black rounded-2xl p-3 text-center"><p class="font-black text-xs">💰 PLAN PREMIUM $5 USD</p><a href="https://paypal.me/" target="_blank" class="block mt-1 bg-black text-yellow-400 py-2 rounded-full text-xs font-bold">PAGAR CON PAYPAL</a><p class="text-[9px] mt-1">Desbloquea llamadas ilimitadas</p></div>
-<div class="mt-3 text-[10px] text-zinc-500"><h3 class="text-white font-bold">¿Qué es TRI Translator?</h3><p>TRI es la primera plataforma de traducción con video llamada en vivo que traduce español, inglés y chino mandarín en tiempo real con voz y subtítulos.</p></div>
+<h1 class="text-4xl font-black bg-gradient-to-r from-yellow-400 to-purple-500 bg-clip-text text-transparent">JCV</h1><h2 class="text-xl font-black -mt-1">TRI TRANSLATOR v2.0</h2><p class="text-green-400 text-[9px] tracking-widest">1 CLICK - AUTO TRADUCCIÓN - SE APAGA AL COLGAR</p>
+<div class="w-full max-w-sm border-4 border-yellow-400 rounded-[32px] p-4 bg-zinc-900/90 mt-3">
+<div class="bg-black rounded-2xl p-2 text-center"><p class="text-[9px] text-zinc-500">TU ID JCV:</p><p id="myId" class="font-mono text-yellow-300 text-sm">Conectando...</p></div>
+<div class="flex gap-2 mt-2"><input id="peerId" placeholder="ID del otro" class="flex-1 bg-zinc-800 rounded-full px-3 text-xs"><button onclick="callPeer()" class="bg-yellow-400 text-black px-4 py-2 rounded-full font-black text-xs">LLAMAR</button></div>
+<div class="flex gap-2 mt-3"><button id="b-es" class="flex-1 py-1 rounded-xl font-black bg-white text-black text-xs">ES</button><button id="b-en" class="flex-1 py-1 rounded-xl bg-zinc-800 text-xs">EN</button><button id="b-zh" class="flex-1 py-1 rounded-xl bg-zinc-800 text-xs">中</button></div>
+<div class="relative mt-3"><video id="remoteVid" autoplay playsinline class="w-full rounded-2xl bg-black h-56"></video><video id="localVid" autoplay muted playsinline class="w-20 h-20 rounded-xl bg-zinc-800 absolute bottom-2 right-2 border-2 border-yellow-400"></video><div id="status" class="absolute top-2 left-2 bg-black/70 px-2 py-1 rounded-full text-[9px]">Desconectado</div></div>
+<div id="subBox" class="mt-2 bg-black p-2 rounded-xl min-h-[40px] text-xs text-yellow-200">Pica el botón una vez para activar...</div>
+<button id="autoBtn" onclick="activateOnce()" class="w-full mt-2 bg-gradient-to-r from-purple-600 to-cyan-400 py-3 rounded-full text-xs font-black">🔴 TRADUCIR - 1 CLICK Y AUTO</button>
+<div class="grid grid-cols-3 gap-2 mt-2"><button onclick="toggleMic()" id="micBtn" class="bg-zinc-800 py-2 rounded-full text-[10px]">🎤 MIC ON</button><button onclick="toggleCam()" id="camBtn" class="bg-zinc-800 py-2 rounded-full text-[10px]">📷 CAM ON</button><button onclick="hangup()" class="bg-red-600 py-2 rounded-full text-[10px] font-black">COLGAR</button></div>
+<div class="mt-3 bg-gradient-to-r from-yellow-500 to-yellow-300 text-black rounded-2xl p-2 text-center"><p class="font-black text-xs">JCV PREMIUM $5 / MES</p><p class="text-[10px]">3 GRATIS x SEMANA - Luego ilimitadas</p></div>
 </div>
-<script>let lang='es',stream=null,micOn=true,camOn=true,recog=null;const upd=()=>{['es','en','zh'].forEach(l=>document.getElementById('b-'+l).className='flex-1 py-2 rounded-2xl bg-zinc-800');document.getElementById('b-'+lang).className='flex-1 py-2 rounded-2xl font-black bg-white text-black';};document.getElementById('b-es').onclick=()=>{lang='es';upd()};document.getElementById('b-en').onclick=()=>{lang='en';upd()};document.getElementById('b-zh').onclick=()=>{lang='zh';upd()};async function translateAuto(t,tl0){let tl=tl0=='zh'?'zh-CN':tl0;let r=await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${tl}&dt=t&q=${encodeURIComponent(t)}`);let j=await r.json();return j[0].map(x=>x[0]).join('');}async function doTRI(){let t=document.getElementById('input').value.trim();if(!t)return;let tr=await translateAuto(t,lang);document.getElementById('output').innerText=tr;let u=new SpeechSynthesisUtterance(tr);u.lang=lang=='zh'?'zh-CN':lang=='en'?'en-US':'es-MX';speechSynthesis.speak(u);}async function videoCall(){document.getElementById('vbox').classList.remove('hidden');try{stream=await navigator.mediaDevices.getUserMedia({video:true,audio:true});document.getElementById('vid').srcObject=stream;}catch(e){alert('Permite cam')}}function hangup(){if(stream)stream.getTracks().forEach(t=>t.stop());document.getElementById('vbox').classList.add('hidden');if(recog)recog.stop();}function toggleMic(){if(!stream)return;micOn=!micOn;stream.getAudioTracks().forEach(t=>t.enabled=micOn);document.getElementById('micBtn').innerText=micOn?'🎤 MIC ON':'🔇 MIC OFF';}function toggleCam(){if(!stream)return;camOn=!camOn;stream.getVideoTracks().forEach(t=>t.enabled=camOn);document.getElementById('camBtn').innerText=camOn?'📷 CAM ON':'📷 CAM OFF';}function startLiveTranslate(){let SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){alert('Usa Chrome');return;}recog=new SR();recog.lang=lang=='es'?'es-MX':lang=='en'?'en-US':'zh-CN';recog.continuous=true;recog.onresult=async e=>{let txt=e.results[e.results.length-1][0].transcript;document.getElementById('sub').innerText='Dijiste: '+txt;let target=lang=='es'?'en':'es';let tr=await translateAuto(txt,target);document.getElementById('sub').innerText='TRI: '+tr;let u=new SpeechSynthesisUtterance(tr);u.lang=target=='en'?'en-US':'es-MX';speechSynthesis.speak(u);};recog.start();document.getElementById('sub').innerText='Escuchando...';}</script></body></html>
+<script>
+let lang='es', localStream=null, peer=null, currentCall=null, micOn=true, camOn=true, recog=null, autoActive=false;
+const myIdEl=document.getElementById('myId'), statusEl=document.getElementById('status'), localVid=document.getElementById('localVid'), remoteVid=document.getElementById('remoteVid'), autoBtn=document.getElementById('autoBtn'), subBox=document.getElementById('subBox');
+function upd(){['es','en','zh'].forEach(l=>document.getElementById('b-'+l).className='flex-1 py-1 rounded-xl bg-zinc-800 text-xs');document.getElementById('b-'+lang).className='flex-1 py-1 rounded-xl font-black bg-white text-black text-xs'; if(autoActive) restartTRI();}
+document.getElementById('b-es').onclick=()=>{lang='es';upd()};document.getElementById('b-en').onclick=()=>{lang='en';upd()};document.getElementById('b-zh').onclick=()=>{lang='zh';upd()};
+async function translateAuto(t,tl0){let tl=tl0=='zh'?'zh-CN':tl0;let r=await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${tl}&dt=t&q=${encodeURIComponent(t)}`);let j=await r.json();return j[0].map(x=>x[0]).join('');}
+async function init(){localStream=await navigator.mediaDevices.getUserMedia({video:true,audio:true});localVid.srcObject=localStream;peer=new Peer('JCV-TRI-'+Math.floor(Math.random()*9000+1000));peer.on('open', id=>{myIdEl.innerText=id; statusEl.innerText='Listo JCV v2.0';});peer.on('call', async call=>{currentCall=call;call.answer(localStream);call.on('stream', s=>{remoteVid.srcObject=s; statusEl.innerText='Conectado JCV';});});}
+async function callPeer(){let id=document.getElementById('peerId').value.trim();if(!id)return;if(!localStream)await init();let call=peer.call(id, localStream);currentCall=call;call.on('stream', s=>{remoteVid.srcObject=s; statusEl.innerText='Conectado JCV';});}
+function hangup(){
+  if(currentCall)currentCall.close();
+  remoteVid.srcObject=null;
+  statusEl.innerText='Llamada terminada';
+  if(recog){recog.onend=null; recog.stop(); recog=null;}
+  autoActive=false;
+  autoBtn.innerText='🔴 TRADUCIR - 1 CLICK Y AUTO';
+  autoBtn.className='w-full mt-2 bg-gradient-to-r from-purple-600 to-cyan-400 py-3 rounded-full text-xs font-black';
+  subBox.innerText='Llamada terminada - Traducción apagada';
+}
+function toggleMic(){micOn=!micOn;localStream.getAudioTracks().forEach(t=>t.enabled=micOn);document.getElementById('micBtn').innerText=micOn?'🎤 MIC ON':'🔇 MIC OFF';}
+function toggleCam(){camOn=!camOn;localStream.getVideoTracks().forEach(t=>t.enabled=camOn);document.getElementById('camBtn').innerText=camOn?'📷 CAM ON':'📷 CAM OFF';}
+function activateOnce(){
+  if(autoActive) return;
+  autoActive=true;
+  autoBtn.innerText='🟢 AUTO TRADUCIENDO - HABLA NOMÁS';
+  autoBtn.className='w-full mt-2 bg-green-500 py-3 rounded-full text-xs font-black animate-pulse';
+  startLiveTRI();
+}
+function restartTRI(){if(recog){recog.onend=null; recog.stop();} setTimeout(()=>{if(autoActive) startLiveTRI();},300);}
+function startLiveTRI(){
+  let SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){alert('Usa Chrome');return;}
+  recog=new SR();
+  recog.lang=lang=='es'?'es-MX':lang=='en'?'en-US':'zh-CN';
+  recog.continuous=true; recog.interimResults=true;
+  recog.onresult=async e=>{
+    let txt=e.results[e.results.length-1][0].transcript; if(!txt.trim())return;
+    subBox.innerText='Tú: '+txt;
+    let target=lang=='es'?'en':lang=='en'?'zh':'es';
+    let tr=await translateAuto(txt,target);
+    subBox.innerText='JCV AUTO: '+tr;
+    let u=new SpeechSynthesisUtterance(tr);
+    u.lang=target=='zh'?'zh-CN':target=='en'?'en-US':'es-MX';
+    speechSynthesis.speak(u);
+  };
+  recog.onend=()=>{ if(autoActive) { try{recog.start();}catch(e){} } };
+  recog.start();
+  subBox.innerText='🟢 JCV v2.0 AUTO escuchando...';
+}
+init();
+</script></body></html>
