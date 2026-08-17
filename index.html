@@ -3,190 +3,170 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Translate Premium</title>
-    <!-- Cargamos Tailwind CSS correctamente -->
+    <title>Translate App</title>
+    <!-- Importación de Tailwind CSS para los estilos de la interfaz -->
     <script src="https://tailwindcss.com"></script>
 </head>
-<body class="bg-neutral-950 text-white min-h-screen flex flex-col p-4 font-sans select-none antialiased justify-between">
+<body class="bg-neutral-950 text-white min-h-screen flex flex-col items-center justify-between p-4 font-sans">
 
-    <!-- Encabezado con Nombre del Creador y Versión -->
-    <header class="text-center py-2 mb-3 border-b border-neutral-800 flex justify-between items-center">
-        <div class="flex flex-col items-start">
-            <h1 class="text-lg font-extrabold tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-white to-neutral-400">Translate</h1>
-            <span class="text-[9px] text-neutral-500 font-medium">Por: Jose Cayetano Valadez</span>
-        </div>
-        <span id="version" class="text-xs font-bold text-emerald-400 bg-emerald-950/40 px-2.5 py-0.5 rounded-full border border-emerald-800/40 backdrop-blur-sm">v1.0</span>
-    </header>
-
-    <!-- 🌟 SECCIÓN DE MONETIZACIÓN: SUSCRIPCIÓN PREMIUM & CONTADOR GRATUITO -->
-    <div class="grid grid-cols-2 gap-2 mb-3">
-        <!-- Contador de llamadas semanales -->
-        <div class="bg-neutral-900/60 border border-neutral-800 p-2.5 rounded-xl text-center">
-            <p class="text-[10px] uppercase tracking-wider text-neutral-400 font-bold">Llamadas Gratis</p>
-            <p class="text-base font-black text-blue-400 mt-0.5"><span id="calls-left">3</span> / 3 <span class="text-xs font-normal text-neutral-500">restantes</span></p>
-        </div>
-        <!-- Botón de Suscripción Directa -->
-        <button onclick="window.location.href='#planes'" class="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 active:scale-95 text-neutral-950 font-black text-xs py-2.5 rounded-xl transition-all tracking-wider uppercase flex flex-col items-center justify-center shadow-lg shadow-orange-950/20">
-            <span>Volverse Premium</span>
-            <span class="text-[9px] font-bold opacity-80">$5 USD / mes</span>
-        </button>
-    </div>
-
-    <!-- Contenedor Principal de Video (Diseño Dinámico con Tailwind) -->
-    <div id="video-container" class="grid grid-cols-1 gap-3 w-full h-[38vh] bg-neutral-950 rounded-2xl border border-neutral-800/80 mb-3 overflow-hidden shadow-inner p-1">
-        <div id="local-video" class="bg-neutral-900 border border-neutral-800/40 flex flex-col items-center justify-center text-neutral-200 rounded-xl overflow-hidden relative shadow-lg">
-            <span class="absolute top-2 left-2 bg-black/70 backdrop-blur-md px-2 py-0.5 rounded-md text-[11px] font-medium tracking-wide text-neutral-300">Tú (Local)</span>
-        </div>
-        <div id="remote-video-1" class="hidden bg-neutral-900 border border-neutral-800/40 flex flex-col items-center justify-center text-neutral-200 rounded-xl overflow-hidden relative shadow-lg">
-            <span class="absolute top-2 left-2 bg-black/70 backdrop-blur-md px-2 py-0.5 rounded-md text-[11px] font-medium tracking-wide text-neutral-300">Usuario 2</span>
-        </div>
-        <div id="remote-video-2" class="hidden bg-neutral-900 border border-neutral-800/40 flex flex-col items-center justify-center text-neutral-200 rounded-xl overflow-hidden relative shadow-lg">
-            <span class="absolute top-2 left-2 bg-black/70 backdrop-blur-md px-2 py-0.5 rounded-md text-[11px] font-medium tracking-wide text-neutral-300">Usuario 3</span>
-        </div>
-    </div>
-
-    <!-- Estado de Conexión -->
-    <div id="status-display" class="text-center h-5 text-xs font-semibold tracking-wide uppercase"></div>
-
-    <!-- Panel de Texto y Traducción Multilingüe -->
-    <div id="chat-translation-container" class="flex flex-col gap-2.5 bg-neutral-900/60 backdrop-blur-md p-3.5 rounded-2xl border border-neutral-800/60 mb-3 shadow-xl">
-        <div class="flex gap-2">
-            <input type="text" id="chat-input" placeholder="Escribe un mensaje aquí..." class="flex-1 bg-neutral-950/80 border border-neutral-800 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-neutral-600 focus:outline-none focus:border-emerald-500 transition-all font-medium">
-            <select id="target-lang" class="bg-neutral-950/80 border border-neutral-800 rounded-xl px-2.5 py-2.5 text-xs text-neutral-300 focus:outline-none focus:border-emerald-500 transition-all font-bold">
-                <option value="zh">ZH (Chino)</option>
-                <option value="en">EN (Inglés)</option>
-                <option value="es">ES (Español)</option>
-            </select>
-        </div>
-        <button id="btn-send-chat" class="w-full bg-emerald-600 hover:bg-emerald-500 active:scale-[0.98] active:bg-emerald-700 text-white font-bold text-xs py-3 rounded-xl transition-all tracking-wider uppercase shadow-md shadow-emerald-950/40">Enviar y Traducir</button>
-        <div id="chat-output" class="max-h-[80px] overflow-y-auto mt-1 space-y-1.5 scrollbar-thin"></div>
-    </div>
-
-    <!-- Botones de Control Inferiores Modernos -->
-    <div class="grid grid-cols-2 gap-2 mb-2">
-        <button id="btn-audio" class="bg-neutral-900 hover:bg-neutral-850 active:scale-95 border border-neutral-800/80 rounded-2xl py-3.5 text-xs font-bold tracking-wide flex items-center justify-center gap-2 transition-all shadow-md">🎙️ Mic On</button>
-        <button id="btn-video" class="bg-neutral-900 hover:bg-neutral-850 active:scale-95 border border-neutral-800/80 rounded-2xl py-3.5 text-xs font-bold tracking-wide flex items-center justify-center gap-2 transition-all shadow-md">📹 Cam On</button>
-        <button id="btn-talk" class="col-span-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 active:scale-[0.98] active:from-blue-700 active:to-indigo-700 text-white rounded-2xl py-3.5 text-xs font-extrabold tracking-widest uppercase transition-all shadow-lg shadow-blue-950/30">🔊 ¡Habla fuerte ahora!</button>
-        <button id="btn-call" class="col-span-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 active:scale-[0.98] active:from-emerald-700 active:to-teal-700 text-white rounded-2xl py-4 text-xs font-extrabold tracking-widest uppercase transition-all shadow-xl shadow-emerald-950/50">📞 Llamar</button>
-    </div>
-
-    <!-- Pie de página con créditos de Propiedad Intelectual Obligatorios -->
-    <footer class="text-center pt-2 border-t border-neutral-900 text-[10px] text-neutral-500 tracking-wide">
-        <p>&copy; 2026 Plataforma Web+App Translate.</p>
-        <p class="font-semibold text-neutral-400 mt-0.5">Creador y Único Dueño: <span class="text-neutral-300">Jose Cayetano Valadez</span></p>
-    </footer>
-
-    </script>
-// --- VARIABLES GENERALES Y MONETIZACIÓN ---
-let localStream = null;
-let isAudioMuted = false;
-let isVideoMuted = false;
-
-// Sistema de Control Premium (3 Llamadas Gratis por Semana)
-let llamadasRestantes = 3; 
-const callsLeftDisplay = document.getElementById('calls-left');
-const statusDisplay = document.getElementById('status-display');
-const videoContainer = document.getElementById('video-container');
-
-// --- 1. LÓGICA DEL BOTÓN LLAMAR CON CONTROL DE MONETIZACIÓN ---
-document.getElementById('btn-call').addEventListener('click', () => {
-    // Verificar si aún le quedan llamadas gratis
-    if (llamadasRestantes <= 0) {
-        statusDisplay.innerText = "Límite semanal alcanzado. ¡Pásate a Premium por $5 USD!";
-        statusDisplay.className = "text-orange-500 font-black text-center text-xs tracking-wide";
-        alert("Has agotado tus 3 llamadas gratis de la semana. Activa tu suscripción Premium por $5 USD al mes para continuar.");
-        return; // Bloquea la llamada por completo
-    }
-
-    // El texto "Conectando..." solo aparece hasta que se presiona el botón
-    statusDisplay.innerText = "Conectando...";
-    statusDisplay.className = "text-yellow-500 font-bold text-center text-xs tracking-wide animate-pulse";
-    
-    // Simulación del proceso WebRTC/IA de conexión exitosa
-    setTimeout(() => {
-        statusDisplay.innerText = "Conectado de forma segura";
-        statusDisplay.className = "text-green-500 font-bold text-center text-xs tracking-wide";
+    <!-- CONTENEDOR PRINCIPAL DE LA APLICACIÓN -->
+    <div class="w-full max-w-md bg-neutral-900 border border-neutral-800 rounded-3xl p-6 shadow-2xl flex flex-col gap-5">
         
-        // Descontar una llamada gratis del contador visual
-        llamadasRestantes--;
-        if (callsLeftDisplay) {
-            callsLeftDisplay.innerText = llamadasRestantes;
+        <!-- ENCABEZADO -->
+        <div class="text-center border-b border-neutral-800 pb-3">
+            <h1 class="text-3xl font-black tracking-tight">Translate</h1>
+            <p class="text-xs text-neutral-500 mt-1">Por: Jose Cayetano Valadez <span class="ml-2 font-mono">v1.0</span></p>
+        </div>
+
+        <!-- CONTADOR DE MONETIZACIÓN -->
+        <div class="bg-neutral-950/60 border border-neutral-800/50 rounded-2xl p-4 text-center flex flex-col gap-2">
+            <span class="text-xs uppercase tracking-widest text-neutral-400 font-bold">Llamadas Gratis</span>
+            <!-- Identificador usado en tu JS para mostrar las llamadas -->
+            <div id="calls-left" class="text-2xl font-black text-emerald-400">3 / 3 restantes</div>
+            <button class="mt-2 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-neutral-950 font-black text-xs py-2.5 px-4 rounded-xl transition-all shadow-lg uppercase tracking-wider">
+                Volverse Premium $5 USD / mes
+            </button>
+        </div>
+
+        <!-- INDICADOR DE ESTADO EN TIEMPO REAL -->
+        <div id="status-display" class="text-neutral-500 text-center text-xs tracking-wide py-1 font-medium">
+            Sistema listo para conectar
+        </div>
+
+        <!-- CONTENEDOR DE VIDEOS (Ajuste dinámico gracias a grid-cols-1 administrado por tu JS) -->
+        <div id="video-container" class="grid grid-cols-1 gap-2 bg-neutral-950 p-2 rounded-2xl border border-neutral-800 min-h-[140px] transition-all duration-350">
+            <!-- Usuario Local -->
+            <div class="bg-neutral-900 border border-neutral-800/80 rounded-xl p-3 flex flex-col items-center justify-center min-h-[60px]">
+                <span class="text-xs font-bold text-neutral-300">Tú (Local)</span>
+            </div>
+            <!-- Usuario 2 (Oculto inicialmente con 'hidden', tu JS lo activa) -->
+            <div id="remote-video-1" class="hidden bg-neutral-900 border border-neutral-800/80 rounded-xl p-3 flex flex-col items-center justify-center min-h-[60px]">
+                <span class="text-xs font-bold text-blue-400">Usuario 2</span>
+            </div>
+            <!-- Usuario 3 (Oculto inicialmente con 'hidden', tu JS lo activa) -->
+            <div id="remote-video-2" class="hidden bg-neutral-900 border border-neutral-800/80 rounded-xl p-3 flex flex-col items-center justify-center min-h-[60px]">
+                <span class="text-xs font-bold text-purple-400">Usuario 3</span>
+            </div>
+        </div>
+
+        <!-- SECCIÓN DE TRADUCCIÓN Y CHAT ESCRITO -->
+        <div class="flex flex-col gap-2">
+            <div class="flex gap-2">
+                <!-- Campo de entrada de texto -->
+                <input id="chat-input" type="text" placeholder="Escribe un mensaje aquí..." 
+                       class="flex-1 bg-neutral-950 border border-neutral-800 rounded-xl px-4 py-2.5 text-sm text-neutral-200 placeholder-neutral-600 focus:outline-none focus:border-neutral-700 transition-colors">
+                
+                <!-- Selector de Idioma Destino -->
+                <select id="target-lang" class="bg-neutral-950 border border-neutral-800 rounded-xl px-3 py-2.5 text-xs font-bold text-neutral-300 focus:outline-none cursor-pointer">
+                    <option value="ZH">ZH (Chino)</option>
+                    <option value="EN">EN (Inglés)</option>
+                    <option value="FR">FR (Francés)</option>
+                </select>
+            </div>
+            
+            <!-- Botón para procesar traducción escrita -->
+            <button id="btn-send-chat" class="w-full bg-neutral-100 hover:bg-white text-neutral-950 font-bold text-xs py-3 rounded-xl transition-all shadow-md tracking-wide">
+                Enviar y Traducir
+            </button>
+        </div>
+
+        <!-- REGISTRO DEL CHAT TRADUCIDO -->
+        <div id="chat-output" class="flex flex-col gap-1.5 max-h-[100px] overflow-y-auto custom-scrollbar">
+            <!-- Los mensajes traducidos dinámicos aparecerán aquí -->
+        </div>
+
+        <!-- BOTONERA DE CONTROLES MULTIMEDIA (Fila Superior) -->
+        <div class="grid grid-cols-2 gap-2">
+            <button id="btn-audio" class="bg-neutral-900 hover:bg-neutral-850 border border-neutral-800/80 rounded-2xl py-3.5 text-xs font-bold tracking-wide flex items-center justify-center gap-2 transition-all shadow-md">
+                🎙️ Mic On
+            </button>
+            <button id="btn-video" class="bg-neutral-900 hover:bg-neutral-850 border border-neutral-800/80 rounded-2xl py-3.5 text-xs font-bold tracking-wide flex items-center justify-center gap-2 transition-all shadow-md">
+                Anunciar Cam On
+            </button>
+        </div>
+
+        <!-- BOTONERA DE ACCIÓN PRINCIPAL (Fila Inferior) -->
+        <div class="grid grid-cols-2 gap-2">
+            <button id="btn-talk" class="bg-sky-950/40 hover:bg-sky-900/40 border border-sky-900/50 text-sky-400 rounded-2xl py-3.5 text-xs font-extrabold tracking-wide flex items-center justify-center gap-2 transition-all shadow-md uppercase">
+                🔊 ¡Habla fuerte ahora!
+            </button>
+            <button id="btn-call" class="bg-emerald-600 hover:bg-emerald-500 border border-emerald-700 text-neutral-950 font-black rounded-2xl py-3.5 text-xs tracking-wider flex items-center justify-center gap-2 transition-all shadow-lg uppercase">
+                📞 Llamar
+            </button>
+        </div>
+
+        <!-- PIE DE PÁGINA Y DERECHOS DE AUTOR -->
+        <div class="text-center text-[10px] text-neutral-600 border-t border-neutral-800/60 pt-3 mt-1 flex flex-col gap-0.5">
+            <p>© 2026 Plataforma Web+App Translate.</p>
+            <p class="font-medium text-neutral-500">Creador y Único Dueño: Jose Cayetano Valadez</p>
+        </div>
+    </div>
+
+    <!-- LOGICA DE INTERACTIVIDAD (Tu Script Integrado y Corregido) -->
+    <script>
+        // --- VARIABLES GENERALES Y MONETIZACIÓN ---
+        let localStream = null;
+        let isAudioMuted = false;
+        let isVideoMuted = false;
+
+        // Sistema de Control Premium (3 Llamadas Gratis por Semana)
+        let llamadasRestantes = 3;
+
+        const callsLeftDisplay = document.getElementById('calls-left');
+        const statusDisplay = document.getElementById('status-display');
+        const videoContainer = document.getElementById('video-container');
+
+        // --- 1. LÓGICA DEL BOTÓN LLAMAR CON CONTROL DE MONETIZACIÓN ---
+        document.getElementById('btn-call').addEventListener('click', () => {
+            // Verificar si aún le quedan llamadas gratis
+            if (llamadasRestantes <= 0) {
+                statusDisplay.innerText = "Límite semanal alcanzado. ¡Pásate a Premium por $5 USD!";
+                statusDisplay.className = "text-orange-500 font-black text-center text-xs tracking-wide";
+                alert("Has agotado tus 3 llamadas gratis de la semana. Activa tu suscripción Premium por $5 USD al mes para continuar.");
+                return; // Bloquea la llamada por completo
+            }
+
+            // El texto "Conectando..." solo aparece hasta que se presiona el botón
+            statusDisplay.innerText = "Conectando...";
+            statusDisplay.className = "text-yellow-500 font-bold text-center text-xs tracking-wide animate-pulse";
+
+            // Simulación del proceso WebRTC/IA de conexión exitosa
+            setTimeout(() => {
+                statusDisplay.innerText = "Conectado de forma segura";
+                statusDisplay.className = "text-green-500 font-bold text-center text-xs tracking-wide";
+
+                // Descontar una llamada gratis del contador visual
+                llamadasRestantes--;
+                if (callsLeftDisplay) {
+                    callsLeftDisplay.innerText = `${llamadasRestantes} / 3 restantes`;
+                }
+
+                // Activa la pantalla dividida en 3 para los tres países
+                conectarTresPaises();
+            }, 2000);
+        });
+
+        // --- 2. REAJUSTE DINÁMICO DE PANTALLAS CON TAILWIND (3 USUARIOS) ---
+        function conectarTresPaises() {
+            // Mostramos los contenedores de video de los otros dos países
+            document.getElementById('remote-video-1').classList.remove('hidden');
+            document.getElementById('remote-video-2').classList.remove('hidden');
+
+            // Cambiamos la cuadrícula de 1 columna a 3 columnas automáticamente gracias a Tailwind
+            videoContainer.classList.remove('grid-cols-1');
+            videoContainer.classList.add('grid-cols-3');
         }
 
-        // Activa la pantalla dividida en 3 para los tres países
-        conectarTresPaises();
-    }, 2000);
-});
+        // --- 3. BOTÓN "HABLA FUERTE AHORA" (SILENCIO TOTAL - SIN PITIDO) ---
+        document.getElementById('btn-talk').addEventListener('click', () => {
+            console.log("Activando transcripción forzada en silencio...");
+            statusDisplay.innerText = "Transcripción continua activa de fondo...";
+            statusDisplay.className = "text-sky-400 font-bold text-center text-xs tracking-wide";
+        });
 
-// --- 2. REAJUSTE DINÁMICO DE PANTALLAS CON TAILWIND (3 USUARIOS) ---
-function conectarTresPaises() {
-    // Mostramos los contenedores de video de los otros dos países
-    document.getElementById('remote-video-1').classList.remove('hidden');
-    document.getElementById('remote-video-2').classList.remove('hidden');
-    
-    // Cambiamos la cuadrícula de 1 columna a 3 columnas automáticamente gracias a Tailwind
-    videoContainer.classList.remove('grid-cols-1');
-    videoContainer.classList.add('grid-cols-3');
-}
-
-// --- 3. BOTÓN "HABLA FUERTE AHORA" (SILENCIO TOTAL - SIN PITIDO) ---
-document.getElementById('btn-talk').addEventListener('click', () => {
-    console.log("Activando transcripción forzada en silencio...");
-    // Tu IA China de traducción continua se activa de fondo sin ruidos
-});
-
-// --- 4. TRADUCCIÓN CONTINUA AUTOMÁTICA Y CHAT ESCRITO ---
-function enviarTraduccionAutomaticaDeTexto(texto, idiomaDestino) {
-    console.log(`Enviando texto: "${texto}" a traducir directamente a: ${idiomaDestino}`);
-}
-
-document.getElementById('btn-send-chat').addEventListener('click', () => {
-    const input = document.getElementById('chat-input');
-    const targetLang = document.getElementById('target-lang').value;
-    
-    if (input.value.trim() !== "") {
-        enviarTraduccionAutomaticaDeTexto(input.value, targetLang);
-        
-        const p = document.createElement('p');
-        p.className = "text-xs text-neutral-300 bg-neutral-950/50 p-2 rounded-lg border border-neutral-800/40";
-        p.innerText = `Tú: ${input.value} (Traducción: [${targetLang}])`;
-        document.getElementById('chat-output').appendChild(p);
-        input.value = ""; 
-    }
-});
-
-// --- 5. CONTROL DE BOTONES AUDIO Y CÁMARA (ON/OFF) ---
-navigator.mediaDevices.getUserMedia({ audio: true, video: true })
-    .then(stream => {
-        localStream = stream;
-    }).catch(err => console.error("Error al acceder a los periféricos:", err));
-
-document.getElementById('btn-audio').addEventListener('click', (e) => {
-    if (localStream) {
-        isAudioMuted = !isAudioMuted;
-        localStream.getAudioTracks().forEach(track => track.enabled = !isAudioMuted);
-        
-        if (isAudioMuted) {
-            e.target.innerText = "🔇 Mic Off";
-            e.target.className = "bg-red-600 hover:bg-red-500 border border-red-700 rounded-2xl py-3.5 text-xs font-bold tracking-wide flex items-center justify-center gap-2 transition-all shadow-md text-white";
-        } else {
-            e.target.innerText = "🎙️ Mic On";
-            e.target.className = "bg-neutral-900 hover:bg-neutral-850 border border-neutral-800/80 rounded-2xl py-3.5 text-xs font-bold tracking-wide flex items-center justify-center gap-2 transition-all shadow-md text-white";
+        // --- 4. TRADUCCIÓN CONTINUA AUTOMÁTICA Y CHAT ESCRITO ---
+        function enviarTraduccionAutomaticaDeTexto(texto, idiomaDestino) {
+            console.log(`Enviando texto: "${texto}" a traducir directamente a: ${idiomaDestino}`);
         }
-    }
-});
 
-document.getElementById('btn-video').addEventListener('click', (e) => {
-    if (localStream) {
-        isVideoMuted = !isVideoMuted;
-        localStream.getVideoTracks().forEach(track => track.enabled = !isVideoMuted);
-        
-        if (isVideoMuted) {
-            e.target.innerText = "📹 Cam Off";
-            e.target.className = "bg-red-600 hover:bg-red-500 border border-red-700 rounded-2xl py-3.5 text-xs font-bold tracking-wide flex items-center justify-center gap-2 transition-all shadow-md text-white";
-        } else {
-            e.target.innerText = "📹 Cam On";
-            e.target.className = "bg-neutral-900 hover:bg-neutral-850 border border-neutral-800/80 rounded-2xl py-3.5 text-xs font-bold tracking-wide flex items-center justify-center gap-2 transition-all shadow-md text-white";
-        }
-    }
-});
+        document.getElementById('btn-send-chat').addEventListener('click', () => {
