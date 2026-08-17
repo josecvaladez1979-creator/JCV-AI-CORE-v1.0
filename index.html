@@ -1,89 +1,34 @@
-<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>JCV TRI Translator v2.0</title><script src="https://cdn.tailwindcss.com"></script><script src="https://unpkg.com/peerjs@1.5.0/dist/peerjs.min.js"></script></head>
-<body class="bg-black text-white min-h-screen flex flex-col items-center p-4">
-<h1 class="text-4xl font-black bg-gradient-to-r from-yellow-400 to-purple-500 bg-clip-text text-transparent">JCV</h1><h2 class="text-xl font-black -mt-1">TRI TRANSLATOR v2.0</h2><p class="text-[9px] text-green-400 tracking-widest">1 CLICK AUTO - $5 MES - 3 GRATIS SEMANA</p>
-<div class="w-full max-w-sm border-4 border-yellow-400 rounded-[32px] p-4 bg-zinc-900/90 mt-3">
-<div class="bg-black rounded-2xl p-2 text-center"><p class="text-[9px] text-zinc-500">TU ID JCV:</p><p id="myId" class="font-mono text-yellow-300 text-sm">Conectando...</p></div>
-<div class="flex gap-2 mt-2"><input id="peerId" placeholder="ID del otro" class="flex-1 bg-zinc-800 rounded-full px-3 text-xs py-2"><button onclick="callPeer()" class="bg-yellow-400 text-black px-4 py-2 rounded-full font-black text-xs">LLAMAR</button></div>
-<div class="flex gap-2 mt-3"><button id="b-es" class="flex-1 py-2 rounded-xl bg-white text-black font-black text-xs">ES</button><button id="b-en" class="flex-1 py-2 rounded-xl bg-zinc-800 text-xs">EN</button><button id="b-zh" class="flex-1 py-2 rounded-xl bg-zinc-800 text-xs">中</button></div>
-<div class="relative mt-3"><video id="remoteVid" autoplay playsinline class="w-full rounded-2xl bg-black h-56"></video><video id="localVid" autoplay muted playsinline class="w-20 h-20 rounded-xl bg-zinc-800 absolute bottom-2 right-2 border-2 border-yellow-400"></video><div id="status" class="absolute top-2 left-2 bg-black/70 px-2 py-1 rounded-full text-[8px]">Listo</div></div>
-<div id="subBox" class="mt-2 bg-black p-2 rounded-xl min-h-[56px] text-xs text-yellow-200">1- Permite mic y cam<br>2- Elige ES<br>3- Pica verde y habla fuerte</div>
-<button id="autoBtn" onclick="activateOnce()" class="w-full mt-2 bg-green-500 py-3 rounded-full text-xs font-black">🟢 PICA 1 VEZ Y HABLA - TRADUCE AUTO</button>
-<div class="grid grid-cols-3 gap-2 mt-2"><button onclick="toggleMic()" id="micBtn" class="bg-zinc-800 py-2 rounded-full text-[10px]">🎤 MIC ON</button><button onclick="toggleCam()" id="camBtn" class="bg-zinc-800 py-2 rounded-full text-[10px]">📷 CAM ON</button><button onclick="hangup()" class="bg-red-600 py-2 rounded-full text-[10px] font-black">COLGAR</button></div>
-<div class="mt-4 bg-gradient-to-r from-yellow-500 to-yellow-300 text-black rounded-2xl p-3 text-center"><p class="font-black text-sm">JCV PREMIUM $5 USD / MES</p><p class="text-[11px] font-bold">3 video llamadas GRATIS por SEMANA</p><p class="text-[9px] mt-1">Después ilimitadas 30 días. Cancela cuando quieras.</p><a href="https://paypal.me/" target="_blank" class="block mt-2 bg-black text-yellow-400 py-2 rounded-full text-xs font-black">PAGAR $5 CON PAYPAL</a><p class="text-[8px] mt-1 text-zinc-700">Powered by JCV - TRI Translator</p></div>
+<!-- Encabezado con la Versión Corregida -->
+<header>
+    <h1>Proyecto Traducción <span id="version">v1.0</span></h1>
+</header>
+
+<!-- Contenedor Principal de Video (Diseño Dinámico para 3 pantallas) -->
+<div id="video-container" class="grid-layout">
+    <div id="local-video" class="video-box"><p>Tú (Local)</p></div>
+    <div id="remote-video-1" class="video-box hidden"><p>Usuario 2</p></div>
+    <div id="remote-video-2" class="video-box hidden"><p>Usuario 3</p></div>
 </div>
-<script>
-let lang='es', localStream=null, peer=null, currentCall=null, micOn=true, camOn=true, recog=null, autoActive=false;
-const myIdEl=document.getElementById('myId'), statusEl=document.getElementById('status'), localVid=document.getElementById('localVid'), remoteVid=document.getElementById('remoteVid'), autoBtn=document.getElementById('autoBtn'), subBox=document.getElementById('subBox');
-function upd(){['es','en','zh'].forEach(l=>document.getElementById('b-'+l).className='flex-1 py-2 rounded-xl bg-zinc-800 text-xs');document.getElementById('b-'+lang).className='flex-1 py-2 rounded-xl bg-white text-black font-black text-xs'; if(autoActive){if(recog){recog.onend=null; try{recog.stop();}catch(e){} } setTimeout(()=>{if(autoActive) startLiveTRI();},400);}}
-document.getElementById('b-es').onclick=()=>{lang='es';upd()};document.getElementById('b-en').onclick=()=>{lang='en';upd()};document.getElementById('b-zh').onclick=()=>{lang='zh';upd()};
-async function translateAuto(t,to){
-  try{
-    let r=await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(t)}&langpair=auto|${to=='zh'?'zh-CN':to}`);
-    let j=await r.json();
-    if(j.responseData && j.responseData.translatedText) return j.responseData.translatedText;
-  }catch(e){}
-  try{
-    let r2=await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${to=='zh'?'zh-CN':to}&dt=t&q=${encodeURIComponent(t)}`);
-    let j2=await r2.json(); return j2[0].map(x=>x[0]).join('');
-  }catch(e){return t;}
-}
-async function init(){
-  try{
-    localStream=await navigator.mediaDevices.getUserMedia({video:true,audio:true});
-    localVid.srcObject=localStream;
-    peer=new Peer('JCV-TRI-'+Math.floor(Math.random()*9000+1000));
-    peer.on('open', id=>{myIdEl.innerText='TU ID: '+id; statusEl.innerText='Listo JCV';});
-    peer.on('call', call=>{currentCall=call;call.answer(localStream);call.on('stream', s=>{remoteVid.srcObject=s; statusEl.innerText='Conectado';});});
-  }catch(e){subBox.innerText='❌ Activa cámara y micrófono en Chrome: '+e.message;}
-}
-async function callPeer(){let id=document.getElementById('peerId').value.trim(); if(!id)return alert('Pega ID'); if(!localStream) await init(); let call=peer.call(id, localStream); currentCall=call; call.on('stream', s=>{remoteVid.srcObject=s; statusEl.innerText='Conectado';});}
-function hangup(){
-  if(currentCall)currentCall.close(); remoteVid.srcObject=null;
-  if(recog){recog.onend=null; try{recog.stop();}catch(e){} recog=null;}
-  autoActive=false;
-  autoBtn.innerText='🟢 PICA 1 VEZ Y HABLA - TRADUCE AUTO';
-  autoBtn.className='w-full mt-2 bg-green-500 py-3 rounded-full text-xs font-black';
-  subBox.innerText='Colgado - traducción apagada. Vuelve a picar verde para activar.';
-  statusEl.innerText='Colgado';
-}
-function toggleMic(){if(!localStream)return; micOn=!micOn; localStream.getAudioTracks().forEach(t=>t.enabled=micOn); document.getElementById('micBtn').innerText=micOn?'🎤 MIC ON':'🔇 MIC OFF';}
-function toggleCam(){if(!localStream)return; camOn=!camOn; localStream.getVideoTracks().forEach(t=>t.enabled=camOn); document.getElementById('camBtn').innerText=camOn?'📷 CAM ON':'📷 CAM OFF';}
-function activateOnce(){
-  if(autoActive) return;
-  autoActive=true;
-  autoBtn.innerText='🔴 ESCUCHANDO... HABLA FUERTE AHORA';
-  autoBtn.className='w-full mt-2 bg-red-500 py-3 rounded-full text-xs font-black animate-pulse';
-  startLiveTRI();
-}
-function startLiveTRI(){
-  let SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-  if(!SR){subBox.innerHTML='Tu navegador no soporta voz.<br>Usa <b>Google Chrome</b> en Android'; return;}
-  recog=new SR();
-  recog.lang=lang=='es'?'es-MX':lang=='en'?'en-US':'zh-CN';
-  recog.continuous=false; recog.interimResults=false; recog.maxAlternatives=1;
-  recog.onstart=()=>{subBox.innerText='🟢 Te escucho en '+(lang=='es'?'ESPAÑOL':lang=='en'?'INGLES':'CHINO')+'... DI ALGO FUERTE';};
-  recog.onerror=(e)=>{
-    if(e.error=='network'){
-      subBox.innerHTML='Error de red de Google. SOLUCIÓN:<br>1- Usa WiFi fuerte<br>2- Cierra y abre Chrome<br>3- Vuelve a picar el botón verde<br>Error: '+e.error;
-    } else {
-      subBox.innerText='Error mic: '+e.error+' - pica verde de nuevo';
-    }
-    autoActive=false;
-    autoBtn.innerText='🟢 PICA 1 VEZ Y HABLA - TRADUCE AUTO';
-    autoBtn.className='w-full mt-2 bg-green-500 py-3 rounded-full text-xs font-black';
-  };
-  recog.onresult=async (e)=>{
-    let txt=e.results[0][0].transcript;
-    subBox.innerText='TÚ: '+txt+'\nTraduciendo...';
-    let target = lang=='es'?'en':lang=='en'?'es':'es';
-    let tr = await translateAuto(txt,target);
-    subBox.innerText='TÚ: '+txt+'\nJCV: '+tr;
-    let u=new SpeechSynthesisUtterance(tr);
-    u.lang=target=='en'?'en-US':'es-MX';
-    speechSynthesis.speak(u);
-  };
-  recog.onend=()=>{if(autoActive){setTimeout(()=>{try{recog.start();}catch(err){}},800);}};
-  try{recog.start();}catch(e){subBox.innerText='Vuelve a picar verde';}
-}
-init();
-</script></body></html>
+
+<!-- Estado de Conexión (Inicia vacío para evitar el "Conectando..." prematuro) -->
+<div id="status-display"></div>
+
+<!-- Nuevo: Panel de Texto y Traducción Multilingüe -->
+<div id="chat-translation-container">
+    <input type="text" id="chat-input" placeholder="Escribe un mensaje aquí...">
+    <select id="target-lang">
+        <option value="zh">Chino (ZH)</option>
+        <option value="en">Inglés (EN)</option>
+        <option value="es">Español (ES)</option>
+    </select>
+    <button id="btn-send-chat">Enviar y Traducir</button>
+    <div id="chat-output"></div>
+</div>
+
+<!-- Botones de Control Actualizados (Cámara, Audio, Hablar y Llamar) -->
+<div class="controls">
+    <button id="btn-audio" class="active">🎙️ Mic On</button>
+    <button id="btn-video" class="active">📹 Cam On</button>
+    <button id="btn-talk">🔊 ¡Habla fuerte ahora!</button>
+    <button id="btn-call">📞 Llamar</button>
+</div>
