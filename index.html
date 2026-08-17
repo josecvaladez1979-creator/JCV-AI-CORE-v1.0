@@ -3,12 +3,19 @@
     <h1>Proyecto Traducción <span id="version">v1.0</span></h1>
 </header>
 
-<!-- Contenedor Principal de Video (Diseño Dinámico para 3 pantallas) -->
-<div id="video-container" class="grid-layout">
-    <div id="local-video" class="video-box"><p>Tú (Local)</p></div>
-    <div id="remote-video-1" class="video-box hidden"><p>Usuario 2</p></div>
-    <div id="remote-video-2" class="video-box hidden"><p>Usuario 3</p></div>
+<!-- Contenedor Principal de Video (Diseño Dinámico con Tailwind) -->
+<div id="video-container" class="grid grid-cols-1 gap-4 w-full h-[70vh] bg-neutral-900 p-3 rounded-lg">
+    <div id="local-video" class="bg-neutral-800 border border-neutral-700 flex items-center justify-center text-white rounded-md overflow-hidden min-h-[150px]">
+        <p>Tú (Local)</p>
+    </div>
+    <div id="remote-video-1" class="hidden bg-neutral-800 border border-neutral-700 flex items-center justify-center text-white rounded-md overflow-hidden min-h-[150px]">
+        <p>Usuario 2</p>
+    </div>
+    <div id="remote-video-2" class="hidden bg-neutral-800 border border-neutral-700 flex items-center justify-center text-white rounded-md overflow-hidden min-h-[150px]">
+        <p>Usuario 3</p>
+    </div>
 </div>
+
 
 <!-- Estado de Conexión (Inicia vacío para evitar el "Conectando..." prematuro) -->
 <div id="status-display"></div>
@@ -32,3 +39,107 @@
     <button id="btn-talk">🔊 ¡Habla fuerte ahora!</button>
     <button id="btn-call">📞 Llamar</button>
 </div>
+
+<script>
+// --- VARIABLES GENERALES Y FLUJOS MULTIMEDIA ---
+let localStream = null;
+let isAudioMuted = false;
+let isVideoMuted = false;
+
+const statusDisplay = document.getElementById('status-display');
+
+// --- 1. BOTÓN "HABLA FUERTE AHORA" (SILENCIO TOTAL - SIN PITIDO) ---
+document.getElementById('btn-talk').addEventListener('click', () => {
+    console.log("Activando transcripción forzada en silencio...");
+    // Aquí se ejecuta tu IA de traducción de fondo sin hacer ruidos
+});
+
+// --- 2. LÓGICA DEL ESTADO "CONECTANDO..." EN EL BOTÓN LLAMAR ---
+document.getElementById('btn-call').addEventListener('click', () => {
+    // El texto "Conectando..." solo aparece hasta que se presiona el botón
+    statusDisplay.innerText = "Conectando...";
+    statusDisplay.className = "text-yellow-500 font-bold my-2 text-center";
+    
+    // Simulación de conexión
+    setTimeout(() => {
+        statusDisplay.innerText = "Conectado de forma segura";
+        statusDisplay.className = "text-green-500 font-bold my-2 text-center";
+        
+        // Activa la pantalla dividida en 3 para los tres países
+        conectarTresPaises();
+    }, 2000);
+});
+
+// --- 3. REAJUSTE DINÁMICO DE PANTALLAS CON TAILWIND (3 USUARIOS) ---
+function conectarTresPaises() {
+    const videoContainer = document.getElementById('video-container');
+    
+    // Mostramos los contenedores de video de los otros dos países
+    document.getElementById('remote-video-1').classList.remove('hidden');
+    document.getElementById('remote-video-2').classList.remove('hidden');
+    
+    // Cambiamos de 1 columna a 3 columnas automáticamente con Tailwind
+    videoContainer.classList.remove('grid-cols-1');
+    videoContainer.classList.add('grid-cols-3');
+}
+
+// --- 4. TRADUCCIÓN CONTINUA AUTOMÁTICA Y CHAT ESCRITO ---
+// Quitamos el "AUTO" y dejamos códigos fijos para que la IA china no falle
+function enviarTraduccionAutomaticaDeTexto(texto, idiomaDestino) {
+    console.log(`Enviando texto: "${texto}" a traducir directamente a: ${idiomaDestino}`);
+}
+
+document.getElementById('btn-send-chat').addEventListener('click', () => {
+    const input = document.getElementById('chat-input');
+    const targetLang = document.getElementById('target-lang').value;
+    
+    if (input.value.trim() !== "") {
+        enviarTraduccionAutomaticaDeTexto(input.value, targetLang);
+        
+        // Muestra el mensaje en la pantalla local
+        const p = document.createElement('p');
+        p.className = "text-sm text-neutral-300 bg-neutral-800 p-1 my-1 rounded";
+        p.innerText = `Tú: ${input.value} (Traducción: [${targetLang}])`;
+        document.getElementById('chat-output').appendChild(p);
+        input.value = ""; 
+    }
+});
+
+// --- 5. CONTROL ARREGLADO DE BOTONES AUDIO Y CÁMARA (ON/OFF) ---
+navigator.mediaDevices.getUserMedia({ audio: true, video: true })
+    .then(stream => {
+        localStream = stream;
+    }).catch(err => console.error("Error al acceder a los periféricos:", err));
+
+// Botón de Silenciar Audio
+document.getElementById('btn-audio').addEventListener('click', (e) => {
+    if (localStream) {
+        isAudioMuted = !isAudioMuted;
+        localStream.getAudioTracks().forEach(track => track.enabled = !isAudioMuted);
+        
+        if (isAudioMuted) {
+            e.target.innerText = "🔇 Mic Off";
+            e.target.style.backgroundColor = "#ff3333";
+        } else {
+            e.target.innerText = "🎙️ Mic On";
+            e.target.style.backgroundColor = "";
+        }
+    }
+});
+
+// Botón de Apagar Cámara
+document.getElementById('btn-video').addEventListener('click', (e) => {
+    if (localStream) {
+        isVideoMuted = !isVideoMuted;
+        localStream.getVideoTracks().forEach(track => track.enabled = !isVideoMuted);
+        
+        if (isVideoMuted) {
+            e.target.innerText = "📹 Cam Off";
+            e.target.style.backgroundColor = "#ff3333";
+        } else {
+            e.target.innerText = "📹 Cam On";
+            e.target.style.backgroundColor = "";
+        }
+    }
+});
+</script>
