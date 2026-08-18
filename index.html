@@ -1,52 +1,56 @@
-<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>JCV TRI v1.1</title><script src="https://cdn.tailwindcss.com"></script>
-<!-- Owner: Sm9zZSBDYXlldGFubyBWYWxhZGV6 -->
-<style>.jcv-hidden{position:absolute;left:-9999px}</style></head>
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>JCV TRADUCTOR</title><script src="https://cdn.tailwindcss.com"></script><script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD"></script></head>
 <body class="bg-black text-white min-h-screen flex flex-col items-center p-3">
-<div class="jcv-hidden">Creador y Único Dueño: Jose Cayetano Valadez</div>
-
 <div class="w-full max-w-md">
-<p class="text-center text-[11px] text-blue-400 font-bold">Llamadas Gratis <span id="calls-left" class="text-yellow-400 font-black">3 / 3 restantes</span></p>
-<p id="status-display" class="text-center text-[10px] text-blue-300">Listo - Escribe y traduce EN+ZH con voz</p>
 
-<div id="video-container" class="grid grid-cols-1 gap-3 mt-3">
-  <div class="relative rounded-[20px] overflow-hidden bg-zinc-900 border-2 border-blue-500 h-[180px]"><video id="local-video" autoplay muted playsinline class="w-full h-full object-cover"></video><span class="absolute bottom-2 left-2 bg-blue-600 px-2 py-1 rounded-full text-[10px] font-bold">Tú (Local)</span></div>
-  <div class="relative rounded-[20px] overflow-hidden bg-zinc-900 border border-yellow-400/30 h-[180px]"><video autoplay playsinline class="w-full h-full object-cover"></video><span class="absolute bottom-2 left-2 bg-black/70 px-2 py-1 rounded-full text-[10px] text-blue-300">Usuario 2</span></div>
-  <div class="relative rounded-[20px] overflow-hidden bg-zinc-900 border border-yellow-400/30 h-[180px]"><video autoplay playsinline class="w-full h-full object-cover"></video><span class="absolute bottom-2 left-2 bg-black/70 px-2 py-1 rounded-full text-[10px] text-blue-300">Usuario 3</span></div>
-</div>
-
-<!-- TODOS LOS BOTONES AZULES -->
-<div class="grid grid-cols-3 gap-2 mt-4">
-  <button id="btn-audio" class="bg-blue-600 border border-blue-400 rounded-2xl py-4 text-[12px] font-black text-white shadow-lg shadow-blue-600/40">🎙️ Mic On</button>
-  <button id="btn-video" class="bg-blue-600 border border-blue-400 rounded-2xl py-4 text-[12px] font-black text-white shadow-lg shadow-blue-600/40">📹 Cam On</button>
-  <button id="btn-talk" class="bg-blue-500 border border-blue-300 rounded-2xl py-2 text-[11px] font-black text-white shadow-lg shadow-blue-500/40">🔊 ¡Habla fuerte ahora!</button>
-</div>
-
-<button id="btn-call" class="w-full bg-blue-600 hover:bg-blue-500 border-2 border-blue-400 rounded-full py-4 mt-3 font-black text-white shadow-xl shadow-blue-600/50">📞 Llamar</button>
-
-<div class="bg-[#111] rounded-2xl p-3 mt-3 border border-yellow-400/20">
-  <div id="chat-output" class="space-y-2 max-h-40 overflow-y-auto"></div>
-  <div class="flex gap-2 mt-3">
-    <input id="chat-input" placeholder="Escribe aquí..." class="flex-1 bg-black border border-blue-500/30 rounded-full px-4 py-2 text-xs text-blue-200">
-    <button id="btn-send-chat" class="bg-yellow-400 text-black px-4 py-2 rounded-full text-[11px] font-black">Enviar y Traducir</button>
+<!-- LOGO PERFECTO J ARRIBA DE D, C ARRIBA DE U, V ARRIBA DE C -->
+<div class="flex flex-col items-center mt-2 mb-3">
+  <div class="font-black tracking-[8px] leading-none">
+    <!-- JCV ARRIBA -->
+    <div class="grid grid-cols-9 text-center text-[26px] text-blue-500">
+      <span></span><span></span><span></span>
+      <span>J</span><span>C</span><span>V</span>
+      <span></span><span></span><span></span>
+    </div>
+    <!-- TRADUCTOR ABAJO -->
+    <div class="grid grid-cols-9 text-center text-[20px] text-white mt-1">
+      <span>T</span><span>R</span><span>A</span>
+      <span class="text-blue-400">D</span><span class="text-blue-400">U</span><span class="text-blue-400">C</span>
+      <span>T</span><span>O</span><span>R</span>
+    </div>
   </div>
+  <p class="text-[8px] text-yellow-400 tracking-[4px] mt-1">J ARRIBA DE D | C ARRIBA DE U | V ARRIBA DE C</p>
 </div>
 
-<div class="mt-4 bg-gradient-to-r from-yellow-500 to-yellow-300 text-black rounded-2xl p-3 text-center">
-  <p class="font-black text-sm">Volverse Premium</p>
-  <div class="grid grid-cols-2 gap-2 mt-2"><div class="bg-black text-yellow-400 rounded-xl p-2"><p class="font-black text-xs">$10 USD / mes</p></div><div class="bg-black text-yellow-400 rounded-xl p-2 border-2 border-yellow-400"><p class="font-black text-xs">$80 USD / año</p></div></div>
+<div class="bg-zinc-900 border border-yellow-400/20 rounded-xl p-2 text-center mb-2"><p class="text-[7px] text-zinc-500">ANUNCIO GRATIS</p><div class="bg-black rounded h-[40px] flex items-center justify-center text-[8px] text-zinc-600">AdSense Aquí</div></div>
+
+<div class="grid grid-cols-1 gap-3">
+  <div class="relative rounded-[20px] overflow-hidden bg-zinc-900 border-2 border-blue-500 h-[200px]"><video id="local-video" autoplay muted playsinline class="w-full h-full object-cover"></video><span class="absolute bottom-2 left-2 bg-blue-600 px-2 py-1 rounded-full text-[10px]">Tú</span></div>
+  <div class="relative rounded-[20px] overflow-hidden bg-zinc-900 border border-yellow-400/20 h-[180px]"><span class="absolute bottom-2 left-2 bg-black/70 px-2 py-1 rounded-full text-[10px]">Usuario 2</span></div>
+  <div class="relative rounded-[20px] overflow-hidden bg-zinc-900 border border-yellow-400/20 h-[180px]"><span class="absolute bottom-2 left-2 bg-black/70 px-2 py-1 rounded-full text-[10px]">Usuario 3</span></div>
 </div>
+
+<div class="grid grid-cols-3 gap-2 mt-4">
+  <button id="btn-audio" class="bg-blue-600 border border-blue-400 rounded-2xl py-4 text-[12px] font-black text-white">🎙️ Mic On</button>
+  <button id="btn-video" class="bg-blue-600 border border-blue-400 rounded-2xl py-4 text-[12px] font-black text-white">📹 Cam On</button>
+  <button id="btn-talk" class="bg-blue-500 border border-blue-300 rounded-2xl py-2 text-[11px] font-black text-white">🔊 ¡Habla fuerte ahora!</button>
+</div>
+<button id="btn-call" class="w-full bg-blue-600 border-2 border-blue-400 rounded-full py-4 mt-3 font-black text-white">📞 Llamar</button>
+
+<div class="bg-[#111] rounded-2xl p-3 mt-3 border border-yellow-400/20"><div id="chat-output" class="space-y-2 max-h-32 overflow-y-auto"></div><div class="flex gap-2 mt-3"><input id="chat-input" placeholder="Escribe..." class="flex-1 bg-black border border-blue-500/30 rounded-full px-4 py-2 text-xs"><button id="btn-send-chat" class="bg-yellow-400 text-black px-4 py-2 rounded-full text-[11px] font-black">Enviar</button></div></div>
+
+<div class="mt-4 bg-yellow-400 text-black rounded-2xl p-3 text-center"><p class="font-black text-sm">Premium Sin Anuncios</p><div class="grid grid-cols-2 gap-2 mt-2"><div class="bg-black rounded-xl p-2"><p class="text-yellow-400 font-black text-xs">$10/mes</p><a href="https://www.paypal.com/paypalme/jcvtraductor/10" target="_blank" class="block bg-yellow-400 text-black rounded-full py-1 text-[10px] font-black mt-1">PayPal $10</a><div id="paypal-m"></div></div><div class="bg-black rounded-xl p-2 border-2 border-yellow-400"><p class="text-yellow-400 font-black text-xs">$80/año</p><a href="https://www.paypal.com/paypalme/jcvtraductor/80" target="_blank" class="block bg-yellow-400 text-black rounded-full py-1 text-[10px] font-black mt-1">PayPal $80</a><div id="paypal-y"></div></div></div></div>
 </div>
 
 <script>
-const _owner=atob("Sm9zZSBDYXlldGFubyBWYWxhZGV6");
-let localStream=null, llamadasRestantes=3;
-const callsLeftDisplay=document.getElementById('calls-left'), statusDisplay=document.getElementById('status-display'), chatOut=document.getElementById('chat-output');
-async function startCam(){try{localStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:"user"},audio:true});document.getElementById('local-video').srcObject=localStream;}catch(e){statusDisplay.innerText="Activa cámara en Chrome";}} startCam();
-function hablar(t,i){speechSynthesis.cancel();let m=new SpeechSynthesisUtterance(t);m.lang=i;m.rate=0.9;speechSynthesis.speak(m);}
-async function traducirYHablar(texto){try{let rEN=await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=en&dt=t&q=${encodeURIComponent(texto)}`).then(r=>r.json()); let rZH=await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=zh-CN&dt=t&q=${encodeURIComponent(texto)}`).then(r=>r.json()); let txtEN=rEN[0].map(x=>x[0]).join(''); let txtZH=rZH[0].map(x=>x[0]).join(''); let p=document.createElement('p'); p.className="text-[11px] bg-black p-2 rounded-lg border border-blue-500/20"; p.innerHTML=`<span class="text-blue-400 font-bold">Tú: ${texto}</span><br><span class="text-yellow-300">EN: ${txtEN} 🔊</span><br><span class="text-blue-300">ZH: ${txtZH} 🔊</span>`; chatOut.appendChild(p); chatOut.scrollTop=chatOut.scrollHeight; hablar(txtEN,'en-US'); setTimeout(()=>hablar(txtZH,'zh-CN'),2500);}catch(e){}}
-document.getElementById('btn-send-chat').addEventListener('click',()=>{let i=document.getElementById('chat-input'); if(i.value.trim()!=""){traducirYHablar(i.value); i.value="";}});
-document.getElementById('btn-call').addEventListener('click',()=>{if(llamadasRestantes<=0){alert("Premium $10 mes / $80 año");return;} llamadasRestantes--; callsLeftDisplay.innerText=llamadasRestantes+" / 3 restantes";});
-document.getElementById('btn-audio').addEventListener('click',function(){if(localStream){let t=localStream.getAudioTracks()[0]; t.enabled=!t.enabled; this.innerText=t.enabled?"🎙️ Mic On":"🔇 Mic Off";}});
-document.getElementById('btn-video').addEventListener('click',function(){if(localStream){let t=localStream.getVideoTracks()[0]; t.enabled=!t.enabled; this.innerText=t.enabled?"📹 Cam On":"📹 Cam Off";}});
-let rec; if('webkitSpeechRecognition' in window){rec=new webkitSpeechRecognition(); rec.lang='es-ES'; rec.onresult=(e)=>{traducirYHablar(e.results[0][0].transcript);};} document.getElementById('btn-talk').addEventListener('click',()=>{if(rec)rec.start();});
+let localStream=null, isMicOn=true, isCamOn=true;
+const localVideo=document.getElementById('local-video');
+async function initCam(){try{localStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:"user"}, audio:true}); localVideo.srcObject=localStream;}catch(e){}} initCam();
+document.getElementById('btn-audio').addEventListener('click', function(){if(!localStream)return; isMicOn=!isMicOn; localStream.getAudioTracks().forEach(t=>t.enabled=isMicOn); this.innerText=isMicOn?"🎙️ Mic On":"🔇 Mic Off"; this.className=isMicOn?"bg-blue-600 border border-blue-400 rounded-2xl py-4 text-[12px] font-black text-white":"bg-zinc-700 border rounded-2xl py-4 text-[12px] font-black text-zinc-400";});
+document.getElementById('btn-video').addEventListener('click', function(){if(!localStream){initCam(); return;} isCamOn=!isCamOn; localStream.getVideoTracks().forEach(t=>t.enabled=isCamOn); localVideo.style.opacity=isCamOn?"1":"0.1"; this.innerText=isCamOn?"📹 Cam On":"📹 Cam Off"; this.className=isCamOn?"bg-blue-600 border border-blue-400 rounded-2xl py-4 text-[12px] font-black text-white":"bg-zinc-700 border rounded-2xl py-4 text-[12px] font-black text-zinc-400";});
+function hablar(t,i){speechSynthesis.cancel(); let m=new SpeechSynthesisUtterance(t); m.lang=i; speechSynthesis.speak(m);}
+async function traducir(txt){let out=document.getElementById('chat-output'); let rEN=await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=en&dt=t&q=${encodeURIComponent(txt)}`).then(r=>r.json()); let rZH=await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=zh-CN&dt=t&q=${encodeURIComponent(txt)}`).then(r=>r.json()); let en=rEN[0].map(x=>x[0]).join(''), zh=rZH[0].map(x=>x[0]).join(''); let p=document.createElement('p'); p.className="text-[11px] bg-black p-2 rounded-lg"; p.innerHTML=`Tú: ${txt}<br><span class="text-yellow-300">EN: ${en}</span><br><span class="text-blue-300">ZH: ${zh}</span>`; out.appendChild(p); hablar(en,'en-US'); setTimeout(()=>hablar(zh,'zh-CN'),2200);}
+document.getElementById('btn-send-chat').addEventListener('click',()=>{let i=document.getElementById('chat-input'); if(i.value){traducir(i.value); i.value="";}});
+let rec; if('webkitSpeechRecognition' in window){rec=new webkitSpeechRecognition(); rec.lang='es-ES'; rec.onresult=e=>traducir(e.results[0][0].transcript);} document.getElementById('btn-talk').addEventListener('click',()=>{if(rec)rec.start();});
+paypal.Buttons({createOrder:(d,a)=>a.order.create({purchase_units:[{amount:{value:'10.00'}}]}), onApprove:(d,a)=>a.order.capture().then(()=>alert('Gracias $10'))}).render('#paypal-m');
+paypal.Buttons({createOrder:(d,a)=>a.order.create({purchase_units:[{amount:{value:'80.00'}}]}), onApprove:(d,a)=>a.order.capture().then(()=>alert('Gracias $80'))}).render('#paypal-y');
 </script></body></html>
