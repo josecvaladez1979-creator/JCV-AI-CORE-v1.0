@@ -2,23 +2,23 @@
 <body class="bg-black text-white min-h-screen flex flex-col items-center p-2">
 <div class="w-full max-w-md">
 
-<!-- LOGO J ARRIBA DE D, C ARRIBA DE U, V ARRIBA DE C -->
-<div class="flex flex-col items-center mt-2 mb-3">
-  <div class="font-black tracking-[7px] leading-none">
-    <div class="grid grid-cols-9 text-center text-[30px] text-blue-500"><span></span><span></span><span></span><span>J</span><span>C</span><span>V</span><span></span><span></span><span></span></div>
-    <div class="grid grid-cols-9 text-center text-[22px] text-white mt-1 tracking-[6px]"><span>T</span><span>R</span><span>A</span><span>D</span><span>U</span><span>C</span><span>T</span><span>O</span><span>R</span></div>
+<!-- LOGO J ARRIBA DE D, C ARRIBA DE U, V ARRIBA DE C - EXACTO -->
+<div class="flex flex-col items-center mt-3 mb-4">
+  <div class="font-black tracking-[6px] leading-none">
+    <div class="grid grid-cols-9 text-center text-[32px] text-blue-600"><span></span><span></span><span></span><span>J</span><span>C</span><span>V</span><span></span><span></span><span></span></div>
+    <div class="grid grid-cols-9 text-center text-[22px] text-white mt-1 tracking-[5px]"><span>T</span><span>R</span><span>A</span><span>D</span><span>U</span><span>C</span><span>T</span><span>O</span><span>R</span></div>
   </div>
 </div>
 
-<div class="bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-center mb-3"><p class="text-[8px] text-zinc-600">ANUNCIO</p><div class="bg-black rounded-lg h-[40px] flex items-center justify-center text-[9px] text-zinc-500">AdSense Aquí</div></div>
+<div class="bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-center mb-3"><p class="text-[8px] text-zinc-600">ANUNCIO</p><div class="bg-black rounded-lg h-[45px] flex items-center justify-center text-[9px] text-zinc-500">AdSense Aquí</div></div>
 
-<!-- TU CAMARA - CON BOTON SI ESTA EN NEGRO -->
-<div class="relative rounded-[22px] overflow-hidden bg-zinc-900 border-2 border-blue-600 h-[240px] flex items-center justify-center">
-  <video id="local-video" autoplay muted playsinline class="w-full h-full object-cover hidden"></video>
-  <button id="btn-activar-camara" class="bg-blue-600 px-6 py-3 rounded-full font-black text-sm absolute z-10">📹 Toca para activar cámara</button>
+<!-- CAMARA FIX - SIN ALERT MOLESTO -->
+<div class="relative rounded-[22px] overflow-hidden bg-zinc-900 border-2 border-blue-600 h-[260px] flex items-center justify-center">
+  <video id="local-video" autoplay muted playsinline class="w-full h-full object-cover hidden bg-black"></video>
+  <button id="btn-activar" class="bg-blue-600 hover:bg-blue-700 px-7 py-4 rounded-full font-black text-[15px] absolute z-10 shadow-xl">📹 Toca AQUÍ para prender cámara</button>
   <span class="absolute bottom-2 left-2 bg-blue-600 px-3 py-1 rounded-full text-[11px] font-bold z-10">Tú</span>
-  <span id="status-cam" class="absolute top-2 left-2 bg-green-600 px-2 py-1 rounded-full text-[8px] font-bold z-10">CAM ON</span>
-  <span id="status-mic" class="absolute top-2 right-2 bg-red-600 px-2 py-1 rounded-full text-[8px] font-bold z-10">MIC OFF</span>
+  <span id="s-cam" class="absolute top-2 left-2 bg-zinc-700 px-2 py-1 rounded-full text-[8px] font-bold z-10">CAM OFF</span>
+  <span id="s-mic" class="absolute top-2 right-2 bg-zinc-700 px-2 py-1 rounded-full text-[8px] font-bold z-10">MIC OFF</span>
 </div>
 
 <div class="grid grid-cols-1 gap-3 mt-3">
@@ -27,61 +27,73 @@
 </div>
 
 <div class="grid grid-cols-3 gap-2 mt-4">
-  <button id="btn-audio" class="bg-zinc-700 rounded-2xl py-4 text-[13px] font-black text-zinc-300">🔇 Mic Off</button>
-  <button id="btn-video" class="bg-blue-600 border border-blue-400 rounded-2xl py-4 text-[13px] font-black text-white">📹 Cam On</button>
-  <button id="btn-talk" class="bg-blue-500 border border-blue-300 rounded-2xl py-3 text-[11px] font-black text-white">🔊 ¡Habla fuerte ahora!</button>
+  <button id="b-mic" class="bg-blue-600 border border-blue-400 rounded-2xl py-4 text-[13px] font-black text-white">🎙️ Mic On</button>
+  <button id="b-cam" class="bg-blue-600 border border-blue-400 rounded-2xl py-4 text-[13px] font-black text-white">📹 Cam On</button>
+  <button id="b-talk" class="bg-blue-500 border border-blue-300 rounded-2xl py-3 text-[11px] font-black text-white">🔊 ¡Habla!</button>
 </div>
-<button id="btn-call" class="w-full bg-blue-600 border-2 border-blue-400 rounded-full py-4 mt-3 font-black text-white text-[15px]">📞 Llamar - <span id="calls">3/3 Gratis</span></button>
 
-<div class="bg-[#111] rounded-2xl p-3 mt-3 border border-zinc-800"><div id="chat-output" class="space-y-2 max-h-32 overflow-y-auto text-[11px]"></div><div class="flex gap-2 mt-3"><input id="chat-input" placeholder="Escribe aquí..." class="flex-1 bg-black border border-blue-500/30 rounded-full px-4 py-3 text-xs text-white"><button id="btn-send-chat" class="bg-yellow-400 text-black px-5 py-3 rounded-full text-[11px] font-black">Enviar</button></div></div>
+<button id="b-call" class="w-full bg-blue-600 border-2 border-blue-400 rounded-full py-4 mt-3 font-black text-white text-[15px]">📞 Llamar - 3/3 Gratis</button>
 
-<div class="mt-4 bg-yellow-400 text-black rounded-2xl p-3 text-center"><p class="font-black text-sm">Premium Sin Anuncios</p><div class="grid grid-cols-2 gap-2 mt-2"><a href="https://www.paypal.com/paypalme/jcvtraductor/10" target="_blank" class="bg-black text-yellow-400 rounded-xl p-3 block"><p class="font-black text-xs">$10 / mes</p><p class="bg-yellow-400 text-black rounded-full py-1 mt-2 text-[10px] font-black">PayPal $10</p></a><a href="https://www.paypal.com/paypalme/jcvtraductor/80" target="_blank" class="bg-black text-yellow-400 rounded-xl p-3 block border-2 border-yellow-400"><p class="font-black text-xs">$80 / año</p><p class="bg-yellow-400 text-black rounded-full py-1 mt-2 text-[10px] font-black">PayPal $80</p></a></div></div>
+<div class="bg-[#111] rounded-2xl p-3 mt-3 border border-zinc-800"><div id="chat" class="space-y-2 max-h-32 overflow-y-auto text-[11px]"></div><div class="flex gap-2 mt-3"><input id="inp" placeholder="Escribe aquí..." class="flex-1 bg-black border border-blue-500/30 rounded-full px-4 py-3 text-xs text-white"><button id="b-send" class="bg-yellow-400 text-black px-5 py-3 rounded-full text-[11px] font-black">Enviar</button></div></div>
+
+<!-- PREMIUM CON $ USD BIEN CLARO -->
+<div class="mt-4 bg-yellow-400 text-black rounded-2xl p-3 text-center">
+  <p class="font-black text-sm">Premium Sin Anuncios</p>
+  <div class="grid grid-cols-2 gap-2 mt-3">
+    <a href="https://www.paypal.com/paypalme/jcvtraductor/10" target="_blank" class="bg-black text-yellow-400 rounded-xl p-3 block text-center"><p class="font-black text-[16px]">$10 USD</p><p class="text-[10px]">/ mes</p><p class="bg-yellow-400 text-black rounded-full py-2 mt-2 text-[11px] font-black">Pagar $10 USD</p></a>
+    <a href="https://www.paypal.com/paypalme/jcvtraductor/80" target="_blank" class="bg-black text-yellow-400 rounded-xl p-3 block border-2 border-yellow-400 text-center"><p class="font-black text-[16px]">$80 USD</p><p class="text-[10px]">/ año</p><p class="bg-yellow-400 text-black rounded-full py-2 mt-2 text-[11px] font-black">Pagar $80 USD</p></a>
+  </div>
+</div>
 </div>
 
 <script>
-let localStream=null, micOn=false, camOn=true, llamadas=3;
+let stream=null, micOn=false, camOn=false, llamadas=3;
 const video=document.getElementById('local-video');
-const btnAct=document.getElementById('btn-activar-camara');
+const btnAct=document.getElementById('btn-activar');
 
-async function activar(){
+async function prenderCamara(){
   try{
-    localStream = await navigator.mediaDevices.getUserMedia({video:{facingMode:"user"}, audio:true});
-    video.srcObject=localStream; video.classList.remove('hidden'); btnAct.classList.add('hidden');
-    micOn=true; document.getElementById('btn-audio').innerText="🎙️ Mic On"; document.getElementById('btn-audio').className="bg-blue-600 border border-blue-400 rounded-2xl py-4 text-[13px] font-black text-white";
-    document.getElementById('status-mic').innerText="MIC ON"; document.getElementById('status-mic').className="absolute top-2 right-2 bg-green-600 px-2 py-1 rounded-full text-[8px] font-bold z-10";
-  }catch(e){ alert("Dale a Permitir cámara en Chrome. Arriba en la barra te pregunta."); }
+    stream = await navigator.mediaDevices.getUserMedia({video:true, audio:true});
+    video.srcObject=stream; video.classList.remove('hidden'); btnAct.classList.add('hidden');
+    micOn=true; camOn=true;
+    document.getElementById('b-mic').innerText="🎙️ Mic On"; document.getElementById('b-mic').className="bg-blue-600 border border-blue-400 rounded-2xl py-4 text-[13px] font-black text-white";
+    document.getElementById('b-cam').innerText="📹 Cam On"; document.getElementById('b-cam').className="bg-blue-600 border border-blue-400 rounded-2xl py-4 text-[13px] font-black text-white";
+    document.getElementById('s-mic').innerText="MIC ON"; document.getElementById('s-mic').style.background="#16a34a";
+    document.getElementById('s-cam').innerText="CAM ON"; document.getElementById('s-cam').style.background="#16a34a";
+  }catch(e){
+    // NO alerta molesta, solo cambia texto
+    btnAct.innerText="❌ Dale a Permitir arriba en Chrome y toca de nuevo";
+  }
 }
-btnAct.addEventListener('click', activar);
-// Auto intenta prender al entrar
-activar();
 
-document.getElementById('btn-audio').addEventListener('click', function(){
-  if(!localStream) return;
-  micOn=!micOn; localStream.getAudioTracks().forEach(t=>t.enabled=micOn);
-  this.innerText=micOn?"🎙️ Mic On":"🔇 Mic Off";
-  this.className=micOn?"bg-blue-600 border border-blue-400 rounded-2xl py-4 text-[13px] font-black text-white":"bg-zinc-700 rounded-2xl py-4 text-[13px] font-black text-zinc-400";
-  document.getElementById('status-mic').innerText=micOn?"MIC ON":"MIC OFF";
-  document.getElementById('status-mic').style.backgroundColor=micOn?"#16a34a":"#dc2626";
+btnAct.addEventListener('click', prenderCamara);
+
+document.getElementById('b-mic').addEventListener('click', ()=>{
+  if(!stream){ prenderCamara(); return; }
+  micOn=!micOn; stream.getAudioTracks().forEach(t=>t.enabled=micOn);
+  document.getElementById('b-mic').innerText=micOn?"🎙️ Mic On":"🔇 Mic Off";
+  document.getElementById('b-mic').className=micOn?"bg-blue-600 border border-blue-400 rounded-2xl py-4 text-[13px] font-black text-white":"bg-zinc-700 rounded-2xl py-4 text-[13px] font-black text-zinc-400";
+  document.getElementById('s-mic').innerText=micOn?"MIC ON":"MIC OFF"; document.getElementById('s-mic').style.background=micOn?"#16a34a":"#dc2626";
 });
 
-document.getElementById('btn-video').addEventListener('click', function(){
-  if(!localStream){ activar(); return; }
-  camOn=!camOn; localStream.getVideoTracks().forEach(t=>t.enabled=camOn);
-  video.style.opacity=camOn?"1":"0.1";
-  this.innerText=camOn?"📹 Cam On":"📹 Cam Off";
-  this.className=camOn?"bg-blue-600 border border-blue-400 rounded-2xl py-4 text-[13px] font-black text-white":"bg-zinc-700 rounded-2xl py-4 text-[13px] font-black text-zinc-400";
-  document.getElementById('status-cam').innerText=camOn?"CAM ON":"CAM OFF";
-  document.getElementById('status-cam').style.backgroundColor=camOn?"#16a34a":"#dc2626";
-  if(!camOn){ btnAct.classList.remove('hidden'); btnAct.innerText="📹 Cámara apagada - Toca para prender"; } else { btnAct.classList.add('hidden'); }
+document.getElementById('b-cam').addEventListener('click', ()=>{
+  if(!stream){ prenderCamara(); return; }
+  camOn=!camOn; stream.getVideoTracks().forEach(t=>t.enabled=camOn);
+  video.style.opacity=camOn?"1":"0.15";
+  document.getElementById('b-cam').innerText=camOn?"📹 Cam On":"📹 Cam Off";
+  document.getElementById('b-cam').className=camOn?"bg-blue-600 border border-blue-400 rounded-2xl py-4 text-[13px] font-black text-white":"bg-zinc-700 rounded-2xl py-4 text-[13px] font-black text-zinc-400";
+  document.getElementById('s-cam').innerText=camOn?"CAM ON":"CAM OFF"; document.getElementById('s-cam').style.background=camOn?"#16a34a":"#dc2626";
+  if(!camOn){ btnAct.classList.remove('hidden'); btnAct.innerText="📹 Cam apagada - Toca para prender"; } else { btnAct.classList.add('hidden'); }
 });
 
-document.getElementById('btn-call').addEventListener('click', function(){
-  if(llamadas<=0){ alert("Premium $10/$80 con PayPal"); return; }
-  llamadas--; document.getElementById('calls').innerText=llamadas+"/3 Gratis";
+document.getElementById('b-call').addEventListener('click', function(){
+  if(llamadas<=0){ alert("Se acabaron gratis. Paga $10 USD mes o $80 USD año abajo"); return; }
+  llamadas--; this.innerText="📞 Llamar - "+llamadas+"/3 Gratis";
+  if(llamadas==0) alert("Ya usaste las 3 gratis. Activa Premium $10 USD / $80 USD");
 });
 
-function hablar(t,l){ speechSynthesis.cancel(); let u=new SpeechSynthesisUtterance(t); u.lang=l; speechSynthesis.speak(u); }
-async function traducir(txt){ let out=document.getElementById('chat-output'); let rEN=await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=en&dt=t&q=${encodeURIComponent(txt)}`).then(r=>r.json()); let rZH=await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=zh-CN&dt=t&q=${encodeURIComponent(txt)}`).then(r=>r.json()); let en=rEN[0].map(x=>x[0]).join(''), zh=rZH[0].map(x=>x[0]).join(''); let p=document.createElement('p'); p.className="bg-black p-2 rounded-lg"; p.innerHTML=`Tú: ${txt}<br><span class="text-yellow-300">EN: ${en}</span><br><span class="text-blue-300">ZH: ${zh}</span>`; out.appendChild(p); hablar(en,'en-US'); setTimeout(()=>hablar(zh,'zh-CN'),2000); }
-document.getElementById('btn-send-chat').addEventListener('click',()=>{ let i=document.getElementById('chat-input'); if(i.value){ traducir(i.value); i.value=""; } });
-let rec; if('webkitSpeechRecognition' in window){ rec=new webkitSpeechRecognition(); rec.lang='es-ES'; rec.onresult=e=>traducir(e.results[0][0].transcript); } document.getElementById('btn-talk').addEventListener('click',()=>{ if(rec) rec.start(); });
+// Traductor
+async function traducir(txt){ let out=document.getElementById('chat'); try{ let rEN=await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=en&dt=t&q=${encodeURIComponent(txt)}`).then(r=>r.json()); let rZH=await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=zh-CN&dt=t&q=${encodeURIComponent(txt)}`).then(r=>r.json()); let en=rEN[0].map(x=>x[0]).join(''), zh=rZH[0].map(x=>x[0]).join(''); let p=document.createElement('p'); p.className="bg-black p-2 rounded-lg"; p.innerHTML=`Tú: ${txt}<br><span class="text-yellow-300">EN: ${en}</span><br><span class="text-blue-300">ZH: ${zh}</span>`; out.appendChild(p); let u1=new SpeechSynthesisUtterance(en); u1.lang='en-US'; speechSynthesis.speak(u1); setTimeout(()=>{ let u2=new SpeechSynthesisUtterance(zh); u2.lang='zh-CN'; speechSynthesis.speak(u2); },2000); }catch(e){} }
+document.getElementById('b-send').addEventListener('click',()=>{ let i=document.getElementById('inp'); if(i.value){ traducir(i.value); i.value=""; } });
+let rec; if(window.webkitSpeechRecognition){ rec=new webkitSpeechRecognition(); rec.lang='es-ES'; rec.onresult=e=>traducir(e.results[0][0].transcript); } document.getElementById('b-talk').addEventListener('click',()=>{ if(rec) rec.start(); });
 </script></body></html>
