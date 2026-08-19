@@ -1,99 +1,97 @@
-<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>JCV TRADUCTOR</title><script src="https://cdn.tailwindcss.com"></script></head>
-<body class="bg-black text-white min-h-screen flex flex-col items-center p-2">
-<div class="w-full max-w-md">
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>JCV TRADUCTOR v1.0</title><script src="https://cdn.tailwindcss.com"></script></head>
+<body class="bg-black text-white min-h-screen flex justify-center p-2">
+<div class="w-full max-w-[380px]">
 
-<!-- LOGO J ARRIBA DE D, C ARRIBA DE U, V ARRIBA DE C - EXACTO -->
-<div class="flex flex-col items-center mt-3 mb-4">
-  <div class="font-black tracking-[6px] leading-none">
-    <div class="grid grid-cols-9 text-center text-[32px] text-blue-600"><span></span><span></span><span></span><span>J</span><span>C</span><span>V</span><span></span><span></span><span></span></div>
-    <div class="grid grid-cols-9 text-center text-[22px] text-white mt-1 tracking-[5px]"><span>T</span><span>R</span><span>A</span><span>D</span><span>U</span><span>C</span><span>T</span><span>O</span><span>R</span></div>
+<!-- LOGO v1.0 - J ARRIBA DE D, C ARRIBA DE U, V ARRIBA DE C -->
+<div class="flex flex-col items-center mt-4 mb-4">
+  <div class="font-black leading-none tracking-[6px]">
+    <div class="grid grid-cols-9 text-center text-[34px] text-blue-600"><span></span><span></span><span></span><span>J</span><span>C</span><span>V</span><span></span><span></span><span></span></div>
+    <div class="grid grid-cols-9 text-center text-[21px] text-white mt-1 tracking-[5px]"><span>T</span><span>R</span><span>A</span><span>D</span><span>U</span><span>C</span><span>T</span><span>O</span><span>R</span></div>
   </div>
+  <p class="text-[9px] text-zinc-500 mt-1 tracking-[3px]">v1.0</p>
 </div>
 
-<div class="bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-center mb-3"><p class="text-[8px] text-zinc-600">ANUNCIO</p><div class="bg-black rounded-lg h-[45px] flex items-center justify-center text-[9px] text-zinc-500">AdSense Aquí</div></div>
+<div class="bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-center mb-3"><p class="text-[7px] text-zinc-600">ANUNCIO</p><div class="bg-black rounded-lg h-[40px] flex items-center justify-center text-[9px] text-zinc-500">AdSense Aquí</div></div>
 
-<!-- CAMARA FIX - SIN ALERT MOLESTO -->
-<div class="relative rounded-[22px] overflow-hidden bg-zinc-900 border-2 border-blue-600 h-[260px] flex items-center justify-center">
-  <video id="local-video" autoplay muted playsinline class="w-full h-full object-cover hidden bg-black"></video>
-  <button id="btn-activar" class="bg-blue-600 hover:bg-blue-700 px-7 py-4 rounded-full font-black text-[15px] absolute z-10 shadow-xl">📹 Toca AQUÍ para prender cámara</button>
-  <span class="absolute bottom-2 left-2 bg-blue-600 px-3 py-1 rounded-full text-[11px] font-bold z-10">Tú</span>
-  <span id="s-cam" class="absolute top-2 left-2 bg-zinc-700 px-2 py-1 rounded-full text-[8px] font-bold z-10">CAM OFF</span>
-  <span id="s-mic" class="absolute top-2 right-2 bg-zinc-700 px-2 py-1 rounded-full text-[8px] font-bold z-10">MIC OFF</span>
+<!-- SOLO 1 PANTALLA PRINCIPAL - 1 A 1 -->
+<div class="relative rounded-[22px] overflow-hidden bg-zinc-900 border-2 border-blue-600 h-[320px] flex items-center justify-center">
+  <video id="me" autoplay muted playsinline class="w-full h-full object-cover hidden"></video>
+  <div id="placeholder" class="text-center p-4">
+    <p class="text-4xl mb-2">📹</p>
+    <p class="text-[13px] text-zinc-300 font-bold">Toca el botón azul para iniciar</p>
+    <p class="text-[10px] text-zinc-500 mt-1">Chrome te pedirá Permitir</p>
+  </div>
+  <button id="btnStart" class="absolute bg-blue-600 px-8 py-4 rounded-full font-black text-[14px] z-10 shadow-xl hidden">📹 PRENDER CÁMARA</button>
+  <span class="absolute bottom-3 left-3 bg-blue-600 px-3 py-1 rounded-full text-[11px] font-bold z-10">Tú - En vivo</span>
+  <span id="sCam" class="absolute top-3 left-3 bg-zinc-800 px-2 py-1 rounded-full text-[9px] font-bold z-10">CAM OFF</span>
+  <span id="sMic" class="absolute top-3 right-3 bg-zinc-800 px-2 py-1 rounded-full text-[9px] font-bold z-10">MIC OFF</span>
 </div>
 
-<div class="grid grid-cols-1 gap-3 mt-3">
-  <div class="relative rounded-[22px] overflow-hidden bg-zinc-900 border border-zinc-800 h-[190px]"><span class="absolute bottom-2 left-2 bg-black/70 px-3 py-1 rounded-full text-[11px]">Usuario 2</span></div>
-  <div class="relative rounded-[22px] overflow-hidden bg-zinc-900 border border-zinc-800 h-[190px]"><span class="absolute bottom-2 left-2 bg-black/70 px-3 py-1 rounded-full text-[11px]">Usuario 3</span></div>
+<!-- VISITANTE - SOLO 1 CUADRO -->
+<div class="relative rounded-[22px] overflow-hidden bg-zinc-900 border border-zinc-700 h-[220px] mt-3 flex items-center justify-center">
+  <p class="text-zinc-600 text-[12px]">Esperando usuario...</p>
+  <span class="absolute bottom-3 left-3 bg-black/70 px-3 py-1 rounded-full text-[11px]">Visitante</span>
+  <span class="absolute top-3 left-3 bg-yellow-500 text-black px-2 py-1 rounded-full text-[9px] font-black">LIVE TRADUCCIÓN EN + ZH</span>
 </div>
 
 <div class="grid grid-cols-3 gap-2 mt-4">
-  <button id="b-mic" class="bg-blue-600 border border-blue-400 rounded-2xl py-4 text-[13px] font-black text-white">🎙️ Mic On</button>
-  <button id="b-cam" class="bg-blue-600 border border-blue-400 rounded-2xl py-4 text-[13px] font-black text-white">📹 Cam On</button>
-  <button id="b-talk" class="bg-blue-500 border border-blue-300 rounded-2xl py-3 text-[11px] font-black text-white">🔊 ¡Habla!</button>
+  <button id="bMic" class="bg-blue-600 border-2 border-blue-400 rounded-2xl py-4 text-[13px] font-black text-white">🎙️ Mic On</button>
+  <button id="bCam" class="bg-blue-600 border-2 border-blue-400 rounded-2xl py-4 text-[13px] font-black text-white">📹 Cam On</button>
+  <button id="bTalk" class="bg-zinc-800 border border-zinc-600 rounded-2xl py-3 text-[11px] font-black text-white">🔊 Habla</button>
 </div>
 
-<button id="b-call" class="w-full bg-blue-600 border-2 border-blue-400 rounded-full py-4 mt-3 font-black text-white text-[15px]">📞 Llamar - 3/3 Gratis</button>
+<button id="bCall" class="w-full bg-blue-600 border-2 border-blue-400 rounded-full py-4 mt-3 font-black text-white text-[15px]">📞 Llamar - 3/3 Gratis</button>
 
-<div class="bg-[#111] rounded-2xl p-3 mt-3 border border-zinc-800"><div id="chat" class="space-y-2 max-h-32 overflow-y-auto text-[11px]"></div><div class="flex gap-2 mt-3"><input id="inp" placeholder="Escribe aquí..." class="flex-1 bg-black border border-blue-500/30 rounded-full px-4 py-3 text-xs text-white"><button id="b-send" class="bg-yellow-400 text-black px-5 py-3 rounded-full text-[11px] font-black">Enviar</button></div></div>
+<div class="bg-[#111] rounded-2xl p-3 mt-3 border border-zinc-800"><div id="chat" class="space-y-2 max-h-28 overflow-y-auto text-[11px]"></div><div class="flex gap-2 mt-3"><input id="inp" placeholder="Escribe aquí..." class="flex-1 bg-black border border-blue-500/30 rounded-full px-4 py-3 text-xs text-white"><button id="bSend" class="bg-yellow-400 text-black px-5 py-3 rounded-full text-[11px] font-black">Enviar</button></div></div>
 
-<!-- PREMIUM CON $ USD BIEN CLARO -->
+<!-- PREMIUM CON USD BIEN CLARO -->
 <div class="mt-4 bg-yellow-400 text-black rounded-2xl p-3 text-center">
-  <p class="font-black text-sm">Premium Sin Anuncios</p>
+  <p class="font-black text-[13px]">Premium Sin Anuncios</p>
   <div class="grid grid-cols-2 gap-2 mt-3">
-    <a href="https://www.paypal.com/paypalme/jcvtraductor/10" target="_blank" class="bg-black text-yellow-400 rounded-xl p-3 block text-center"><p class="font-black text-[16px]">$10 USD</p><p class="text-[10px]">/ mes</p><p class="bg-yellow-400 text-black rounded-full py-2 mt-2 text-[11px] font-black">Pagar $10 USD</p></a>
-    <a href="https://www.paypal.com/paypalme/jcvtraductor/80" target="_blank" class="bg-black text-yellow-400 rounded-xl p-3 block border-2 border-yellow-400 text-center"><p class="font-black text-[16px]">$80 USD</p><p class="text-[10px]">/ año</p><p class="bg-yellow-400 text-black rounded-full py-2 mt-2 text-[11px] font-black">Pagar $80 USD</p></a>
+    <a href="https://www.paypal.com/paypalme/jcvtraductor/10" target="_blank" class="bg-black text-yellow-400 rounded-xl p-3 block"><p class="font-black text-[18px]">$10 USD</p><p class="text-[10px] text-white">por mes</p><p class="bg-yellow-400 text-black rounded-full py-2 mt-2 text-[11px] font-black">Pagar con PayPal</p></a>
+    <a href="https://www.paypal.com/paypalme/jcvtraductor/80" target="_blank" class="bg-black text-yellow-400 rounded-xl p-3 block border-2 border-yellow-300"><p class="font-black text-[18px]">$80 USD</p><p class="text-[10px] text-white">por año - ahorras $40</p><p class="bg-yellow-400 text-black rounded-full py-2 mt-2 text-[11px] font-black">Pagar con PayPal</p></a>
   </div>
 </div>
 </div>
 
 <script>
-let stream=null, micOn=false, camOn=false, llamadas=3;
-const video=document.getElementById('local-video');
-const btnAct=document.getElementById('btn-activar');
+let stream=null, mic=true, cam=true;
+const video=document.getElementById('me');
+const place=document.getElementById('placeholder');
+const btnStart=document.getElementById('btnStart');
 
-async function prenderCamara(){
+// Al cargar mostramos botón
+setTimeout(()=>{ btnStart.classList.remove('hidden'); place.classList.add('hidden'); },500);
+
+async function iniciar(){
   try{
-    stream = await navigator.mediaDevices.getUserMedia({video:true, audio:true});
-    video.srcObject=stream; video.classList.remove('hidden'); btnAct.classList.add('hidden');
-    micOn=true; camOn=true;
-    document.getElementById('b-mic').innerText="🎙️ Mic On"; document.getElementById('b-mic').className="bg-blue-600 border border-blue-400 rounded-2xl py-4 text-[13px] font-black text-white";
-    document.getElementById('b-cam').innerText="📹 Cam On"; document.getElementById('b-cam').className="bg-blue-600 border border-blue-400 rounded-2xl py-4 text-[13px] font-black text-white";
-    document.getElementById('s-mic').innerText="MIC ON"; document.getElementById('s-mic').style.background="#16a34a";
-    document.getElementById('s-cam').innerText="CAM ON"; document.getElementById('s-cam').style.background="#16a34a";
-  }catch(e){
-    // NO alerta molesta, solo cambia texto
-    btnAct.innerText="❌ Dale a Permitir arriba en Chrome y toca de nuevo";
+    stream = await navigator.mediaDevices.getUserMedia({video:{facingMode:"user"}, audio:true});
+    video.srcObject=stream; video.classList.remove('hidden'); place.classList.add('hidden'); btnStart.classList.add('hidden');
+    mic=true; cam=true; actualizarUI();
+  }catch(err){
+    alert("Chrome bloqueado. Toca el candadito 🔒 arriba > Permisos > Cámara y Micro > Permitir > Recarga");
+    btnStart.innerText="🔒 Desbloquea permiso y toca";
+    btnStart.classList.remove('hidden');
   }
 }
+function actualizarUI(){
+  document.getElementById('bMic').innerText=mic?"🎙️ Mic On":"🔇 Mic Off";
+  document.getElementById('bMic').className=mic?"bg-blue-600 border-2 border-blue-400 rounded-2xl py-4 text-[13px] font-black text-white":"bg-zinc-700 border border-zinc-600 rounded-2xl py-4 text-[13px] font-black text-zinc-400";
+  document.getElementById('bCam').innerText=cam?"📹 Cam On":"📹 Cam Off";
+  document.getElementById('bCam').className=cam?"bg-blue-600 border-2 border-blue-400 rounded-2xl py-4 text-[13px] font-black text-white":"bg-zinc-700 border border-zinc-600 rounded-2xl py-4 text-[13px] font-black text-zinc-400";
+  document.getElementById('sMic').innerText=mic?"MIC ON":"MIC OFF"; document.getElementById('sMic').style.background=mic?"#16a34a":"#dc2626";
+  document.getElementById('sCam').innerText=cam?"CAM ON":"CAM OFF"; document.getElementById('sCam').style.background=cam?"#16a34a":"#dc2626";
+  video.style.opacity=cam?"1":"0.2";
+}
 
-btnAct.addEventListener('click', prenderCamara);
+btnStart.addEventListener('click', iniciar);
+document.getElementById('bMic').addEventListener('click', ()=>{ if(!stream){ iniciar(); return; } mic=!mic; stream.getAudioTracks().forEach(t=>t.enabled=mic); actualizarUI(); });
+document.getElementById('bCam').addEventListener('click', ()=>{ if(!stream){ iniciar(); return; } cam=!cam; stream.getVideoTracks().forEach(t=>t.enabled=cam); actualizarUI(); if(!cam){ btnStart.classList.remove('hidden'); btnStart.innerText="📹 Prender de nuevo"; } });
 
-document.getElementById('b-mic').addEventListener('click', ()=>{
-  if(!stream){ prenderCamara(); return; }
-  micOn=!micOn; stream.getAudioTracks().forEach(t=>t.enabled=micOn);
-  document.getElementById('b-mic').innerText=micOn?"🎙️ Mic On":"🔇 Mic Off";
-  document.getElementById('b-mic').className=micOn?"bg-blue-600 border border-blue-400 rounded-2xl py-4 text-[13px] font-black text-white":"bg-zinc-700 rounded-2xl py-4 text-[13px] font-black text-zinc-400";
-  document.getElementById('s-mic').innerText=micOn?"MIC ON":"MIC OFF"; document.getElementById('s-mic').style.background=micOn?"#16a34a":"#dc2626";
-});
+// Llamadas
+let c=3; document.getElementById('bCall').addEventListener('click', function(){ if(c<=0){ alert("Se acabaron. Paga $10 USD mes o $80 USD año"); return; } c--; this.innerText="📞 Llamar - "+c+"/3 Gratis"; });
 
-document.getElementById('b-cam').addEventListener('click', ()=>{
-  if(!stream){ prenderCamara(); return; }
-  camOn=!camOn; stream.getVideoTracks().forEach(t=>t.enabled=camOn);
-  video.style.opacity=camOn?"1":"0.15";
-  document.getElementById('b-cam').innerText=camOn?"📹 Cam On":"📹 Cam Off";
-  document.getElementById('b-cam').className=camOn?"bg-blue-600 border border-blue-400 rounded-2xl py-4 text-[13px] font-black text-white":"bg-zinc-700 rounded-2xl py-4 text-[13px] font-black text-zinc-400";
-  document.getElementById('s-cam').innerText=camOn?"CAM ON":"CAM OFF"; document.getElementById('s-cam').style.background=camOn?"#16a34a":"#dc2626";
-  if(!camOn){ btnAct.classList.remove('hidden'); btnAct.innerText="📹 Cam apagada - Toca para prender"; } else { btnAct.classList.add('hidden'); }
-});
-
-document.getElementById('b-call').addEventListener('click', function(){
-  if(llamadas<=0){ alert("Se acabaron gratis. Paga $10 USD mes o $80 USD año abajo"); return; }
-  llamadas--; this.innerText="📞 Llamar - "+llamadas+"/3 Gratis";
-  if(llamadas==0) alert("Ya usaste las 3 gratis. Activa Premium $10 USD / $80 USD");
-});
-
-// Traductor
-async function traducir(txt){ let out=document.getElementById('chat'); try{ let rEN=await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=en&dt=t&q=${encodeURIComponent(txt)}`).then(r=>r.json()); let rZH=await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=zh-CN&dt=t&q=${encodeURIComponent(txt)}`).then(r=>r.json()); let en=rEN[0].map(x=>x[0]).join(''), zh=rZH[0].map(x=>x[0]).join(''); let p=document.createElement('p'); p.className="bg-black p-2 rounded-lg"; p.innerHTML=`Tú: ${txt}<br><span class="text-yellow-300">EN: ${en}</span><br><span class="text-blue-300">ZH: ${zh}</span>`; out.appendChild(p); let u1=new SpeechSynthesisUtterance(en); u1.lang='en-US'; speechSynthesis.speak(u1); setTimeout(()=>{ let u2=new SpeechSynthesisUtterance(zh); u2.lang='zh-CN'; speechSynthesis.speak(u2); },2000); }catch(e){} }
-document.getElementById('b-send').addEventListener('click',()=>{ let i=document.getElementById('inp'); if(i.value){ traducir(i.value); i.value=""; } });
-let rec; if(window.webkitSpeechRecognition){ rec=new webkitSpeechRecognition(); rec.lang='es-ES'; rec.onresult=e=>traducir(e.results[0][0].transcript); } document.getElementById('b-talk').addEventListener('click',()=>{ if(rec) rec.start(); });
+// Traductor simple
+async function trad(t){ try{ let a=await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=en&dt=t&q=${encodeURIComponent(t)}`).then(r=>r.json()); let b=await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=zh-CN&dt=t&q=${encodeURIComponent(t)}`).then(r=>r.json()); let en=a[0].map(x=>x[0]).join(''), zh=b[0].map(x=>x[0]).join(''); let d=document.getElementById('chat'); let p=document.createElement('p'); p.className="bg-black p-2 rounded-lg"; p.innerHTML=`Tú: ${t}<br><span class="text-yellow-300">EN: ${en}</span><br><span class="text-blue-300">ZH: ${zh}</span>`; d.appendChild(p); speechSynthesis.speak(new SpeechSynthesisUtterance(en)); }catch(e){} }
+document.getElementById('bSend').addEventListener('click',()=>{ let i=document.getElementById('inp'); if(i.value){ trad(i.value); i.value=""; } });
 </script></body></html>
