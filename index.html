@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>JCV TRADUCTOR v1.0</title><script src="https://cdn.tailwindcss.com"></script></head>
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>JCV TRADUCTOR v1.1</title><script src="https://cdn.tailwindcss.com"></script></head>
 <body class="bg-black text-white flex justify-center p-2">
 <div class="w-full max-w-[380px]">
 
@@ -7,7 +7,7 @@
     <div class="grid grid-cols-9 text-center text-[30px] text-blue-600"><span></span><span></span><span></span><span>J</span><span>C</span><span>V</span><span></span><span></span><span></span></div>
     <div class="grid grid-cols-9 text-center text-[19px] text-white mt-1 tracking-[4px]"><span>T</span><span>R</span><span>A</span><span>D</span><span>U</span><span>C</span><span>T</span><span>O</span><span>R</span></div>
   </div>
-  <p class="text-[9px] text-zinc-500">v1.0 - ESTABLE</p>
+  <p class="text-[9px] text-zinc-500">v1.1 - Restaurado + Premium Push</p>
 </div>
 
 <div class="relative rounded-[22px] overflow-hidden bg-zinc-900 border-2 border-blue-600 h-[340px]">
@@ -24,64 +24,96 @@
   <button id="bCam" class="bg-blue-600 rounded-2xl py-3 text-[12px] font-black">📹 Cam On</button>
 </div>
 
-<button id="bCall" class="w-full bg-blue-600 border-2 border-blue-400 rounded-full py-3 mt-2 font-black text-[14px]">📞 Llamar - 3/3 Gratis</button>
+<!-- SELECTOR DE IDIOMA SEPARADO -->
+<div class="grid grid-cols-2 gap-2 mt-3">
+  <button id="tEn" class="bg-blue-600 border-2 border-white rounded-full py-2 text-[11px] font-black">🇺🇸 ENGLISH</button>
+  <button id="tZh" class="bg-zinc-800 rounded-full py-2 text-[11px] font-black text-zinc-400">🇨🇳 中文</button>
+</div>
+
+<!-- BOTON APLASTO SUELTO Y HABLO RESTAURADO -->
+<button id="bTalk" class="w-full mt-2 bg-gradient-to-r from-red-600 to-red-500 border-2 border-red-300 rounded-full py-4 font-black text-[14px] shadow-lg">🎙️ APLASTA, SUELTA Y HABLA</button>
+<p id="talkStat" class="text-[9px] text-center text-zinc-500 mt-1">Toca una vez, habla en español, traduce solo al idioma seleccionado</p>
 
 <div class="mt-2 bg-[#111] rounded-2xl p-2 border border-zinc-800">
   <div id="chat" class="max-h-[150px] overflow-y-auto space-y-2 text-[11px] p-1"></div>
   <div class="flex gap-2 mt-2">
-    <input id="inp" placeholder="Escribe para traducir a EN + 中文" class="flex-1 bg-black border border-blue-500/30 rounded-full px-4 py-3 text-[11px] outline-none">
+    <input id="inp" placeholder="Escribe y traduce al idioma seleccionado" class="flex-1 bg-black border border-blue-500/30 rounded-full px-4 py-3 text-[11px] outline-none">
     <button id="bSend" class="bg-yellow-400 text-black px-5 rounded-full font-black text-[11px]">Enviar</button>
   </div>
-  <p class="text-[8px] text-zinc-500 mt-1 text-center">Traduce automático + voz</p>
 </div>
 
+<!-- ANUNCIO ADSTERRA QUE EMPUJA A PREMIUM -->
+<div id="adZone" class="mt-3 bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-center min-h-[60px]">
+  <p class="text-[8px] text-zinc-500">Publicidad - Se quita con Premium</p>
+  <!-- PEGA AQUI TU CODIGO NATIVO DE ADSTERRA -->
+  <div class="text-[10px] text-zinc-400 mt-1">PON_AQUI_TU_CODIGO_ADSTERRA</div>
+</div>
+
+<button id="bCall" class="w-full bg-blue-600 border-2 border-blue-400 rounded-full py-3 mt-2 font-black text-[14px]">📞 Llamar - 3/3 Gratis</button>
+
 <div class="mt-3 bg-yellow-400 text-black rounded-2xl p-3 text-center">
-  <p class="font-black text-[12px]">Premium Sin Anuncios</p>
+  <p class="font-black text-[12px]">🔓 Premium Sin Anuncios + Traducción Ilimitada</p>
   <div class="grid grid-cols-2 gap-2 mt-2">
     <a href="https://www.paypal.com/paypalme/jcvtraductor/10" target="_blank" class="bg-black text-yellow-400 rounded-xl p-2"><p class="font-black text-[16px]">$10 USD</p><p class="text-[9px] text-white">por mes</p></a>
     <a href="https://www.paypal.com/paypalme/jcvtraductor/80" target="_blank" class="bg-black text-yellow-400 rounded-xl p-2 border border-yellow-300"><p class="font-black text-[16px]">$80 USD</p><p class="text-[9px] text-white">por año - Ahorra 33%</p></a>
   </div>
 </div>
+
+<!-- POPUP QUE EMPUJA AL PREMIUM CADA 3 TRADUCCIONES -->
+<div id="adOverlay" class="hidden fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4">
+  <div class="bg-white text-black rounded-2xl p-4 w-full max-w-[320px] text-center">
+    <p class="font-black text-[14px]">😤 ¿Cansado de anuncios?</p>
+    <div class="bg-zinc-100 rounded-xl p-2 mt-2 text-[10px]">PON_AQUI_TU_CODIGO_ADSTERRA_INTERSTITIAL</div>
+    <p class="text-[11px] mt-2">Quita todos los anuncios y traduce ilimitado</p>
+    <div class="grid grid-cols-2 gap-2 mt-3">
+      <a href="https://www.paypal.com/paypalme/jcvtraductor/10" class="bg-black text-yellow-400 rounded-xl py-2 font-black text-[12px]">$10/MES</a>
+      <a href="https://www.paypal.com/paypalme/jcvtraductor/80" class="bg-yellow-400 text-black rounded-xl py-2 font-black text-[12px]">$80/AÑO</a>
+    </div>
+    <button id="closeAd" class="mt-3 text-[11px] text-zinc-500 underline">Seguir gratis con anuncios</button>
+  </div>
 </div>
 
+</div>
 <script>
-let stream=null, mic=true, cam=true;
+let stream=null, mic=true, cam=true, curLang='en', transCount=0, listening=false, rec=null;
 const v=document.getElementById('me'), btn=document.getElementById('btnStart'), off=document.getElementById('off'), chat=document.getElementById('chat');
-
-async function start(){
-  try{
-    stream=await navigator.mediaDevices.getUserMedia({video:true, audio:true});
-    v.srcObject=stream; btn.classList.add('hidden'); off.classList.add('hidden'); mic=true; cam=true; upd();
-  }catch(e){ alert("Permite cámara y mic en el 🔒 de arriba"); }
-}
-function upd(){
-  document.getElementById('bMic').innerText=mic?"🎙️ Mic On":"🔇 Mic Off";
-  document.getElementById('bCam').innerText=cam?"📹 Cam On":"📹 Cam Off";
-  document.getElementById('sMic').innerText=mic?"MIC ON":"MIC OFF"; document.getElementById('sMic').style.background=mic?"#16a34a":"#dc2626";
-  document.getElementById('sCam').innerText=cam?"CAM ON":"CAM OFF"; document.getElementById('sCam').style.background=cam?"#16a34a":"#dc2626";
-  v.style.display=cam?"block":"none"; off.classList.toggle('hidden', cam);
-  document.getElementById('bMic').className=mic?"bg-blue-600 rounded-2xl py-3 text-[12px] font-black":"bg-zinc-700 rounded-2xl py-3 text-[12px] font-black text-zinc-400";
-  document.getElementById('bCam').className=cam?"bg-blue-600 rounded-2xl py-3 text-[12px] font-black":"bg-zinc-700 rounded-2xl py-3 text-[12px] font-black text-zinc-400";
-}
+async function start(){ try{ stream=await navigator.mediaDevices.getUserMedia({video:true,audio:true}); v.srcObject=stream; btn.classList.add('hidden'); off.classList.add('hidden'); mic=true; cam=true; upd(); }catch(e){ alert("Permite cámara y mic en el candado 🔒"); } }
+function upd(){ document.getElementById('bMic').innerText=mic?"🎙️ Mic On":"🔇 Mic Off"; document.getElementById('bCam').innerText=cam?"📹 Cam On":"📹 Cam Off"; document.getElementById('sMic').innerText=mic?"MIC ON":"MIC OFF"; document.getElementById('sMic').style.background=mic?"#16a34a":"#dc2626"; document.getElementById('sCam').innerText=cam?"CAM ON":"CAM OFF"; document.getElementById('sCam').style.background=cam?"#16a34a":"#dc2626"; v.style.display=cam?"block":"none"; off.classList.toggle('hidden', cam); }
 btn.addEventListener('click', start);
 document.getElementById('bMic').addEventListener('click', ()=>{ if(!stream){ start(); return; } mic=!mic; stream.getAudioTracks().forEach(t=>t.enabled=mic); upd(); });
 document.getElementById('bCam').addEventListener('click', ()=>{ if(!stream){ start(); return; } cam=!cam; stream.getVideoTracks().forEach(t=>t.enabled=cam); upd(); });
 
-// TRADUCCION QUE SI JALABA
-async function trad(t, to){ try{ const r=await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(t)}&langpair=es|${to}`); const d=await r.json(); return d.responseData.translatedText; }catch{ return t; } }
-function speak(t, lang){ const u=new SpeechSynthesisUtterance(t); u.lang=lang; u.rate=0.9; speechSynthesis.speak(u); }
+// IDIOMA SEPARADO
+function setLang(l){ curLang=l; document.getElementById('tEn').className=l=='en'?"bg-blue-600 border-2 border-white rounded-full py-2 text-[11px] font-black":"bg-zinc-800 rounded-full py-2 text-[11px] font-black text-zinc-400"; document.getElementById('tZh').className=l=='zh'?"bg-blue-600 border-2 border-white rounded-full py-2 text-[11px] font-black":"bg-zinc-800 rounded-full py-2 text-[11px] font-black text-zinc-400"; }
+document.getElementById('tEn').addEventListener('click', ()=>setLang('en'));
+document.getElementById('tZh').addEventListener('click', ()=>setLang('zh'));
 
-async function sendMsg(){
-  const inp=document.getElementById('inp'); const txt=inp.value.trim(); if(!txt) return;
-  inp.value="";
+async function trad(t,to){ try{ const r=await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(t)}&langpair=es|${to}`); const d=await r.json(); return d.responseData.translatedText; }catch{ return t; } }
+function speak(t,lang){ speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(t); u.lang=lang; u.rate=0.9; speechSynthesis.speak(u); }
+
+async function doTranslate(txt){
   chat.innerHTML+=`<div class="bg-blue-600/20 border border-blue-500/30 rounded-xl p-2"><b>Tú:</b> ${txt}</div>`;
-  const en=await trad(txt,'en'); const zh=await trad(txt,'zh');
-  chat.innerHTML+=`<div class="bg-zinc-800 rounded-xl p-2"><b>EN:</b> ${en}<br><b>中文:</b> ${zh}</div>`;
-  chat.scrollTop=chat.scrollHeight;
-  speak(en,'en-US'); setTimeout(()=>speak(zh,'zh-CN'), 1200);
+  const target=curLang; const res=await trad(txt,target);
+  const label=target=='en'?'EN':'中文';
+  chat.innerHTML+=`<div class="bg-zinc-800 rounded-xl p-2"><b>${label}:</b> ${res} <button onclick="speak('${res.replace(/'/g,"\\'")}','${target=='en'?'en-US':'zh-CN'}')" class="ml-2">🔊</button></div>`;
+  chat.scrollTop=chat.scrollHeight; speak(res,target=='en'?'en-US':'zh-CN');
+  transCount++; if(transCount%3==0){ document.getElementById('adOverlay').classList.remove('hidden'); }
 }
-document.getElementById('bSend').addEventListener('click', sendMsg);
-document.getElementById('inp').addEventListener('keydown', e=>{ if(e.key==='Enter') sendMsg(); });
 
-let c=3; document.getElementById('bCall').addEventListener('click', function(){ if(c<=0){ alert("Se acabaron. Premium $10 USD"); return; } c--; this.innerText="📞 Llamar - "+c+"/3 Gratis"; });
+document.getElementById('bSend').addEventListener('click', ()=>{ const i=document.getElementById('inp'); if(i.value.trim()){ doTranslate(i.value.trim()); i.value=''; } });
+document.getElementById('inp').addEventListener('keydown', e=>{ if(e.key==='Enter'){ const i=document.getElementById('inp'); if(i.value.trim()){ doTranslate(i.value.trim()); i.value=''; } } });
+document.getElementById('closeAd').addEventListener('click', ()=>document.getElementById('adOverlay').classList.add('hidden'));
+
+// BOTON APLASTO SUELTA Y HABLA - RESTAURADO
+document.getElementById('bTalk').addEventListener('click', ()=>{
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition; if(!SR){ alert("Tu navegador no soporta voz, usa Chrome"); return; }
+  if(listening){ rec.stop(); return; }
+  rec=new SR(); rec.lang='es-MX'; rec.interimResults=false;
+  rec.onstart=()=>{ listening=true; document.getElementById('bTalk').innerText="🔴 ESCUCHANDO... TOCA PARA PARAR"; document.getElementById('bTalk').className="w-full mt-2 bg-red-700 border-2 border-white rounded-full py-4 font-black text-[14px] animate-pulse"; document.getElementById('talkStat').innerText="Habla ahora en español..."; };
+  rec.onend=()=>{ listening=false; document.getElementById('bTalk').innerText="🎙️ APLASTA, SUELTA Y HABLA"; document.getElementById('bTalk').className="w-full mt-2 bg-gradient-to-r from-red-600 to-red-500 border-2 border-red-300 rounded-full py-4 font-black text-[14px] shadow-lg"; document.getElementById('talkStat').innerText="Toca una vez, habla en español, traduce solo al idioma seleccionado"; };
+  rec.onresult=(e)=>{ const txt=e.results[0][0].transcript; doTranslate(txt); };
+  rec.start();
+});
+
+let c=3; document.getElementById('bCall').addEventListener('click', function(){ if(c<=0){ alert("Se acabaron. Premium $10 USD"); return; } c--; this.innerText="📞 Llamar - "+c+"/3 Gratis"; if(c==0) document.getElementById('adOverlay').classList.remove('hidden'); });
 </script></body></html>
