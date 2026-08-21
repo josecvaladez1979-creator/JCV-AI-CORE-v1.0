@@ -1,102 +1,32 @@
-<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>JCV v1.2 VICEVERSA</title><script src="https://cdn.tailwindcss.com"></script></head>
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>JCV v1.2.2 FINAL</title><script src="https://cdn.tailwindcss.com"></script></head>
 <body class="bg-black text-white flex justify-center p-2">
 <div class="w-full max-w-[390px]">
-
-<div class="text-center"><p class="font-black text-blue-600 tracking-[5px] text-[28px]">JCV</p><p class="font-black tracking-[6px] text-[18px]">TRADUCTOR</p><p class="text-[9px] text-zinc-500">v1.2 - VIDEO LLAMADA VICEVERSA</p></div>
-
-<div class="relative rounded-[22px] overflow-hidden bg-zinc-900 border-2 border-blue-600 h-[320px] mt-2">
-  <video id="me" autoplay muted playsinline class="w-full h-full object-cover"></video>
-  <div id="off" class="absolute inset-0 bg-zinc-900 flex items-center justify-center"><p class="text-[11px] text-zinc-500">Toca INICIAR</p></div>
-  <span class="absolute bottom-2 left-2 bg-blue-600 px-2 py-1 rounded-full text-[9px] font-bold">Tú MX 🇲🇽</span>
-  <span id="remoteLabel" class="absolute bottom-2 right-2 bg-green-600 px-2 py-1 rounded-full text-[9px] font-bold">Proveedor CN 🇨🇳</span>
-  <button id="btnStart" class="absolute inset-0 m-auto w-[210px] h-[55px] bg-blue-600 rounded-full font-black text-[12px]">📹 INICIAR CÁMARA Y MIC</button>
-</div>
-
-<div class="bg-zinc-900 rounded-2xl p-2 mt-2 border border-zinc-800">
-  <p class="text-[9px] text-zinc-400 text-center">Elige idioma del proveedor para traducción viceversa</p>
-  <select id="targetLang" class="w-full mt-1 bg-black border border-blue-500 rounded-full px-3 py-2 text-[12px] font-bold outline-none">
-    <option value="en">🇺🇸 Inglés USA</option><option value="zh" selected>🇨🇳 Chino Mandarín</option><option value="ja">🇯🇵 Japonés</option><option value="ar">🇸🇦 Árabe</option><option value="hi">🇮🇳 Hindi India</option><option value="fr">🇫🇷 Francés</option><option value="de">🇩🇪 Alemán</option><option value="pt">🇧🇷 Portugués</option><option value="ru">🇷🇺 Ruso</option><option value="ko">🇰🇷 Coreano</option>
-  </select>
-</div>
-
-<div class="grid grid-cols-2 gap-2 mt-2">
-  <button id="bLiveES" class="bg-red-600 rounded-2xl py-3 text-[10px] font-black">🔴 TÚ: ES→PROVEEDOR OFF</button>
-  <button id="bLiveOther" class="bg-zinc-800 rounded-2xl py-3 text-[10px] font-bold">🔵 PROVEEDOR→ES OFF</button>
-</div>
-
-<button id="bTalk" class="w-full mt-2 bg-gradient-to-r from-blue-600 to-blue-500 rounded-full py-3 font-black text-[12px]">🎙️ APLASTA, SUELTA Y HABLA</button>
-
-<div class="mt-2 bg-[#111] rounded-2xl p-2 border border-zinc-800">
-  <div id="chat" class="max-h-[150px] overflow-y-auto space-y-1 text-[11px] p-1"></div>
-  <div class="flex gap-2 mt-2"><input id="inp" placeholder="Escribe y traduce" class="flex-1 bg-black border border-blue-500/30 rounded-full px-4 py-2 text-[11px] outline-none"><button id="bSend" class="bg-yellow-400 text-black px-4 rounded-full font-black text-[11px]">Enviar</button></div>
-</div>
-
+<div class="text-center"><p class="font-black text-blue-600 tracking-[5px] text-[28px]">JCV</p><p class="font-black tracking-[6px] text-[18px]">TRADUCTOR</p><p class="text-[9px] text-zinc-500">v1.2.2 - VICEVERSA + AUDIO FIX</p></div>
+<div class="relative rounded-[22px] overflow-hidden bg-zinc-900 border-2 border-blue-600 h-[320px] mt-2"><video id="me" autoplay muted playsinline class="w-full h-full object-cover"></video><div id="off" class="absolute inset-0 bg-zinc-900 flex items-center justify-center"><p class="text-[11px] text-zinc-500">Toca INICIAR</p></div><span class="absolute bottom-2 left-2 bg-blue-600 px-2 py-1 rounded-full text-[9px] font-bold">Tú MX 🇲🇽</span><span id="remoteLabel" class="absolute bottom-2 right-2 bg-green-600 px-2 py-1 rounded-full text-[9px] font-bold">Proveedor RU 🇷🇺</span><button id="btnStart" class="absolute inset-0 m-auto w-[210px] h-[55px] bg-blue-600 rounded-full font-black text-[12px]">📹 INICIAR CÁMARA Y MIC</button></div>
+<div class="bg-zinc-900 rounded-2xl p-2 mt-2 border border-zinc-800"><select id="targetLang" class="w-full bg-black border border-blue-500 rounded-full px-3 py-2 text-[12px] font-bold outline-none"><option value="en">🇺🇸 Inglés USA</option><option value="zh">🇨🇳 Chino Mandarín</option><option value="ja">🇯🇵 Japonés</option><option value="ar">🇸🇦 Árabe</option><option value="hi">🇮🇳 Hindi</option><option value="fr">🇫🇷 Francés</option><option value="de">🇩🇪 Alemán</option><option value="pt">🇧🇷 Portugués</option><option value="ru" selected>🇷🇺 Ruso</option><option value="ko">🇰🇷 Coreano</option></select></div>
+<div class="grid grid-cols-2 gap-2 mt-2"><button id="bLiveES" class="bg-red-600 rounded-2xl py-3 text-[10px] font-black">🔴 TÚ: ES→PROVEEDOR OFF</button><button id="bLiveOther" class="bg-zinc-800 rounded-2xl py-3 text-[10px] font-bold">🔵 PROVEEDOR→ES OFF</button></div>
+<button id="bTalk" class="w-full mt-2 bg-blue-600 rounded-full py-3 font-black text-[12px]">🎙️ APLASTA, SUELTA Y HABLA</button>
+<button id="bColgar" class="w-full mt-2 bg-zinc-800 border border-red-500 rounded-full py-3 text-[11px] font-bold">📴 COLGAR / APAGAR CÁMARA</button>
+<div class="mt-2 bg-[#111] rounded-2xl p-2 border border-zinc-800"><div id="chat" class="max-h-[150px] overflow-y-auto space-y-1 text-[11px] p-1"></div><div class="flex gap-2 mt-2"><input id="inp" placeholder="Escribe y traduce" class="flex-1 bg-black border border-blue-500/30 rounded-full px-4 py-2 text-[11px] outline-none"><button id="bSend" class="bg-yellow-400 text-black px-4 rounded-full font-black text-[11px]">Enviar</button></div></div>
 <div id="adZone" class="mt-2 bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-center"><p class="text-[8px] text-zinc-500">Publicidad se quita con Premium</p><div class="text-[9px]">PON_AQUI_TU_CODIGO_ADSTERRA</div></div>
-
-<div class="mt-2 bg-yellow-400 text-black rounded-2xl p-2 text-center"><p class="font-black text-[11px]">Premium Sin Anuncios + Llamada Viceversa Ilimitada</p><div class="grid grid-cols-2 gap-2 mt-2"><a href="https://www.paypal.com/paypalme/jcvtraductor/10" class="bg-black text-yellow-400 rounded-xl p-2"><p class="font-black">$10</p><p class="text-[8px] text-white">MES</p></a><a href="https://www.paypal.com/paypalme/jcvtraductor/80" class="bg-black text-yellow-400 rounded-xl p-2 border border-yellow-300"><p class="font-black">$80</p><p class="text-[8px] text-white">AÑO -33%</p></a></div></div>
-
-<div id="adOverlay" class="hidden fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"><div class="bg-white text-black rounded-2xl p-4 w-full max-w-[300px] text-center"><p class="font-black text-[13px]">😤 ¿Anuncios?</p><div class="bg-zinc-100 rounded-xl p-2 mt-2 text-[9px]">PON_AQUI_TU_CODIGO_INTERSTITIAL</div><div class="grid grid-cols-2 gap-2 mt-3"><a href="https://www.paypal.com/paypalme/jcvtraductor/10" class="bg-black text-yellow-400 rounded-xl py-2 font-black text-[11px]">$10/MES</a><a href="https://www.paypal.com/paypalme/jcvtraductor/80" class="bg-yellow-400 text-black rounded-xl py-2 font-black text-[11px]">$80/AÑO</a></div><button id="closeAd" class="mt-2 text-[10px] underline">Seguir gratis</button></div></div>
-
+<div class="mt-2 bg-yellow-400 text-black rounded-2xl p-2 text-center"><p class="font-black text-[11px]">Premium Sin Anuncios</p><div class="grid grid-cols-2 gap-2 mt-2"><a href="https://www.paypal.com/paypalme/jcvtraductor/10" class="bg-black text-yellow-400 rounded-xl p-2"><p class="font-black">$10</p><p class="text-[8px] text-white">MES</p></a><a href="https://www.paypal.com/paypalme/jcvtraductor/80" class="bg-black text-yellow-400 rounded-xl p-2"><p class="font-black">$80</p><p class="text-[8px] text-white">AÑO</p></a></div></div>
 </div>
 <script>
-let stream=null, liveES=false, liveOT=false, recES=null, recOT=null, tCount=0;
+let stream=null, liveES=false, liveOT=false, recES=null, recOT=null;
 const v=document.getElementById('me'), btn=document.getElementById('btnStart'), off=document.getElementById('off'), chat=document.getElementById('chat');
 const mapLang={en:'en-US',zh:'zh-CN',ja:'ja-JP',ar:'ar-SA',hi:'hi-IN',fr:'fr-FR',de:'de-DE',pt:'pt-BR',ru:'ru-RU',ko:'ko-KR'};
 const mapFlag={en:'🇺🇸 USA',zh:'🇨🇳 CN',ja:'🇯🇵 JP',ar:'🇸🇦 SA',hi:'🇮🇳 IN',fr:'🇫🇷 FR',de:'🇩🇪 DE',pt:'🇧🇷 BR',ru:'🇷🇺 RU',ko:'🇰🇷 KR'};
-
 async function start(){ try{ stream=await navigator.mediaDevices.getUserMedia({video:true,audio:true}); v.srcObject=stream; btn.classList.add('hidden'); off.classList.add('hidden'); }catch(e){ alert("Permite cámara y mic 🔒"); } }
 btn.addEventListener('click', start);
+document.getElementById('bColgar').addEventListener('click', ()=>{ if(stream){ stream.getTracks().forEach(t=>t.stop()); stream=null; } v.srcObject=null; off.classList.remove('hidden'); off.innerHTML='<p class="text-[11px]">📴 Llamada terminada</p>'; btn.classList.remove('hidden'); btn.innerText='📹 INICIAR DE NUEVO'; });
 document.getElementById('targetLang').addEventListener('change', e=>{ document.getElementById('remoteLabel').innerText='Proveedor '+mapFlag[e.target.value]; });
-
 async function trad(t,from,to){ try{ const r=await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(t)}&langpair=${from}|${to}`); const d=await r.json(); return d.responseData.translatedText; }catch{ return t; } }
-function speak(t,langCode){ speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(t); u.lang=langCode; u.rate=0.95; speechSynthesis.speak(u); }
-
-async function showEStoOther(txt){
-  const to=document.getElementById('targetLang').value;
-  chat.innerHTML+=`<div class="bg-blue-600/20 rounded-xl p-2"><b>Tú ES:</b> ${txt}</div>`;
-  const res=await trad(txt,'es',to);
-  chat.innerHTML+=`<div class="bg-green-600/20 rounded-xl p-2"><b>Para ${to.toUpperCase()}:</b> ${res} 🔊</div>`;
-  chat.scrollTop=chat.scrollHeight; speak(res,mapLang[to]);
-  countAd();
-}
-async function showOtherToES(txt){
-  const from=document.getElementById('targetLang').value;
-  chat.innerHTML+=`<div class="bg-zinc-700 rounded-xl p-2"><b>Proveedor ${from.toUpperCase()}:</b> ${txt}</div>`;
-  const res=await trad(txt,from,'es');
-  chat.innerHTML+=`<div class="bg-yellow-500/20 rounded-xl p-2"><b>Tú ES:</b> ${res} 🔊</div>`;
-  chat.scrollTop=chat.scrollHeight; speak(res,'es-MX');
-  countAd();
-}
-function countAd(){ tCount++; if(tCount%3==0) document.getElementById('adOverlay').classList.remove('hidden'); }
-
-// VICEVERSA 1: Tú hablas español y se traduce al proveedor
-document.getElementById('bLiveES').addEventListener('click', ()=>{
-  const SR=window.SpeechRecognition||window.webkitSpeechRecognition; if(!SR){ alert("Usa Chrome"); return; }
-  if(liveES){ recES.stop(); liveES=false; document.getElementById('bLiveES').innerText='🔴 TÚ: ES→PROVEEDOR OFF'; document.getElementById('bLiveES').className='bg-zinc-800 rounded-2xl py-3 text-[10px] font-bold'; return; }
-  recES=new SR(); recES.lang='es-MX'; recES.continuous=true; recES.interimResults=true;
-  recES.onstart=()=>{ liveES=true; document.getElementById('bLiveES').innerText='🟢 TÚ: TRADUCIENDO A '+document.getElementById('targetLang').value.toUpperCase(); document.getElementById('bLiveES').className='bg-green-600 rounded-2xl py-3 text-[10px] font-black animate-pulse'; };
-  recES.onend=()=>{ if(liveES) recES.start(); };
-  recES.onresult=e=>{ const last=e.results[e.results.length-1]; if(last.isFinal){ const txt=last[0].transcript.trim(); if(txt.length>2) showEStoOther(txt); } };
-  recES.start();
-});
-
-// VICEVERSA 2: Proveedor habla en su idioma y te traduce a español
-document.getElementById('bLiveOther').addEventListener('click', ()=>{
-  const SR=window.SpeechRecognition||window.webkitSpeechRecognition; if(!SR){ alert("Usa Chrome"); return; }
-  if(liveOT){ recOT.stop(); liveOT=false; document.getElementById('bLiveOther').innerText='🔵 PROVEEDOR→ES OFF'; document.getElementById('bLiveOther').className='bg-zinc-800 rounded-2xl py-3 text-[10px] font-bold'; return; }
-  const to=document.getElementById('targetLang').value;
-  recOT=new SR(); recOT.lang=mapLang[to]||'en-US'; recOT.continuous=true; recOT.interimResults=true;
-  recOT.onstart=()=>{ liveOT=true; document.getElementById('bLiveOther').innerText='🟢 PROVEEDOR: ESCUCHANDO '+to.toUpperCase()+'→ES'; document.getElementById('bLiveOther').className='bg-blue-600 rounded-2xl py-3 text-[10px] font-black animate-pulse'; };
-  recOT.onend=()=>{ if(liveOT) recOT.start(); };
-  recOT.onresult=e=>{ const last=e.results[e.results.length-1]; if(last.isFinal){ const txt=last[0].transcript.trim(); if(txt.length>2) showOtherToES(txt); } };
-  recOT.start();
-});
-
-// Botón manual aplasta suelta
-document.getElementById('bTalk').addEventListener('click', ()=>{
-  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-  const rec=new SR(); rec.lang='es-MX'; rec.onresult=e=>showEStoOther(e.results[0][0].transcript); rec.start();
-});
+function speak(t,langCode){ speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(t); u.lang=langCode; u.volume=1; u.rate=0.95; const voices=speechSynthesis.getVoices(); const vv=voices.find(v=>v.lang==langCode) || voices.find(v=>v.lang.startsWith(langCode.split('-')[0])) || voices[0]; if(vv) u.voice=vv; speechSynthesis.speak(u); }
+window.speechSynthesis.onvoiceschanged=()=>{ speechSynthesis.getVoices(); };
+async function showEStoOther(txt){ const to=document.getElementById('targetLang').value; chat.innerHTML+=`<div class="bg-blue-600/20 rounded-xl p-2"><b>Tú ES:</b> ${txt}</div>`; const res=await trad(txt,'es',to); chat.innerHTML+=`<div class="bg-green-600/20 rounded-xl p-2"><b>Para ${to.toUpperCase()}:</b> ${res} <button onclick="speak('${res.replace(/'/g,"\\'")}','${mapLang[to]}')" >🔊</button></div>`; chat.scrollTop=chat.scrollHeight; speak(res,mapLang[to]); }
+async function showOtherToES(txt){ const from=document.getElementById('targetLang').value; chat.innerHTML+=`<div class="bg-zinc-700 rounded-xl p-2"><b>Proveedor ${from.toUpperCase()}:</b> ${txt}</div>`; const res=await trad(txt,from,'es'); chat.innerHTML+=`<div class="bg-yellow-500/20 rounded-xl p-2"><b>Tú ES:</b> ${res}</div>`; chat.scrollTop=chat.scrollHeight; speak(res,'es-MX'); }
+document.getElementById('bLiveES').addEventListener('click', ()=>{ const SR=window.SpeechRecognition||window.webkitSpeechRecognition; if(!SR){ alert("Usa Chrome"); return; } if(liveES){ recES.stop(); liveES=false; document.getElementById('bLiveES').innerText='🔴 TÚ: ES→PROVEEDOR OFF'; document.getElementById('bLiveES').className='bg-zinc-800 rounded-2xl py-3 text-[10px] font-bold'; return; } recES=new SR(); recES.lang='es-MX'; recES.continuous=true; recES.interimResults=true; recES.onstart=()=>{ liveES=true; document.getElementById('bLiveES').innerText='🟢 TRADUCIENDO A '+document.getElementById('targetLang').value.toUpperCase(); document.getElementById('bLiveES').className='bg-green-600 rounded-2xl py-3 text-[10px] font-black animate-pulse'; }; recES.onend=()=>{ if(liveES) recES.start(); }; recES.onresult=e=>{ const last=e.results[e.results.length-1]; if(last.isFinal){ const txt=last[0].transcript.trim(); if(txt.length>2) showEStoOther(txt); } }; recES.start(); });
+document.getElementById('bLiveOther').addEventListener('click', ()=>{ const SR=window.SpeechRecognition||window.webkitSpeechRecognition; if(!SR){ alert("Usa Chrome"); return; } if(liveOT){ recOT.stop(); liveOT=false; document.getElementById('bLiveOther').innerText='🔵 PROVEEDOR→ES OFF'; document.getElementById('bLiveOther').className='bg-zinc-800 rounded-2xl py-3 text-[10px] font-bold'; return; } const to=document.getElementById('targetLang').value; recOT=new SR(); recOT.lang=mapLang[to]||'en-US'; recOT.continuous=true; recOT.interimResults=true; recOT.onstart=()=>{ liveOT=true; document.getElementById('bLiveOther').innerText='🟢 PROVEEDOR: '+to.toUpperCase()+'→ES'; document.getElementById('bLiveOther').className='bg-blue-600 rounded-2xl py-3 text-[10px] font-black animate-pulse'; }; recOT.onend=()=>{ if(liveOT) recOT.start(); }; recOT.onresult=e=>{ const last=e.results[e.results.length-1]; if(last.isFinal){ const txt=last[0].transcript.trim(); if(txt.length>2) showOtherToES(txt); } }; recOT.start(); });
+document.getElementById('bTalk').addEventListener('click', ()=>{ const SR=window.SpeechRecognition||window.webkitSpeechRecognition; const rec=new SR(); rec.lang='es-MX'; rec.onresult=e=>showEStoOther(e.results[0][0].transcript); rec.start(); });
 document.getElementById('bSend').addEventListener('click', ()=>{ const i=document.getElementById('inp'); if(i.value.trim()){ showEStoOther(i.value.trim()); i.value=''; } });
-document.getElementById('closeAd').addEventListener('click', ()=>document.getElementById('adOverlay').classList.add('hidden'));
 </script></body></html>
