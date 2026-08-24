@@ -40,3 +40,15 @@ class JCV_EMPIRE_CORE_v21:
 # Instancia global blindada
 IMPERIO = JCV_EMPIRE_CORE_v21()
 print(IMPERIO.estado())
+
+from fastapi import FastAPI
+from fastapi.responses import Response
+app = FastAPI()
+
+@app.get("/sitemap.xml")
+def sitemap():
+    xml = """<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://jcv-traductor.vercel.app/</loc></url>
+</urlset>"""
+    return Response(content=xml, media_type="application/xml")
