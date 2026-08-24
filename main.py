@@ -5,6 +5,8 @@
 
 import os
 import random
+from fastapi import FastAPI
+from fastapi.responses import Response, HTMLResponse
 
 # === FUSION 5 MOTORS ===
 class JCV_AI_Fusion5:
@@ -13,7 +15,6 @@ class JCV_AI_Fusion5:
         self.activo = "Suno"
     
     def generar(self, prompt, style):
-        # Conexion a Suno API real via generate.py
         return {"prompt": prompt, "style": style, "motor": self.activo}
 
 # === MULTI IDIOMA ===
@@ -37,18 +38,19 @@ class JCV_EMPIRE_CORE_v21:
     def estado(self):
         return f"IMPERIO {self.version} - Dueño: {self.dueno} - HASH: {self.hash_blindaje} - ACTIVO"
 
-# Instancia global blindada
 IMPERIO = JCV_EMPIRE_CORE_v21()
-print(IMPERIO.estado())
 
-from fastapi import FastAPI
-from fastapi.responses import Response
-app = FastAPI()
+app = FastAPI(title="JCV Imperio")
+
+@app.get("/", response_class=HTMLResponse)
+def home():
+    return f"<h1>{IMPERIO.estado()}</h1><p>TRADUCTOR + MUSICA - IMPERIO BLINDADO</p><a href='/sitemap.xml'>Sitemap</a>"
 
 @app.get("/sitemap.xml")
 def sitemap():
     xml = """<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://jcv-traductor.vercel.app/</loc></url>
+  <url><loc>https://jcv-traductor.vercel.app/sitemap.xml</loc></url>
 </urlset>"""
     return Response(content=xml, media_type="application/xml")
