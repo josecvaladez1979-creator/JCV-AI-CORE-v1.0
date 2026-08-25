@@ -50,7 +50,13 @@ def home():
 def sitemap():
     xml = """<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://jcv-traductor.vercel.app/</loc></url>
-  <url><loc>https://jcv-traductor.vercel.app/sitemap.xml</loc></url>
+<url><loc>https://jcv-traductor.vercel.app/</loc><priority>1.0</priority></url>
 </urlset>"""
     return Response(content=xml, media_type="application/xml")
+
+@app.get("/robots.txt")
+def robots():
+    txt = """User-agent: *
+Allow: /
+Sitemap: https://jcv-traductor.vercel.app/sitemap.xml"""
+    return Response(content=txt, media_type="text/plain")
