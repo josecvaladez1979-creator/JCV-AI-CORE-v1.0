@@ -1,29 +1,108 @@
-<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>JCV-TRADUCTOR FULL</title><script src="https://cdn.tailwindcss.com"></script><script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script></head>
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>JCV TRADUCTOR v2.1</title><script src="https://cdn.tailwindcss.com"></script><script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script></head>
 <body class="bg-black text-white flex justify-center p-2">
 <div class="w-full max-w-[390px]">
 <div class="text-center"><p class="font-black text-blue-600 tracking-[5px] text-[28px]">JCV</p><p class="font-black tracking-[6px] text-[18px]">TRADUCTOR</p><p class="text-[9px] text-zinc-500">v2.1 FULL - 45 IDIOMAS + VIDEO REAL DUEÑO</p></div>
-<div class="relative rounded-[22px] overflow-hidden bg-zinc-900 border-2 border-blue-600 h-[320px] mt-2"><video id="me" autoplay muted playsinline class="w-full h-full object-cover"></video><video id="remoteVideo" autoplay playsinline class="absolute inset-0 w-full h-full object-cover hidden"></video><div id="off" class="absolute inset-0 bg-zinc-900 flex items-center justify-center"><p class="text-[11px] text-zinc-500">Toca INICIAR DUEÑO</p></div><span class="absolute bottom-2 left-2 bg-blue-600 px-2 py-1 rounded-full text-[9px] font-bold">Tú MX 🇲🇽</span><span id="remoteLabel" class="absolute bottom-2 right-2 bg-green-600 px-2 py-1 rounded-full text-[9px] font-bold">Proveedor</span><button id="btnStart" class="absolute inset-0 m-auto w-[210px] h-[55px] bg-blue-600 rounded-full font-black text-[12px]">📹 INICIAR CÁMARA Y MIC</button></div>
-<div class="bg-zinc-900 rounded-2xl p-2 mt-2 border border-zinc-800"><p class="text-[7px] text-zinc-500 text-center">Tu ID Mundial (pásalo al proveedor)</p><div class="flex gap-1 mt-1"><input id="myId" readonly class="flex-1 bg-black border border-zinc-700 rounded-full px-2 py-1 text-[9px]"><button id="copyId" class="bg-zinc-700 rounded-full px-2 text-[9px]">Copiar</button></div>
-<select id="targetLang" class="w-full mt-2 bg-black border border-blue-500 rounded-full px-3 py-2 text-[12px] font-bold outline-none"><option value="en">🇺🇸 Inglés</option><option value="zh">🇨🇳 Chino</option><option value="ja">🇯🇵 Japonés</option><option value="ko">🇰🇷 Coreano</option><option value="ru" selected>🇷🇺 Ruso</option><option value="ar">🇸🇦 Árabe</option><option value="hi">🇮🇳 Hindi</option><option value="fr">🇫🇷 Francés</option><option value="de">🇩🇪 Alemán</option><option value="pt">🇧🇷 Portugués</option><option value="it">🇮🇹 Italiano</option><option value="es">🇲🇽 Español</option><option value="tr">🇹🇷 Turco</option><option value="vi">🇻🇳 Vietnamita</option><option value="th">🇹🇭 Tailandés</option><option value="pl">🇵🇱 Polaco</option><option value="nl">🇳🇱 Holandés</option><option value="id">🇮🇩 Indonesio</option><option value="ms">🇲🇾 Malayo</option><option value="fa">🇮🇷 Persa</option><option value="he">🇮🇱 Hebreo</option><option value="el">🇬🇷 Griego</option><option value="uk">🇺🇦 Ucraniano</option><option value="ro">🇷🇴 Rumano</option><option value="hu">🇭🇺 Húngaro</option><option value="cs">🇨🇿 Checo</option><option value="sv">🇸🇪 Sueco</option><option value="fi">🇫🇮 Finlandés</option><option value="no">🇳🇴 Noruego</option><option value="da">🇩🇰 Danés</option><option value="bn">🇧🇩 Bengalí</option><option value="ur">🇵🇰 Urdu</option><option value="ta">🇮🇳 Tamil</option><option value="te">🇮🇳 Telugu</option><option value="my">🇲🇲 Birmano</option><option value="sw">🇹🇿 Suajili</option><option value="km">🇰🇭 Jemer</option><option value="ne">🇳🇵 Nepalí</option><option value="am">🇪🇹 Amárico</option><option value="fa">🇮🇷 Persa</option></select></div>
-<div class="grid grid-cols-2 gap-2 mt-2"><button id="bLiveES" class="bg-red-600 rounded-2xl py-3 text-[10px] font-black">🔴 TÚ: ES→MUNDO OFF</button><button id="bLiveOther" class="bg-zinc-800 rounded-2xl py-3 text-[10px] font-bold">🔵 MUNDO→ES OFF</button></div>
+
+<!-- VIDEO igual que tu foto -->
+<div class="relative rounded-[22px] overflow-hidden bg-zinc-900 border-2 border-blue-600 h-[320px] mt-2">
+<video id="me" autoplay muted playsinline class="w-full h-full object-cover"></video>
+<video id="remoteVideo" autoplay playsinline class="absolute inset-0 w-full h-full object-cover hidden"></video>
+<div id="off" class="absolute inset-0 bg-zinc-900 flex items-center justify-center"><p class="text-[11px] text-zinc-500">Toca INICIAR</p></div>
+<span class="absolute bottom-2 left-2 bg-blue-600 px-2 py-1 rounded-full text-[9px] font-bold">Tú MX 🇲🇽</span>
+<span class="absolute bottom-2 right-2 bg-green-600 px-2 py-1 rounded-full text-[9px] font-bold">Proveedor</span>
+<button id="btnStart" class="absolute inset-0 m-auto w-[210px] h-[55px] bg-blue-600 rounded-full font-black text-[12px]">📹 INICIAR CÁMARA Y MIC</button>
+</div>
+
+<!-- ID MUNDIAL + SELECTOR igual que tu foto -->
+<div class="bg-zinc-900 rounded-2xl p-2 mt-2 border border-zinc-800">
+<div class="flex gap-1"><input id="myId" readonly class="flex-1 bg-black border border-zinc-700 rounded-full px-3 py-1 text-[10px]"><button id="copyId" class="bg-zinc-700 rounded-full px-3 text-[10px]">Copiar</button></div>
+<select id="targetLang" class="w-full mt-2 bg-black border border-blue-500 rounded-full px-3 py-2 text-[12px] font-bold outline-none">
+<option value="ru" selected>🇷🇺 Ruso</option><option value="en">🇺🇸 Ingles</option><option value="zh">🇨🇳 Chino</option><option value="ja">🇯🇵 Japones</option><option value="ar">🇸🇦 Arabe</option><option value="es">🇲🇽 Español</option>
+</select>
+</div>
+
+<div class="grid grid-cols-2 gap-2 mt-2"><button id="bLiveES" class="bg-red-600 rounded-2xl py-3 text-[10px] font-black">🔴 TÚ: ES → MUNDO OFF</button><button id="bLiveOther" class="bg-zinc-800 rounded-2xl py-3 text-[10px] font-bold">🔵 MUNDO → ES OFF</button></div>
 <button id="bTalk" class="w-full mt-2 bg-blue-600 rounded-full py-3 font-black text-[12px]">🎙️ APLASTA, SUELTA Y HABLA</button>
 <button id="bColgar" class="w-full mt-2 bg-zinc-800 border border-red-500 rounded-full py-3 text-[11px] font-bold">📴 COLGAR / APAGAR CÁMARA</button>
+
 <div class="mt-2 bg-[#111] rounded-2xl p-2 border border-zinc-800"><div id="chat" class="max-h-[150px] overflow-y-auto space-y-1 text-[11px] p-1"></div><div class="flex gap-2 mt-2"><input id="inp" placeholder="Escribe y traduce" class="flex-1 bg-black border border-blue-500/30 rounded-full px-4 py-2 text-[11px] outline-none"><button id="bSend" class="bg-yellow-400 text-black px-4 rounded-full font-black text-[11px]">Enviar</button></div></div>
+
+<!-- MONETIZACION DUEÑO -->
+<div class="mt-2 text-center text-[8px] text-zinc-500">Prueba 5 días gratis. Después $10 USD/mes o $90 USD/año</div>
 </div>
+
+<!-- POPUP REGISTRO + PAGO - ESTA ES LA MONETIZACION DUEÑO -->
+<div id="paywall" class="fixed inset-0 bg-black/90 z-[999] hidden flex items-center justify-center p-4">
+<div class="bg-zinc-900 border-2 border-blue-600 rounded-[20px] p-5 w-full max-w-[340px] text-center">
+<p class="font-black text-[18px]">JCV TRADUCTOR PRO DUEÑO</p>
+<p id="payMsg" class="text-[11px] text-zinc-400 mt-2">Regístrate para activar tus 5 días gratis DUEÑO en texto, voz y video llamadas</p>
+<input id="regMail" placeholder="Tu correo electrónico" class="w-full mt-3 bg-black border border-zinc-700 rounded-full px-4 py-2 text-[12px]">
+<input id="regWA" placeholder="Tu WhatsApp con lada ej: +52 1..." class="w-full mt-2 bg-black border border-zinc-700 rounded-full px-4 py-2 text-[12px]">
+<button id="bReg" class="w-full mt-3 bg-blue-600 rounded-full py-3 font-black text-[12px]">✅ ACTIVAR 5 DÍAS GRATIS</button>
+<div id="payBtns" class="hidden">
+<p class="text-[10px] text-red-400 mt-3 font-bold">Tu prueba terminó DUEÑO. Elige plan para seguir:</p>
+<a id="pay10" href="https://www.paypal.com/paypalme/TUUSUARIO/10" target="_blank" class="block mt-2 bg-yellow-400 text-black rounded-full py-3 font-black text-[12px]">💳 PAGAR $10 USD MES</a>
+<a id="pay90" href="https://www.paypal.com/paypalme/TUUSUARIO/90" target="_blank" class="block mt-2 bg-white text-black rounded-full py-3 font-black text-[12px]">🔥 PAGAR $90 USD AÑO (ahorra)</a>
+<p class="text-[9px] text-zinc-500 mt-2">Después de pagar manda comprobante a tu WhatsApp para activar</p>
+</div>
+</div>
+</div>
+
 <script>
-let stream=null, liveES=false, liveOT=false, recES=null, recOT=null, peer=null, currentCall=null;
-const v=document.getElementById('me'), remoteV=document.getElementById('remoteVideo'), off=document.getElementById('off'), btn=document.getElementById('btnStart'), chat=document.getElementById('chat');
-const mapLang={en:'en-US',zh:'zh-CN',ja:'ja-JP',ko:'ko-KR',ru:'ru-RU',ar:'ar-SA',hi:'hi-IN',fr:'fr-FR',de:'de-DE',pt:'pt-BR',it:'it-IT',es:'es-MX',tr:'tr-TR',vi:'vi-VN',th:'th-TH',pl:'pl-PL',nl:'nl-NL',id:'id-ID',ms:'ms-MY',fa:'fa-IR',he:'he-IL',el:'el-GR',uk:'uk-UA',ro:'ro-RO',hu:'hu-HU',cs:'cs-CZ',sv:'sv-SE',fi:'fi-FI',no:'no-NO',da:'da-DK',bn:'bn-BD',ur:'ur-PK',ta:'ta-IN',te:'te-IN',my:'my-MM',sw:'sw-KE',km:'km-KH',ne:'ne-NP',am:'am-ET'};
-peer=new Peer('jcv-'+Math.floor(Math.random()*90000+10000)); peer.on('open',id=>{document.getElementById('myId').value=id;}); peer.on('call',async c=>{ if(!stream) stream=await navigator.mediaDevices.getUserMedia({video:true,audio:true}); v.srcObject=stream; off.classList.add('hidden'); btn.classList.add('hidden'); c.answer(stream); currentCall=c; c.on('stream',rs=>{remoteV.srcObject=rs; remoteV.classList.remove('hidden');}); });
-async function start(){ try{ stream=await navigator.mediaDevices.getUserMedia({video:true,audio:true}); v.srcObject=stream; off.classList.add('hidden'); btn.classList.add('hidden'); const pid=document.getElementById('peerId')?.value; }catch(e){alert("Permite cámara Dueño");} } btn.addEventListener('click', start);
-document.getElementById('copyId').addEventListener('click',()=>{navigator.clipboard.writeText(document.getElementById('myId').value); alert("ID copiado Dueño - pásalo al proveedor");});
-document.getElementById('bColgar').addEventListener('click',()=>{ if(stream){stream.getTracks().forEach(t=>t.stop()); stream=null;} if(currentCall) currentCall.close(); v.srcObject=null; remoteV.classList.add('hidden'); off.classList.remove('hidden'); btn.classList.remove('hidden');});
-async function trad(t,f,to){ try{ const r=await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(t)}&langpair=${f}|${to}`); const d=await r.json(); return d.responseData.translatedText; }catch{return t;} }
-function speak(t,lc){ speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(t); u.lang=lc; u.rate=0.95; const vs=speechSynthesis.getVoices(); const vv=vs.find(v=>v.lang==lc)||vs.find(v=>v.lang.startsWith(lc.split('-')[0])); if(vv) u.voice=vv; speechSynthesis.speak(u); }
-async function showEStoOther(txt){ const to=document.getElementById('targetLang').value; chat.innerHTML+=`<div class="bg-blue-600/20 rounded-xl p-2"><b>Tú ES:</b> ${txt}</div>`; const res=await trad(txt,'es',to); chat.innerHTML+=`<div class="bg-green-600/20 rounded-xl p-2"><b>${to.toUpperCase()}:</b> ${res} <button onclick="speak('${res.replace(/'/g,"\\'")}','${mapLang[to]}')">🔊</button></div>`; chat.scrollTop=chat.scrollHeight; speak(res,mapLang[to]); }
-async function showOtherToES(txt){ const from=document.getElementById('targetLang').value; chat.innerHTML+=`<div class="bg-zinc-700 rounded-xl p-2"><b>${from.toUpperCase()}:</b> ${txt}</div>`; const res=await trad(txt,from,'es'); chat.innerHTML+=`<div class="bg-yellow-500/20 rounded-xl p-2"><b>ES:</b> ${res}</div>`; chat.scrollTop=chat.scrollHeight; speak(res,'es-MX'); }
-document.getElementById('bLiveES').addEventListener('click',()=>{ const SR=window.SpeechRecognition||window.webkitSpeechRecognition; if(liveES){recES.stop(); liveES=false; document.getElementById('bLiveES').innerText='🔴 TÚ: ES→MUNDO OFF'; return;} recES=new SR(); recES.lang='es-MX'; recES.continuous=true; recES.interimResults=false; recES.onstart=()=>{liveES=true; document.getElementById('bLiveES').innerText='🟢 TRADUCIENDO A '+document.getElementById('targetLang').value.toUpperCase();}; recES.onend=()=>{if(liveES) recES.start();}; recES.onresult=e=>{const txt=e.results[e.results.length-1][0].transcript.trim(); if(txt.length>2) showEStoOther(txt);}; recES.start();});
-document.getElementById('bLiveOther').addEventListener('click',()=>{ const SR=window.SpeechRecognition||window.webkitSpeechRecognition; const to=document.getElementById('targetLang').value; if(liveOT){recOT.stop(); liveOT=false; document.getElementById('bLiveOther').innerText='🔵 MUNDO→ES OFF'; return;} recOT=new SR(); recOT.lang=mapLang[to]||'en-US'; recOT.continuous=true; recOT.interimResults=false; recOT.onstart=()=>{liveOT=true; document.getElementById('bLiveOther').innerText='🟢 '+to.toUpperCase()+'→ES';}; recOT.onend=()=>{if(liveOT) recOT.start();}; recOT.onresult=e=>{const txt=e.results[e.results.length-1][0].transcript.trim(); if(txt.length>2) showOtherToES(txt);}; recOT.start();});
-document.getElementById('bTalk').addEventListener('click',()=>{ const SR=window.SpeechRecognition||window.webkitSpeechRecognition; const rec=new SR(); rec.lang='es-MX'; rec.onresult=e=>showEStoOther(e.results[0][0].transcript); rec.start();});
-document.getElementById('bSend').addEventListener('click',()=>{ const i=document.getElementById('inp'); if(i.value.trim()){showEStoOther(i.value.trim()); i.value='';}});
+// === LOGICA MONETIZACION DUEÑO - 5 DIAS GRATIS ===
+let trialStart = localStorage.getItem('jcv_trial');
+let userEmail = localStorage.getItem('jcv_mail');
+let isPro = localStorage.getItem('jcv_pro')==='1';
+if(!trialStart){ document.getElementById('paywall').classList.remove('hidden'); }
+else {
+  let days = (Date.now() - parseInt(trialStart)) / (1000*60*60*24);
+  if(days > 5 &&!isPro){
+    document.getElementById('paywall').classList.remove('hidden');
+    document.getElementById('payMsg').innerHTML="Se acabaron tus 5 días gratis DUEÑO. Para seguir usando texto + aplasta y habla + video llamadas paga DUEÑO";
+    document.getElementById('bReg').classList.add('hidden');
+    document.getElementById('payBtns').classList.remove('hidden');
+  }
+}
+document.getElementById('bReg').addEventListener('click',()=>{
+  let m=document.getElementById('regMail').value;
+  let w=document.getElementById('regWA').value;
+  if(m.length<5 || w.length<8){ alert('Pon correo y WhatsApp DUEÑO'); return; }
+  localStorage.setItem('jcv_mail',m); localStorage.setItem('jcv_wa',w);
+  localStorage.setItem('jcv_trial', Date.now().toString());
+  // Aquí DUEÑO puedes mandar a tu Google Sheet / WhatsApp API
+  // fetch('https://api.tu-backend.com/registro?mail='+m+'&wa='+w)
+  document.getElementById('paywall').classList.add('hidden');
+  alert('¡Activado 5 días gratis DUEÑO!');
+});
+function checkPro(){
+  let trialStart = localStorage.getItem('jcv_trial');
+  if(!trialStart) return false;
+  let days = (Date.now() - parseInt(trialStart))/(1000*60*60*24);
+  if(days>5 && localStorage.getItem('jcv_pro')!=='1'){
+    document.getElementById('paywall').classList.remove('hidden');
+    document.getElementById('bReg').classList.add('hidden');
+    document.getElementById('payBtns').classList.remove('hidden');
+    return false;
+  }
+  return true;
+}
+
+// === TU LOGICA ORIGINAL VIDEO + TRADUCTOR DUEÑO ===
+let stream=null,liveES=false,liveOT=false,recES=null,recOT=null,peer=null;
+const v=document.getElementById('me'),remoteV=document.getElementById('remoteVideo'),off=document.getElementById('off'),btn=document.getElementById('btnStart'),chat=document.getElementById('chat');
+const mapLang={en:'en-US',zh:'zh-CN',ja:'ja-JP',ko:'ko-KR',ru:'ru-RU',ar:'ar-SA',hi:'hi-IN',fr:'fr-FR',de:'de-DE',pt:'pt-BR',it:'it-IT',es:'es-MX',tr:'tr-TR',vi:'vi-VN'};
+peer=new Peer('jcv-'+Math.floor(Math.random()*90000+10000)); peer.on('open',id=>{document.getElementById('myId').value=id;});
+peer.on('call',async c=>{ if(!checkPro()) return; if(!stream)stream=await navigator.mediaDevices.getUserMedia({video:true,audio:true}); v.srcObject=stream; off.classList.add('hidden'); btn.classList.add('hidden'); c.answer(stream); c.on('stream',rs=>{remoteV.srcObject=rs; remoteV.classList.remove('hidden');}); });
+async function start(){ if(!checkPro()) return; try{ stream=await navigator.mediaDevices.getUserMedia({video:true,audio:true}); v.srcObject=stream; off.classList.add('hidden'); btn.classList.add('hidden'); }catch(e){alert('Da permiso a cámara DUEÑO');} }
+btn.addEventListener('click',start);
+document.getElementById('copyId').addEventListener('click',()=>{ navigator.clipboard.writeText(document.getElementById('myId').value); alert('ID copiado DUEÑO'); });
+document.getElementById('bColgar').addEventListener('click',()=>{ if(stream)stream.getTracks().forEach(t=>t.stop()); v.srcObject=null; remoteV.classList.add('hidden'); off.classList.remove('hidden'); btn.classList.remove('hidden'); });
+async function trad(t,f,to){ try{ const r=await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(t)}&langpair=${f}|${to}`); const d=await r.json(); return d.responseData.translatedText; }catch{ return t; } }
+function speak(t,lc){ speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(t); u.lang=lc; u.rate=0.95; speechSynthesis.speak(u); }
+async function showEStoOther(txt){ if(!checkPro()) return; const to=document.getElementById('targetLang').value; chat.innerHTML+=`<div class="bg-blue-600/20 rounded-xl p-2"><b>ES:</b> ${txt}</div>`; const res=await trad(txt,'es',to); chat.innerHTML+=`<div class="bg-green-600/20 rounded-xl p-2"><b>${to}:</b> ${res}</div>`; speak(res,mapLang[to]); }
+async function showOtherToES(txt){ if(!checkPro()) return; const from=document.getElementById('targetLang').value; chat.innerHTML+=`<div class="bg-zinc-700 rounded-xl p-2"><b>${from}:</b> ${txt}</div>`; const res=await trad(txt,from,'es'); chat.innerHTML+=`<div class="bg-yellow-500/20 rounded-xl p-2"><b>ES:</b> ${res}</div>`; speak(res,'es-MX'); }
+document.getElementById('bLiveES').addEventListener('click',()=>{ if(!checkPro()) return; const SR=window.SpeechRecognition||window.webkitSpeechRecognition; if(liveES){recES.stop();liveES=false;return;} recES=new SR(); recES.lang='es-MX'; recES.continuous=true; recES.onresult=e=>{const txt=e.results[e.results.length-1][0].transcript; if(txt.length>2)showEStoOther(txt);}; recES.onend=()=>{if(liveES)recES.start();}; liveES=true; recES.start(); });
+document.getElementById('bLiveOther').addEventListener('click',()=>{ if(!checkPro()) return; const SR=window.SpeechRecognition||window.webkitSpeechRecognition; const to=document.getElementById('targetLang').value; if(liveOT){recOT.stop();liveOT=false;return;} recOT=new SR(); recOT.lang=mapLang[to]; recOT.continuous=true; recOT.onresult=e=>{const txt=e.results[e.results.length-1][0].transcript; if(txt.length>2)showOtherToES(txt);}; recOT.onend=()=>{if(liveOT)recOT.start();}; liveOT=true; recOT.start(); });
+document.getElementById('bTalk').addEventListener('click',()=>{ if(!checkPro()) return; const SR=window.SpeechRecognition||window.webkitSpeechRecognition; const rec=new SR(); rec.lang='es-MX'; rec.onresult=e=>showEStoOther(e.results[0][0].transcript); rec.start(); });
+document.getElementById('bSend').addEventListener('click',()=>{ const i=document.getElementById('inp'); if(i.value.trim()){showEStoOther(i.value.trim()); i.value='';} });
 </script></body></html>
