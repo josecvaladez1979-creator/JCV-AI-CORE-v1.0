@@ -1,108 +1,65 @@
-<!DOCTYPE html><html lang="es"><head><link rel="manifest"href="/manifest.json"><meta name="theme-color"content="#2563eb><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>JCV TRADUCTOR v2.1</title><script src="https://cdn.tailwindcss.com"></script><script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script></head>
-<body class="bg-black text-white flex justify-center p-2">"
+<!DOCTYPE html><html lang="es"><head><link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#2563eb"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>JCV TRADUCTOR V2.1</title><script src="https://cdn.tailwindcss.com"></script>
+<style>body{background:#000;color:#fff;font-family:system-ui}.active-red{background:#dc2626!important}.active-blue{background:#2563eb!important}.off{background:#27272a!important;color:#a1a1aa!important}</style>
+</head><body class="bg-black flex justify-center p-2 min-h-screen">
 <div class="w-full max-w-[390px]">
-<div class="text-center"><p class="font-black text-blue-600 tracking-[5px] text-[28px]">JCV</p><p class="font-black tracking-[6px] text-[18px]">TRADUCTOR</p><p class="text-[9px] text-zinc-500">v2.1 FULL - 45 IDIOMAS + VIDEO REAL DUEÑO</p></div>
+<div class="text-center mt-2"><span class="font-black text-blue-600 tracking-[5px] text-[26px]">JCV</span><span class="font-black tracking-[6px] text-[26px]"> TRADUCTOR</span><p class="text-[10px] text-zinc-500 tracking-[3px] mt-1">V2.1 FULL - 45 IDIOMAS + VIDEO REAL BUENO</p></div>
 
-<!-- VIDEO igual que tu foto -->
-<div class="relative rounded-[22px] overflow-hidden bg-zinc-900 border-2 border-blue-600 h-[320px] mt-2">
-<video id="me" autoplay muted playsinline class="w-full h-full object-cover"></video>
+<div class="rounded-[18px] border-2 border-blue-600 h-[380px] mt-3 relative bg-zinc-900 overflow-hidden">
+<video id="localVideo" autoplay muted playsinline class="w-full h-full object-cover"></video>
 <video id="remoteVideo" autoplay playsinline class="absolute inset-0 w-full h-full object-cover hidden"></video>
-<div id="off" class="absolute inset-0 bg-zinc-900 flex items-center justify-center"><p class="text-[11px] text-zinc-500">Toca INICIAR</p></div>
-<span class="absolute bottom-2 left-2 bg-blue-600 px-2 py-1 rounded-full text-[9px] font-bold">Tú MX 🇲🇽</span>
-<span class="absolute bottom-2 right-2 bg-green-600 px-2 py-1 rounded-full text-[9px] font-bold">Proveedor</span>
-<button id="btnStart" class="absolute inset-0 m-auto w-[210px] h-[55px] bg-blue-600 rounded-full font-black text-[12px]">📹 INICIAR CÁMARA Y MIC</button>
+<div id="overlay" class="absolute inset-0 flex flex-col items-center justify-center bg-zinc-900/90"><button id="btnIniciar" class="bg-blue-600 rounded-full px-8 py-4 font-black text-[14px]">📷 INICIAR CÁMARA Y MIC</button></div>
+<div class="absolute bottom-2 left-2 bg-blue-600 text-[11px] px-3 py-1 rounded-full font-bold">Tú MX 🇲🇽</div>
+<div class="absolute bottom-2 right-2 bg-green-600 text-[11px] px-3 py-1 rounded-full font-bold">Proveedor</div>
 </div>
 
-<!-- ID MUNDIAL + SELECTOR igual que tu foto -->
-<div class="bg-zinc-900 rounded-2xl p-2 mt-2 border border-zinc-800">
-<div class="flex gap-1"><input id="myId" readonly class="flex-1 bg-black border border-zinc-700 rounded-full px-3 py-1 text-[10px]"><button id="copyId" class="bg-zinc-700 rounded-full px-3 text-[10px]">Copiar</button></div>
-<select id="targetLang" class="w-full mt-2 bg-black border border-blue-500 rounded-full px-3 py-2 text-[12px] font-bold outline-none">
-<option value="ru" selected>🇷🇺 Ruso</option><option value="en">🇺🇸 Ingles</option><option value="zh">🇨🇳 Chino</option><option value="ja">🇯🇵 Japones</option><option value="ar">🇸🇦 Arabe</option><option value="es">🇲🇽 Español</option>
-</select>
+<div class="mt-3 flex gap-2 items-center">
+<input id="myId" type="tel" value="jcv-29172" placeholder="Número de celular o ID" class="w-full bg-black border border-zinc-700 rounded-full px-4 py-2.5 text-[14px] text-white tracking-wider placeholder-zinc-500 focus:border-blue-600 outline-none">
+<button onclick="navigator.clipboard.writeText(document.getElementById('myId').value);this.innerText='¡Copiado!';setTimeout(()=>this.innerText='Copiar',1500)" class="bg-zinc-800 rounded-full px-4 py-2 text-[13px] shrink-0">Copiar</button>
 </div>
 
-<div class="grid grid-cols-2 gap-2 mt-2"><button id="bLiveES" class="bg-red-600 rounded-2xl py-3 text-[10px] font-black">🔴 TÚ: ES → MUNDO OFF</button><button id="bLiveOther" class="bg-zinc-800 rounded-2xl py-3 text-[10px] font-bold">🔵 MUNDO → ES OFF</button></div>
-<button id="bTalk" class="w-full mt-2 bg-blue-600 rounded-full py-3 font-black text-[12px]">🎙️ APLASTA, SUELTA Y HABLA</button>
-<button id="bColgar" class="w-full mt-2 bg-zinc-800 border border-red-500 rounded-full py-3 text-[11px] font-bold">📴 COLGAR / APAGAR CÁMARA</button>
-
-<div class="mt-2 bg-[#111] rounded-2xl p-2 border border-zinc-800"><div id="chat" class="max-h-[150px] overflow-y-auto space-y-1 text-[11px] p-1"></div><div class="flex gap-2 mt-2"><input id="inp" placeholder="Escribe y traduce" class="flex-1 bg-black border border-blue-500/30 rounded-full px-4 py-2 text-[11px] outline-none"><button id="bSend" class="bg-yellow-400 text-black px-4 rounded-full font-black text-[11px]">Enviar</button></div></div>
-
-<!-- MONETIZACION DUEÑO -->
-<div class="mt-2 text-center text-[8px] text-zinc-500">Prueba 5 días gratis. Después $10 USD/mes o $90 USD/año</div>
+<div class="mt-2">
+<select id="langSelect" class="w-full bg-black border border-zinc-700 rounded-full px-4 py-3 text-[14px] outline-none"><option>🇨🇳 Chino</option><option>🇺🇸 Inglés</option><option>🇪🇸 Español</option><option>🇧🇷 Portugués</option><option>🇫🇷 Francés</option><option>🇩🇪 Alemán</option><option>🇯🇵 Japonés</option><option>🇰🇷 Coreano</option></select>
 </div>
 
-<!-- POPUP REGISTRO + PAGO - ESTA ES LA MONETIZACION DUEÑO -->
-<div id="paywall" class="fixed inset-0 bg-black/90 z-[999] hidden flex items-center justify-center p-4">
-<div class="bg-zinc-900 border-2 border-blue-600 rounded-[20px] p-5 w-full max-w-[340px] text-center">
-<p class="font-black text-[18px]">JCV TRADUCTOR PRO DUEÑO</p>
-<p id="payMsg" class="text-[11px] text-zinc-400 mt-2">Regístrate para activar tus 5 días gratis DUEÑO en texto, voz y video llamadas</p>
-<input id="regMail" placeholder="Tu correo electrónico" class="w-full mt-3 bg-black border border-zinc-700 rounded-full px-4 py-2 text-[12px]">
-<input id="regWA" placeholder="Tu WhatsApp con lada ej: +52 1..." class="w-full mt-2 bg-black border border-zinc-700 rounded-full px-4 py-2 text-[12px]">
-<button id="bReg" class="w-full mt-3 bg-blue-600 rounded-full py-3 font-black text-[12px]">✅ ACTIVAR 5 DÍAS GRATIS</button>
-<div id="payBtns" class="hidden">
-<p class="text-[10px] text-red-400 mt-3 font-bold">Tu prueba terminó DUEÑO. Elige plan para seguir:</p>
-<a id="pay10" href="https://www.paypal.com/paypalme/TUUSUARIO/10" target="_blank" class="block mt-2 bg-yellow-400 text-black rounded-full py-3 font-black text-[12px]">💳 PAGAR $10 USD MES</a>
-<a id="pay90" href="https://www.paypal.com/paypalme/TUUSUARIO/90" target="_blank" class="block mt-2 bg-white text-black rounded-full py-3 font-black text-[12px]">🔥 PAGAR $90 USD AÑO (ahorra)</a>
-<p class="text-[9px] text-zinc-500 mt-2">Después de pagar manda comprobante a tu WhatsApp para activar</p>
-</div>
-</div>
+<div class="mt-3 grid grid-cols-2 gap-2">
+<button id="btnEsMundo" class="active-red rounded-full py-3.5 text-[11px] font-black">🔴 TÚ: ES → MUNDO ON</button>
+<button id="btnMundoEs" class="off rounded-full py-3.5 text-[11px] font-black">🔵 MUNDO → ES OFF</button>
 </div>
 
+<button id="btnHablar" class="mt-3 w-full bg-blue-600 rounded-full py-3.5 font-black text-[13px]">🎙️ APLASTA, SUELTA Y HABLA</button>
+<button id="btnColgar" class="mt-2 w-full border border-zinc-600 rounded-full py-3 font-bold text-[13px]">⏹️ COLGAR / APAGAR CÁMARA</button>
+
+<div class="mt-3 flex gap-2">
+<input id="textInput" placeholder="Escribe y traduce" class="flex-1 bg-black border border-zinc-700 rounded-full px-4 py-3 text-[14px] outline-none">
+<button class="bg-yellow-400 text-black font-black rounded-full px-6 text-[13px]">Enviar</button>
+</div>
+
+<p id="trialText" class="text-center text-[11px] text-zinc-500 mt-3">Prueba 7 días gratis. Después $10 USD/mes o $90 USD/año</p>
+
+<div id="paywall" class="hidden fixed inset-0 bg-black/90 z-[99] flex items-end justify-center p-3">
+<div class="bg-zinc-900 border border-zinc-700 rounded-[24px] p-5 w-full max-w-[380px] text-center">
+<div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mx-auto">🔒</div>
+<h2 class="text-[19px] font-black mt-3">Tu prueba gratis terminó</h2>
+<p class="text-[12px] text-zinc-400 mt-2">Actualiza a Premium para seguir traduciendo sin límites. Como en apps de citas.</p>
+<div class="mt-4 bg-black rounded-xl p-3 text-left text-[12px] space-y-1"><p>✅ Traducciones ilimitadas</p><p>✅ Videollamadas traducidas</p><p>✅ 45 idiomas + voz real</p></div>
+<button onclick="localStorage.setItem('jcv_premium','si');document.getElementById('paywall').classList.add('hidden')" class="mt-4 w-full bg-blue-600 rounded-full py-3.5 font-black">ACTUALIZAR A PREMIUM - $10/MES</button>
+<button onclick="localStorage.setItem('jcv_premium','si');document.getElementById('paywall').classList.add('hidden')" class="mt-2 w-full bg-white text-black rounded-full py-3.5 font-black">PREMIUM ANUAL - $90/AÑO (Ahorra 25%)</button>
+<p class="mt-3 text-[10px] text-zinc-500">Cancela cuando quieras • Pago seguro</p>
+</div></div>
+
+</div>
 <script>
-// === LOGICA MONETIZACION DUEÑO - 5 DIAS GRATIS ===
-let trialStart = localStorage.getItem('jcv_trial');
-let userEmail = localStorage.getItem('jcv_mail');
-let isPro = localStorage.getItem('jcv_pro')==='1';
-if(!trialStart){ document.getElementById('paywall').classList.remove('hidden'); }
-else {
-  let days = (Date.now() - parseInt(trialStart)) / (1000*60*60*24);
-  if(days > 5 &&!isPro){
-    document.getElementById('paywall').classList.remove('hidden');
-    document.getElementById('payMsg').innerHTML="Se acabaron tus 5 días gratis DUEÑO. Para seguir usando texto + aplasta y habla + video llamadas paga DUEÑO";
-    document.getElementById('bReg').classList.add('hidden');
-    document.getElementById('payBtns').classList.remove('hidden');
-  }
-}
-document.getElementById('bReg').addEventListener('click',()=>{
-  let m=document.getElementById('regMail').value;
-  let w=document.getElementById('regWA').value;
-  if(m.length<5 || w.length<8){ alert('Pon correo y WhatsApp DUEÑO'); return; }
-  localStorage.setItem('jcv_mail',m); localStorage.setItem('jcv_wa',w);
-  localStorage.setItem('jcv_trial', Date.now().toString());
-  // Aquí DUEÑO puedes mandar a tu Google Sheet / WhatsApp API
-  // fetch('https://api.tu-backend.com/registro?mail='+m+'&wa='+w)
-  document.getElementById('paywall').classList.add('hidden');
-  alert('¡Activado 5 días gratis DUEÑO!');
-});
-function checkPro(){
-  let trialStart = localStorage.getItem('jcv_trial');
-  if(!trialStart) return false;
-  let days = (Date.now() - parseInt(trialStart))/(1000*60*60*24);
-  if(days>5 && localStorage.getItem('jcv_pro')!=='1'){
-    document.getElementById('paywall').classList.remove('hidden');
-    document.getElementById('bReg').classList.add('hidden');
-    document.getElementById('payBtns').classList.remove('hidden');
-    return false;
-  }
-  return true;
-}
+// BOTONES ARREGLADOS
+const btnEs=document.getElementById('btnEsMundo'); const btnMundo=document.getElementById('btnMundoEs');
+function setEs(){ btnEs.className='active-red rounded-full py-3.5 text-[11px] font-black'; btnMundo.className='off rounded-full py-3.5 text-[11px] font-black'; btnEs.innerHTML='🔴 TÚ: ES → MUNDO ON'; btnMundo.innerHTML='🔵 MUNDO → ES OFF'; }
+function setMundo(){ btnMundo.className='active-blue rounded-full py-3.5 text-[11px] font-black text-white'; btnEs.className='off rounded-full py-3.5 text-[11px] font-black'; btnMundo.innerHTML='🔵 MUNDO → ES ON'; btnEs.innerHTML='⚫ TÚ: ES → MUNDO OFF'; }
+btnEs.onclick=setEs; btnMundo.onclick=setMundo;
 
-// === TU LOGICA ORIGINAL VIDEO + TRADUCTOR DUEÑO ===
-let stream=null,liveES=false,liveOT=false,recES=null,recOT=null,peer=null;
-const v=document.getElementById('me'),remoteV=document.getElementById('remoteVideo'),off=document.getElementById('off'),btn=document.getElementById('btnStart'),chat=document.getElementById('chat');
-const mapLang={en:'en-US',zh:'zh-CN',ja:'ja-JP',ko:'ko-KR',ru:'ru-RU',ar:'ar-SA',hi:'hi-IN',fr:'fr-FR',de:'de-DE',pt:'pt-BR',it:'it-IT',es:'es-MX',tr:'tr-TR',vi:'vi-VN'};
-peer=new Peer('jcv-'+Math.floor(Math.random()*90000+10000)); peer.on('open',id=>{document.getElementById('myId').value=id;});
-peer.on('call',async c=>{ if(!checkPro()) return; if(!stream)stream=await navigator.mediaDevices.getUserMedia({video:true,audio:true}); v.srcObject=stream; off.classList.add('hidden'); btn.classList.add('hidden'); c.answer(stream); c.on('stream',rs=>{remoteV.srcObject=rs; remoteV.classList.remove('hidden');}); });
-async function start(){ if(!checkPro()) return; try{ stream=await navigator.mediaDevices.getUserMedia({video:true,audio:true}); v.srcObject=stream; off.classList.add('hidden'); btn.classList.add('hidden'); }catch(e){alert('Da permiso a cámara DUEÑO');} }
-btn.addEventListener('click',start);
-document.getElementById('copyId').addEventListener('click',()=>{ navigator.clipboard.writeText(document.getElementById('myId').value); alert('ID copiado DUEÑO'); });
-document.getElementById('bColgar').addEventListener('click',()=>{ if(stream)stream.getTracks().forEach(t=>t.stop()); v.srcObject=null; remoteV.classList.add('hidden'); off.classList.remove('hidden'); btn.classList.remove('hidden'); });
-async function trad(t,f,to){ try{ const r=await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(t)}&langpair=${f}|${to}`); const d=await r.json(); return d.responseData.translatedText; }catch{ return t; } }
-function speak(t,lc){ speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(t); u.lang=lc; u.rate=0.95; speechSynthesis.speak(u); }
-async function showEStoOther(txt){ if(!checkPro()) return; const to=document.getElementById('targetLang').value; chat.innerHTML+=`<div class="bg-blue-600/20 rounded-xl p-2"><b>ES:</b> ${txt}</div>`; const res=await trad(txt,'es',to); chat.innerHTML+=`<div class="bg-green-600/20 rounded-xl p-2"><b>${to}:</b> ${res}</div>`; speak(res,mapLang[to]); }
-async function showOtherToES(txt){ if(!checkPro()) return; const from=document.getElementById('targetLang').value; chat.innerHTML+=`<div class="bg-zinc-700 rounded-xl p-2"><b>${from}:</b> ${txt}</div>`; const res=await trad(txt,from,'es'); chat.innerHTML+=`<div class="bg-yellow-500/20 rounded-xl p-2"><b>ES:</b> ${res}</div>`; speak(res,'es-MX'); }
-document.getElementById('bLiveES').addEventListener('click',()=>{ if(!checkPro()) return; const SR=window.SpeechRecognition||window.webkitSpeechRecognition; if(liveES){recES.stop();liveES=false;return;} recES=new SR(); recES.lang='es-MX'; recES.continuous=true; recES.onresult=e=>{const txt=e.results[e.results.length-1][0].transcript; if(txt.length>2)showEStoOther(txt);}; recES.onend=()=>{if(liveES)recES.start();}; liveES=true; recES.start(); });
-document.getElementById('bLiveOther').addEventListener('click',()=>{ if(!checkPro()) return; const SR=window.SpeechRecognition||window.webkitSpeechRecognition; const to=document.getElementById('targetLang').value; if(liveOT){recOT.stop();liveOT=false;return;} recOT=new SR(); recOT.lang=mapLang[to]; recOT.continuous=true; recOT.onresult=e=>{const txt=e.results[e.results.length-1][0].transcript; if(txt.length>2)showOtherToES(txt);}; recOT.onend=()=>{if(liveOT)recOT.start();}; liveOT=true; recOT.start(); });
-document.getElementById('bTalk').addEventListener('click',()=>{ if(!checkPro()) return; const SR=window.SpeechRecognition||window.webkitSpeechRecognition; const rec=new SR(); rec.lang='es-MX'; rec.onresult=e=>showEStoOther(e.results[0][0].transcript); rec.start(); });
-document.getElementById('bSend').addEventListener('click',()=>{ const i=document.getElementById('inp'); if(i.value.trim()){showEStoOther(i.value.trim()); i.value='';} });
+// CAMARA
+document.getElementById('btnIniciar').onclick=async()=>{ try{ const s=await navigator.mediaDevices.getUserMedia({video:true,audio:true}); document.getElementById('localVideo').srcObject=s; document.getElementById('overlay').classList.add('hidden'); }catch(e){ alert('Activa cámara y micro'); } };
+document.getElementById('btnColgar').onclick=()=>{ const v=document.getElementById('localVideo'); if(v.srcObject){ v.srcObject.getTracks().forEach(t=>t.stop()); v.srcObject=null; document.getElementById('overlay').classList.remove('hidden'); } };
+
+// PREMIUM 7 DIAS TIPO CITA
+let inicio=localStorage.getItem('jcv_inicio'); if(!inicio){ inicio=Date.now(); localStorage.setItem('jcv_inicio',inicio); }
+function check(){ const dias=(Date.now()-parseInt(inicio))/(1000*60*60*24); const rest=Math.max(0,7-Math.floor(dias)); if(rest>0){ document.getElementById('trialText').innerText=`Te quedan ${rest} días gratis. Después $10 USD/mes o $90 USD/año`; } if(dias>7 && localStorage.getItem('jcv_premium')!=='si'){ document.getElementById('paywall').classList.remove('hidden'); } } check(); setInterval(check,3000);
 </script></body></html>
