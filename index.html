@@ -1,25 +1,34 @@
-<!DOCTYPE html><html lang="es"><head><link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#2563eb"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>JCV TRADUCTOR V2.1</title><script src="https://cdn.tailwindcss.com"></script>
+<!DOCTYPE html><html lang="es"><head><link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#2563eb"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>JCV TRADUCTOR V2.1</title><script src="https://cdn.tailwindcss.com"></script><script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
 <style>body{background:#000;color:#fff;font-family:system-ui}.active-red{background:#dc2626!important}.active-blue{background:#2563eb!important}.off{background:#27272a!important;color:#a1a1aa!important}</style>
 </head><body class="bg-black flex justify-center p-2 min-h-screen">
 <div class="w-full max-w-[390px]">
-<div class="text-center mt-2"><span class="font-black text-blue-600 tracking-[5px] text-[26px]">JCV</span><span class="font-black tracking-[6px] text-[26px]"> TRADUCTOR</span><p class="text-[10px] text-zinc-500 tracking-[3px] mt-1">V2.1 FULL - 45 IDIOMAS + VIDEO REAL BUENO</p></div>
+
+<div class="text-center mt-2"><span class="font-black text-blue-600 tracking-[5px] text-[26px]">JCV</span><span class="font-black tracking-[6px] text-[26px]"> TRADUCTOR</span><p class="text-[10px] text-zinc-500 tracking-[3px] mt-1">V2.1 FULL - VIDEO CON NUMERO CELULAR</p></div>
 
 <div class="rounded-[18px] border-2 border-blue-600 h-[380px] mt-3 relative bg-zinc-900 overflow-hidden">
 <video id="localVideo" autoplay muted playsinline class="w-full h-full object-cover"></video>
 <video id="remoteVideo" autoplay playsinline class="absolute inset-0 w-full h-full object-cover hidden"></video>
-<div id="overlay" class="absolute inset-0 flex flex-col items-center justify-center bg-zinc-900/90"><button id="btnIniciar" class="bg-blue-600 rounded-full px-8 py-4 font-black text-[14px]">📷 INICIAR CÁMARA Y MIC</button></div>
-<div class="absolute bottom-2 left-2 bg-blue-600 text-[11px] px-3 py-1 rounded-full font-bold">Tú MX 🇲🇽</div>
-<div class="absolute bottom-2 right-2 bg-green-600 text-[11px] px-3 py-1 rounded-full font-bold">Proveedor</div>
+<div id="overlay" class="absolute inset-0 flex flex-col items-center justify-center bg-zinc-900/90 gap-2"><button id="btnIniciar" class="bg-blue-600 rounded-full px-8 py-4 font-black text-[14px]">📷 INICIAR CÁMARA Y MIC</button><p id="status" class="text-[11px] text-zinc-400">Registra tu número para conectar</p></div>
+<div class="absolute bottom-2 left-2 bg-blue-600 text-[11px] px-3 py-1 rounded-full font-bold" id="myLabel">Tú</div>
+<div class="absolute bottom-2 right-2 bg-green-600 text-[11px] px-3 py-1 rounded-full font-bold" id="remoteLabel">Sin conectar</div>
 </div>
 
-<div class="mt-3 flex gap-2 items-center">
-<input id="myId" type="tel" value="jcv-29172" placeholder="Número de celular o ID" class="w-full bg-black border border-zinc-700 rounded-full px-4 py-2.5 text-[14px] text-white tracking-wider placeholder-zinc-500 focus:border-blue-600 outline-none">
-<button onclick="navigator.clipboard.writeText(document.getElementById('myId').value);this.innerText='¡Copiado!';setTimeout(()=>this.innerText='Copiar',1500)" class="bg-zinc-800 rounded-full px-4 py-2 text-[13px] shrink-0">Copiar</button>
+<!-- REGISTRO CON NUMERO CELULAR -->
+<div class="mt-3 bg-zinc-900 border border-zinc-800 rounded-2xl p-3">
+<p class="text-[11px] text-zinc-400 font-bold tracking-widest">TU NÚMERO REGISTRADO</p>
+<div class="flex gap-2 mt-2">
+<input id="myPhone" type="tel" placeholder="+52 55 1234 5678" class="w-full bg-black border border-zinc-700 rounded-full px-4 py-3 text-[15px] tracking-wider text-white placeholder-zinc-500 outline-none focus:border-blue-600">
+<button id="btnRegistrar" class="bg-blue-600 rounded-full px-5 font-black text-[12px] shrink-0">REGISTRAR</button>
+</div>
+<p id="phoneOk" class="text-[10px] text-green-400 mt-1 hidden">✓ Número guardado</p>
 </div>
 
-<div class="mt-2">
-<select id="langSelect" class="w-full bg-black border border-zinc-700 rounded-full px-4 py-3 text-[14px] outline-none"><option>🇨🇳 Chino</option><option>🇺🇸 Inglés</option><option>🇪🇸 Español</option><option>🇧🇷 Portugués</option><option>🇫🇷 Francés</option><option>🇩🇪 Alemán</option><option>🇯🇵 Japonés</option><option>🇰🇷 Coreano</option></select>
+<div class="mt-2 flex gap-2">
+<input id="peerPhone" type="tel" placeholder="Número a llamar Ej: 55 8765 4321" class="flex-1 bg-black border border-blue-600/50 rounded-full px-4 py-3 text-[14px] outline-none">
+<button id="btnLlamar" class="bg-green-600 rounded-full px-5 py-3 font-black text-[13px]">📞 LLAMAR</button>
 </div>
+
+<div class="mt-2"><select id="langSelect" class="w-full bg-black border border-zinc-700 rounded-full px-4 py-3 text-[14px]"><option value="zh">🇨🇳 Chino</option><option value="en">🇺🇸 Inglés</option><option value="es">🇪🇸 Español</option><option value="pt">🇧🇷 Portugués</option><option value="fr">🇫🇷 Francés</option><option value="de">🇩🇪 Alemán</option><option value="ja">🇯🇵 Japonés</option><option value="ko">🇰🇷 Coreano</option></select></div>
 
 <div class="mt-3 grid grid-cols-2 gap-2">
 <button id="btnEsMundo" class="active-red rounded-full py-3.5 text-[11px] font-black">🔴 TÚ: ES → MUNDO ON</button>
@@ -27,39 +36,96 @@
 </div>
 
 <button id="btnHablar" class="mt-3 w-full bg-blue-600 rounded-full py-3.5 font-black text-[13px]">🎙️ APLASTA, SUELTA Y HABLA</button>
-<button id="btnColgar" class="mt-2 w-full border border-zinc-600 rounded-full py-3 font-bold text-[13px]">⏹️ COLGAR / APAGAR CÁMARA</button>
+<button id="btnColgar" class="mt-2 w-full border border-zinc-600 rounded-full py-3 font-bold text-[13px]">⏹️ COLGAR</button>
 
 <div class="mt-3 flex gap-2">
-<input id="textInput" placeholder="Escribe y traduce" class="flex-1 bg-black border border-zinc-700 rounded-full px-4 py-3 text-[14px] outline-none">
-<button class="bg-yellow-400 text-black font-black rounded-full px-6 text-[13px]">Enviar</button>
+<input id="textInput" placeholder="Escribe y traduce" class="flex-1 bg-black border border-zinc-700 rounded-full px-4 py-3 text-[14px]">
+<button id="btnEnviar" class="bg-yellow-400 text-black font-black rounded-full px-6 text-[13px]">Enviar</button>
+</div>
+<p id="resultado" class="text-center text-[12px] text-yellow-400 mt-2 min-h-[16px]"></p>
+<p id="trialText" class="text-center text-[11px] text-zinc-500 mt-2">Prueba 7 días gratis. Después $10 USD/mes o $90 USD/año</p>
+
+<!-- MODAL REGISTRO INICIAL -->
+<div id="modalPhone" class="fixed inset-0 bg-black z-[100] flex items-center justify-center p-4"><div class="bg-zinc-900 border border-zinc-700 rounded-[24px] p-6 w-full max-w-[340px] text-center"><h2 class="text-[18px] font-black">Registra tu celular</h2><p class="text-[12px] text-zinc-400 mt-2">Cada persona usa su número. Así se llaman entre ustedes.</p><input id="firstPhone" type="tel" placeholder="+52 55 0000 0000" class="w-full mt-4 bg-black border border-blue-600 rounded-full px-4 py-3 text-[16px] text-center tracking-widest"><button id="btnGuardarPrimero" class="mt-4 w-full bg-blue-600 rounded-full py-3.5 font-black">GUARDAR MI NÚMERO</button><p class="text-[10px] text-zinc-500 mt-2">Se guarda solo en tu celular</p></div></div>
+
+<div id="paywall" class="hidden fixed inset-0 bg-black/90 z-[99] flex items-end justify-center p-3"><div class="bg-zinc-900 border border-zinc-700 rounded-[24px] p-5 w-full max-w-[380px] text-center"><h2 class="text-[19px] font-black">Tu prueba gratis terminó</h2><p class="text-[12px] text-zinc-400 mt-2">Actualiza a Premium</p><button onclick="localStorage.setItem('jcv_premium','si');document.getElementById('paywall').classList.add('hidden')" class="mt-4 w-full bg-blue-600 rounded-full py-3.5 font-black">$10/MES</button><button onclick="localStorage.setItem('jcv_premium','si');document.getElementById('paywall').classList.add('hidden')" class="mt-2 w-full bg-white text-black rounded-full py-3.5 font-black">$90/AÑO</button></div></div>
 </div>
 
-<p id="trialText" class="text-center text-[11px] text-zinc-500 mt-3">Prueba 7 días gratis. Después $10 USD/mes o $90 USD/año</p>
-
-<div id="paywall" class="hidden fixed inset-0 bg-black/90 z-[99] flex items-end justify-center p-3">
-<div class="bg-zinc-900 border border-zinc-700 rounded-[24px] p-5 w-full max-w-[380px] text-center">
-<div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mx-auto">🔒</div>
-<h2 class="text-[19px] font-black mt-3">Tu prueba gratis terminó</h2>
-<p class="text-[12px] text-zinc-400 mt-2">Actualiza a Premium para seguir traduciendo sin límites. Como en apps de citas.</p>
-<div class="mt-4 bg-black rounded-xl p-3 text-left text-[12px] space-y-1"><p>✅ Traducciones ilimitadas</p><p>✅ Videollamadas traducidas</p><p>✅ 45 idiomas + voz real</p></div>
-<button onclick="localStorage.setItem('jcv_premium','si');document.getElementById('paywall').classList.add('hidden')" class="mt-4 w-full bg-blue-600 rounded-full py-3.5 font-black">ACTUALIZAR A PREMIUM - $10/MES</button>
-<button onclick="localStorage.setItem('jcv_premium','si');document.getElementById('paywall').classList.add('hidden')" class="mt-2 w-full bg-white text-black rounded-full py-3.5 font-black">PREMIUM ANUAL - $90/AÑO (Ahorra 25%)</button>
-<p class="mt-3 text-[10px] text-zinc-500">Cancela cuando quieras • Pago seguro</p>
-</div></div>
-
-</div>
 <script>
-// BOTONES ARREGLADOS
-const btnEs=document.getElementById('btnEsMundo'); const btnMundo=document.getElementById('btnMundoEs');
-function setEs(){ btnEs.className='active-red rounded-full py-3.5 text-[11px] font-black'; btnMundo.className='off rounded-full py-3.5 text-[11px] font-black'; btnEs.innerHTML='🔴 TÚ: ES → MUNDO ON'; btnMundo.innerHTML='🔵 MUNDO → ES OFF'; }
-function setMundo(){ btnMundo.className='active-blue rounded-full py-3.5 text-[11px] font-black text-white'; btnEs.className='off rounded-full py-3.5 text-[11px] font-black'; btnMundo.innerHTML='🔵 MUNDO → ES ON'; btnEs.innerHTML='⚫ TÚ: ES → MUNDO OFF'; }
+let direccion='es-mundo'; let peer=null; let localStream=null;
+const btnEs=document.getElementById('btnEsMundo'), btnMundo=document.getElementById('btnMundoEs');
+function setEs(){direccion='es-mundo';btnEs.className='active-red rounded-full py-3.5 text-[11px] font-black';btnMundo.className='off rounded-full py-3.5 text-[11px] font-black';btnEs.innerHTML='🔴 TÚ: ES → MUNDO ON';btnMundo.innerHTML='🔵 MUNDO → ES OFF';}
+function setMundo(){direccion='mundo-es';btnMundo.className='active-blue rounded-full py-3.5 text-[11px] font-black text-white';btnEs.className='off rounded-full py-3.5 text-[11px] font-black';btnMundo.innerHTML='🔵 MUNDO → ES ON';btnEs.innerHTML='⚫ TÚ: ES → MUNDO OFF';}
 btnEs.onclick=setEs; btnMundo.onclick=setMundo;
 
-// CAMARA
-document.getElementById('btnIniciar').onclick=async()=>{ try{ const s=await navigator.mediaDevices.getUserMedia({video:true,audio:true}); document.getElementById('localVideo').srcObject=s; document.getElementById('overlay').classList.add('hidden'); }catch(e){ alert('Activa cámara y micro'); } };
-document.getElementById('btnColgar').onclick=()=>{ const v=document.getElementById('localVideo'); if(v.srcObject){ v.srcObject.getTracks().forEach(t=>t.stop()); v.srcObject=null; document.getElementById('overlay').classList.remove('hidden'); } };
+function limpiarNumero(num){ return num.replace(/[^0-9]/g,''); }
 
-// PREMIUM 7 DIAS TIPO CITA
+function registrarNumero(numRaw){
+  const num = limpiarNumero(numRaw);
+  if(num.length < 10){ alert('Pon un celular válido de 10 dígitos'); return false; }
+  localStorage.setItem('jcv_phone', num);
+  document.getElementById('myPhone').value = numRaw;
+  document.getElementById('myLabel').innerText = 'Tú: ' + num.slice(-4);
+  document.getElementById('modalPhone').classList.add('hidden');
+  document.getElementById('phoneOk').classList.remove('hidden');
+  document.getElementById('status').innerText = 'Número registrado: '+num;
+  conectarPeer(num);
+  return true;
+}
+
+function conectarPeer(phoneNum){
+  if(peer) peer.destroy();
+  peer = new Peer('jcv-'+phoneNum);
+  peer.on('open', id=>{ console.log('peer open',id); });
+  peer.on('call', async call=>{
+    const s = await initMedia();
+    call.answer(s);
+    call.on('stream', rs=>{ const rv=document.getElementById('remoteVideo'); rv.srcObject=rs; rv.classList.remove('hidden'); document.getElementById('remoteLabel').innerText='Llamada entrante: '+call.peer.replace('jcv-',''); });
+  });
+}
+
+async function initMedia(){ if(!localStream){ localStream=await navigator.mediaDevices.getUserMedia({video:true,audio:true}); document.getElementById('localVideo').srcObject=localStream; document.getElementById('overlay').classList.add('hidden'); } return localStream; }
+
+document.getElementById('btnGuardarPrimero').onclick=()=>{ const v=document.getElementById('firstPhone').value; registrarNumero(v); };
+document.getElementById('btnRegistrar').onclick=()=>{ const v=document.getElementById('myPhone').value; registrarNumero(v); };
+document.getElementById('btnIniciar').onclick=async()=>{ await initMedia(); const saved=localStorage.getItem('jcv_phone'); if(saved &&!peer) conectarPeer(saved); };
+
+// LLAMAR POR NUMERO
+document.getElementById('btnLlamar').onclick=async()=>{
+  const toRaw=document.getElementById('peerPhone').value; const to=limpiarNumero(toRaw);
+  if(!to) return alert('Escribe el número a llamar');
+  const s=await initMedia();
+  const saved=localStorage.getItem('jcv_phone');
+  if(!peer && saved) conectarPeer(saved);
+  if(!peer){ const my=localStorage.getItem('jcv_phone')||'0000'; peer=new Peer('jcv-'+my); await new Promise(r=>peer.on('open',r)); }
+  const call=peer.call('jcv-'+to, s);
+  call.on('stream', rs=>{ const rv=document.getElementById('remoteVideo'); rv.srcObject=rs; rv.classList.remove('hidden'); document.getElementById('remoteLabel').innerText='Conectado: '+to; });
+  document.getElementById('status').innerText='Llamando a '+to+'...';
+};
+
+document.getElementById('btnColgar').onclick=()=>{ if(localStream){ localStream.getTracks().forEach(t=>t.stop()); localStream=null; } document.getElementById('localVideo').srcObject=null; const rv=document.getElementById('remoteVideo'); rv.srcObject=null; rv.classList.add('hidden'); document.getElementById('overlay').classList.remove('hidden'); };
+
+// TRADUCCION
+async function traducir(texto){ const lang=document.getElementById('langSelect').value; let from='es', to=lang; if(direccion==='mundo-es'){ from=lang; to='es'; } try{ const r=await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(texto)}&langpair=${from}|${to}`); const d=await r.json(); return d.responseData.translatedText||texto; }catch(e){ return texto; } }
+function hablar(texto, langCode){ const u=new SpeechSynthesisUtterance(texto); u.lang=langCode==='zh'?'zh-CN':langCode==='ja'?'ja-JP':langCode==='ko'?'ko-KR':langCode==='en'?'en-US':langCode==='pt'?'pt-BR':'es-MX'; speechSynthesis.speak(u); }
+let recognition=null; if('webkitSpeechRecognition' in window){ recognition=new webkitSpeechRecognition(); }
+const btnHablar=document.getElementById('btnHablar');
+function startRec(){ if(!recognition) return alert('Usa Chrome'); const langSel=document.getElementById('langSelect').value; recognition.lang=direccion==='es-mundo'?'es-MX':langSel==='zh'?'zh-CN':langSel; recognition.start(); btnHablar.innerText='🔴 ESCUCHANDO...'; }
+function stopRec(){ try{ recognition.stop(); }catch(e){} btnHablar.innerText='🎙️ APLASTA, SUELTA Y HABLA'; }
+if(recognition){
+btnHablar.addEventListener('touchstart', e=>{ e.preventDefault(); startRec(); });
+btnHablar.addEventListener('touchend', e=>{ e.preventDefault(); stopRec(); });
+btnHablar.addEventListener('mousedown', startRec);
+btnHablar.addEventListener('mouseup', stopRec);
+recognition.onresult=async e=>{ const txt=e.results[0][0].transcript; document.getElementById('resultado').innerText='Dijiste: '+txt; const trad=await traducir(txt); document.getElementById('resultado').innerText=trad; const lang=document.getElementById('langSelect').value; hablar(trad, direccion==='es-mundo'?lang:'es'); };
+}
+document.getElementById('btnEnviar').onclick=async()=>{ const t=document.getElementById('textInput').value.trim(); if(!t) return; const trad=await traducir(t); document.getElementById('resultado').innerText=trad; const lang=document.getElementById('langSelect').value; hablar(trad, direccion==='es-mundo'?lang:'es'); };
+
+// CARGAR SI YA ESTA REGISTRADO
+const savedPhone=localStorage.getItem('jcv_phone');
+if(savedPhone){ document.getElementById('myPhone').value=savedPhone; document.getElementById('firstPhone').value=savedPhone; document.getElementById('modalPhone').classList.add('hidden'); document.getElementById('myLabel').innerText='Tú: '+savedPhone.slice(-4); document.getElementById('status').innerText='Número: '+savedPhone; conectarPeer(savedPhone); }
+
+// PREMIUM 7 DIAS
 let inicio=localStorage.getItem('jcv_inicio'); if(!inicio){ inicio=Date.now(); localStorage.setItem('jcv_inicio',inicio); }
-function check(){ const dias=(Date.now()-parseInt(inicio))/(1000*60*60*24); const rest=Math.max(0,7-Math.floor(dias)); if(rest>0){ document.getElementById('trialText').innerText=`Te quedan ${rest} días gratis. Después $10 USD/mes o $90 USD/año`; } if(dias>7 && localStorage.getItem('jcv_premium')!=='si'){ document.getElementById('paywall').classList.remove('hidden'); } } check(); setInterval(check,3000);
+function check(){ const dias=(Date.now()-parseInt(inicio))/(1000*60*60*24); const rest=Math.max(0,7-Math.floor(dias)); if(rest>0){ document.getElementById('trialText').innerText=`Te quedan ${rest} días gratis. Después $10 USD/mes o $90 USD/año`; } if(dias>7 && localStorage.getItem('jcv_premium')!=='si'){ document.getElementById('paywall').classList.remove('hidden'); } } check();
 </script></body></html>
