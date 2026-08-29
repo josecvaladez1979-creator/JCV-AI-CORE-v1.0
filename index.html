@@ -1,131 +1,109 @@
-<!DOCTYPE html><html lang="es"><head><link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#2563eb"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>JCV TRADUCTOR V2.1</title><script src="https://cdn.tailwindcss.com"></script><script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
-<style>body{background:#000;color:#fff;font-family:system-ui}.active-red{background:#dc2626!important}.active-blue{background:#2563eb!important}.off{background:#27272a!important;color:#a1a1aa!important}</style>
+<!DOCTYPE html><html lang="es"><head><link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#2563eb"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>JCV V2.2</title><script src="https://cdn.tailwindcss.com"></script><script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
+<style>body{background:#000;color:#fff;font-family:system-ui}</style>
 </head><body class="bg-black flex justify-center p-2 min-h-screen">
 <div class="w-full max-w-[390px]">
+<div class="text-center mt-2"><span class="font-black text-blue-600 tracking-[5px] text-[26px]">JCV</span><span class="font-black tracking-[6px] text-[26px]"> TRADUCTOR</span><p id="estadoConn" class="text-[10px] text-yellow-400 tracking-widest mt-1">🔴 DESCONECTADO - REGISTRA TU NUMERO</p></div>
 
-<div class="text-center mt-2"><span class="font-black text-blue-600 tracking-[5px] text-[26px]">JCV</span><span class="font-black tracking-[6px] text-[26px]"> TRADUCTOR</span><p class="text-[10px] text-zinc-500 tracking-[3px] mt-1">V2.1 FULL - VIDEO CON NUMERO CELULAR</p></div>
-
-<div class="rounded-[18px] border-2 border-blue-600 h-[380px] mt-3 relative bg-zinc-900 overflow-hidden">
+<div class="rounded-[18px] border-2 border-blue-600 h-[360px] mt-3 relative bg-zinc-900 overflow-hidden">
 <video id="localVideo" autoplay muted playsinline class="w-full h-full object-cover"></video>
 <video id="remoteVideo" autoplay playsinline class="absolute inset-0 w-full h-full object-cover hidden"></video>
-<div id="overlay" class="absolute inset-0 flex flex-col items-center justify-center bg-zinc-900/90 gap-2"><button id="btnIniciar" class="bg-blue-600 rounded-full px-8 py-4 font-black text-[14px]">📷 INICIAR CÁMARA Y MIC</button><p id="status" class="text-[11px] text-zinc-400">Registra tu número para conectar</p></div>
-<div class="absolute bottom-2 left-2 bg-blue-600 text-[11px] px-3 py-1 rounded-full font-bold" id="myLabel">Tú</div>
-<div class="absolute bottom-2 right-2 bg-green-600 text-[11px] px-3 py-1 rounded-full font-bold" id="remoteLabel">Sin conectar</div>
+<div id="overlay" class="absolute inset-0 flex flex-col items-center justify-center bg-zinc-900/95 gap-2 p-4 text-center"><p class="text-[12px] text-zinc-300">Paso 1: Registra tu celular abajo</p><p class="text-[11px] text-zinc-500">Paso 2: Dale INICIAR CÁMARA</p><button id="btnIniciar" class="bg-blue-600 rounded-full px-8 py-4 font-black text-[14px] mt-2">📷 INICIAR CÁMARA Y MIC</button><p id="status" class="text-[11px] text-zinc-400 mt-2"></p></div>
 </div>
 
-<!-- REGISTRO CON NUMERO CELULAR -->
 <div class="mt-3 bg-zinc-900 border border-zinc-800 rounded-2xl p-3">
-<p class="text-[11px] text-zinc-400 font-bold tracking-widest">TU NÚMERO REGISTRADO</p>
-<div class="flex gap-2 mt-2">
-<input id="myPhone" type="tel" placeholder="+52 55 1234 5678" class="w-full bg-black border border-zinc-700 rounded-full px-4 py-3 text-[15px] tracking-wider text-white placeholder-zinc-500 outline-none focus:border-blue-600">
-<button id="btnRegistrar" class="bg-blue-600 rounded-full px-5 font-black text-[12px] shrink-0">REGISTRAR</button>
-</div>
-<p id="phoneOk" class="text-[10px] text-green-400 mt-1 hidden">✓ Número guardado</p>
+<p class="text-[10px] text-zinc-500 font-bold">TU CELULAR (TU USUARIO)</p>
+<div class="flex gap-2 mt-1"><input id="myPhone" type="tel" placeholder="Ej: 55 1234 5678" class="w-full bg-black border border-zinc-700 rounded-full px-4 py-3 text-[15px] text-white"><button id="btnRegistrar" class="bg-blue-600 rounded-full px-5 font-black text-[12px]">GUARDAR</button></div>
 </div>
 
-<div class="mt-2 flex gap-2">
-<input id="peerPhone" type="tel" placeholder="Número a llamar Ej: 55 8765 4321" class="flex-1 bg-black border border-blue-600/50 rounded-full px-4 py-3 text-[14px] outline-none">
-<button id="btnLlamar" class="bg-green-600 rounded-full px-5 py-3 font-black text-[13px]">📞 LLAMAR</button>
-</div>
+<div class="mt-2 flex gap-2"><input id="peerPhone" type="tel" placeholder="Celular del otro" class="flex-1 bg-black border border-green-600 rounded-full px-4 py-3 text-[14px]"><button id="btnLlamar" class="bg-green-600 rounded-full px-5 py-3 font-black text-[13px]">📞 LLAMAR</button></div>
 
-<div class="mt-2"><select id="langSelect" class="w-full bg-black border border-zinc-700 rounded-full px-4 py-3 text-[14px]"><option value="zh">🇨🇳 Chino</option><option value="en">🇺🇸 Inglés</option><option value="es">🇪🇸 Español</option><option value="pt">🇧🇷 Portugués</option><option value="fr">🇫🇷 Francés</option><option value="de">🇩🇪 Alemán</option><option value="ja">🇯🇵 Japonés</option><option value="ko">🇰🇷 Coreano</option></select></div>
+<div class="mt-2"><select id="langSelect" class="w-full bg-black border border-zinc-700 rounded-full px-4 py-3 text-[14px]"><option value="zh-CN">🇨🇳 Chino</option><option value="en">🇺🇸 Inglés</option><option value="es">🇪🇸 Español</option><option value="pt">🇧🇷 Portugués</option></select></div>
 
 <div class="mt-3 grid grid-cols-2 gap-2">
-<button id="btnEsMundo" class="active-red rounded-full py-3.5 text-[11px] font-black">🔴 TÚ: ES → MUNDO ON</button>
-<button id="btnMundoEs" class="off rounded-full py-3.5 text-[11px] font-black">🔵 MUNDO → ES OFF</button>
+<button id="btnEsMundo" class="bg-red-600 rounded-full py-3.5 text-[11px] font-black">🔴 ES → MUNDO ON</button>
+<button id="btnMundoEs" class="bg-zinc-800 text-zinc-400 rounded-full py-3.5 text-[11px] font-black">MUNDO → ES OFF</button>
 </div>
 
-<button id="btnHablar" class="mt-3 w-full bg-blue-600 rounded-full py-3.5 font-black text-[13px]">🎙️ APLASTA, SUELTA Y HABLA</button>
-<button id="btnColgar" class="mt-2 w-full border border-zinc-600 rounded-full py-3 font-bold text-[13px]">⏹️ COLGAR</button>
+<button id="btnHablar" class="mt-3 w-full bg-blue-600 rounded-full py-4 font-black text-[13px]">🎙️ MANTÉN PRESIONADO Y HABLA</button>
+<button id="btnColgar" class="mt-2 w-full border border-zinc-700 rounded-full py-3 font-bold text-[13px]">⏹️ COLGAR</button>
 
-<div class="mt-3 flex gap-2">
-<input id="textInput" placeholder="Escribe y traduce" class="flex-1 bg-black border border-zinc-700 rounded-full px-4 py-3 text-[14px]">
-<button id="btnEnviar" class="bg-yellow-400 text-black font-black rounded-full px-6 text-[13px]">Enviar</button>
-</div>
-<p id="resultado" class="text-center text-[12px] text-yellow-400 mt-2 min-h-[16px]"></p>
-<p id="trialText" class="text-center text-[11px] text-zinc-500 mt-2">Prueba 7 días gratis. Después $10 USD/mes o $90 USD/año</p>
+<div class="mt-3 flex gap-2"><input id="textInput" placeholder="Escribe aquí" class="flex-1 bg-black border border-zinc-700 rounded-full px-4 py-3 text-[14px]"><button id="btnEnviar" class="bg-yellow-400 text-black font-black rounded-full px-6 text-[13px]">ENVIAR</button></div>
+<div class="mt-2 bg-zinc-900 rounded-xl p-3 min-h-[50px]"><p class="text-[10px] text-zinc-500">TRADUCCIÓN:</p><p id="resultado" class="text-[14px] text-yellow-400 mt-1">Aquí aparece lo traducido...</p></div>
+<p id="trialText" class="text-center text-[11px] text-zinc-600 mt-2">7 días gratis - $10/mes o $90/año</p>
 
-<!-- MODAL REGISTRO INICIAL -->
-<div id="modalPhone" class="fixed inset-0 bg-black z-[100] flex items-center justify-center p-4"><div class="bg-zinc-900 border border-zinc-700 rounded-[24px] p-6 w-full max-w-[340px] text-center"><h2 class="text-[18px] font-black">Registra tu celular</h2><p class="text-[12px] text-zinc-400 mt-2">Cada persona usa su número. Así se llaman entre ustedes.</p><input id="firstPhone" type="tel" placeholder="+52 55 0000 0000" class="w-full mt-4 bg-black border border-blue-600 rounded-full px-4 py-3 text-[16px] text-center tracking-widest"><button id="btnGuardarPrimero" class="mt-4 w-full bg-blue-600 rounded-full py-3.5 font-black">GUARDAR MI NÚMERO</button><p class="text-[10px] text-zinc-500 mt-2">Se guarda solo en tu celular</p></div></div>
-
-<div id="paywall" class="hidden fixed inset-0 bg-black/90 z-[99] flex items-end justify-center p-3"><div class="bg-zinc-900 border border-zinc-700 rounded-[24px] p-5 w-full max-w-[380px] text-center"><h2 class="text-[19px] font-black">Tu prueba gratis terminó</h2><p class="text-[12px] text-zinc-400 mt-2">Actualiza a Premium</p><button onclick="localStorage.setItem('jcv_premium','si');document.getElementById('paywall').classList.add('hidden')" class="mt-4 w-full bg-blue-600 rounded-full py-3.5 font-black">$10/MES</button><button onclick="localStorage.setItem('jcv_premium','si');document.getElementById('paywall').classList.add('hidden')" class="mt-2 w-full bg-white text-black rounded-full py-3.5 font-black">$90/AÑO</button></div></div>
+<div id="modalPhone" class="fixed inset-0 bg-black z-[100] flex items-center justify-center p-4"><div class="bg-zinc-900 border border-zinc-700 rounded-[24px] p-6 w-full max-w-[340px] text-center"><h2 class="font-black">Pon tu celular</h2><input id="firstPhone" type="tel" placeholder="55 1234 5678" class="w-full mt-4 bg-black border border-blue-600 rounded-full px-4 py-3 text-[18px] text-center"><button id="btnGuardarPrimero" class="mt-4 w-full bg-blue-600 rounded-full py-3.5 font-black">GUARDAR Y ENTRAR</button></div></div>
 </div>
 
 <script>
-let direccion='es-mundo'; let peer=null; let localStream=null;
-const btnEs=document.getElementById('btnEsMundo'), btnMundo=document.getElementById('btnMundoEs');
-function setEs(){direccion='es-mundo';btnEs.className='active-red rounded-full py-3.5 text-[11px] font-black';btnMundo.className='off rounded-full py-3.5 text-[11px] font-black';btnEs.innerHTML='🔴 TÚ: ES → MUNDO ON';btnMundo.innerHTML='🔵 MUNDO → ES OFF';}
-function setMundo(){direccion='mundo-es';btnMundo.className='active-blue rounded-full py-3.5 text-[11px] font-black text-white';btnEs.className='off rounded-full py-3.5 text-[11px] font-black';btnMundo.innerHTML='🔵 MUNDO → ES ON';btnEs.innerHTML='⚫ TÚ: ES → MUNDO OFF';}
-btnEs.onclick=setEs; btnMundo.onclick=setMundo;
+let direccion='es-mundo', peer=null, localStream=null;
+let btnEs=document.getElementById('btnEsMundo'), btnMundo=document.getElementById('btnMundoEs');
+btnEs.onclick=()=>{ direccion='es-mundo'; btnEs.className='bg-red-600 rounded-full py-3.5 text-[11px] font-black'; btnMundo.className='bg-zinc-800 text-zinc-400 rounded-full py-3.5 text-[11px] font-black'; btnEs.innerText='🔴 ES → MUNDO ON'; btnMundo.innerText='MUNDO → ES OFF'; }
+btnMundo.onclick=()=>{ direccion='mundo-es'; btnMundo.className='bg-blue-600 rounded-full py-3.5 text-[11px] font-black'; btnEs.className='bg-zinc-800 text-zinc-400 rounded-full py-3.5 text-[11px] font-black'; btnMundo.innerText='🔵 MUNDO → ES ON'; btnEs.innerText='ES → MUNDO OFF'; }
 
-function limpiarNumero(num){ return num.replace(/[^0-9]/g,''); }
-
-function registrarNumero(numRaw){
-  const num = limpiarNumero(numRaw);
-  if(num.length < 10){ alert('Pon un celular válido de 10 dígitos'); return false; }
-  localStorage.setItem('jcv_phone', num);
-  document.getElementById('myPhone').value = numRaw;
-  document.getElementById('myLabel').innerText = 'Tú: ' + num.slice(-4);
-  document.getElementById('modalPhone').classList.add('hidden');
-  document.getElementById('phoneOk').classList.remove('hidden');
-  document.getElementById('status').innerText = 'Número registrado: '+num;
-  conectarPeer(num);
-  return true;
-}
-
-function conectarPeer(phoneNum){
-  if(peer) peer.destroy();
-  peer = new Peer('jcv-'+phoneNum);
-  peer.on('open', id=>{ console.log('peer open',id); });
+function limpiar(n){ return n.replace(/[^0-9]/g,''); }
+function conectarPeer(num){
+  if(!num) return;
+  const id='jcv-'+num;
+  console.log('Conectando como',id);
+  document.getElementById('estadoConn').innerText='🟡 CONECTANDO COMO '+num+'...';
+  peer = new Peer(id, { config: { iceServers: [{ urls: 'stun:stun.l.google.com:19302' },{ urls: 'stun:stun1.l.google.com:19302' }] } });
+  peer.on('open', ()=>{ document.getElementById('estadoConn').innerText='🟢 EN LÍNEA COMO '+num+' - LISTO PARA RECIBIR LLAMADAS'; document.getElementById('status').innerText='En línea. Ya puedes llamar.'; });
+  peer.on('error', e=>{ console.log(e); document.getElementById('estadoConn').innerText='🔴 ERROR: '+e.type; if(e.type==='unavailable-id'){ alert('Ese número ya está en uso en otro celular. Cierra la app en el otro o usa otro número.'); } if(e.type==='peer-unavailable'){ alert('El número al que llamas no está en línea. Dile al otro que abra la app y le de a INICIAR CÁMARA.'); } });
   peer.on('call', async call=>{
-    const s = await initMedia();
-    call.answer(s);
-    call.on('stream', rs=>{ const rv=document.getElementById('remoteVideo'); rv.srcObject=rs; rv.classList.remove('hidden'); document.getElementById('remoteLabel').innerText='Llamada entrante: '+call.peer.replace('jcv-',''); });
+    document.getElementById('estadoConn').innerText='📞 LLAMADA ENTRANTE DE '+call.peer.replace('jcv-','');
+    const s=await initMedia(); call.answer(s);
+    call.on('stream', rs=>{ let rv=document.getElementById('remoteVideo'); rv.srcObject=rs; rv.classList.remove('hidden'); });
   });
 }
+async function initMedia(){ if(!localStream){ try{ localStream=await navigator.mediaDevices.getUserMedia({video:true,audio:true}); document.getElementById('localVideo').srcObject=localStream; document.getElementById('overlay').classList.add('hidden'); }catch(e){ alert('Debes permitir cámara y micro. Recarga la página.'); throw e; } } return localStream; }
 
-async function initMedia(){ if(!localStream){ localStream=await navigator.mediaDevices.getUserMedia({video:true,audio:true}); document.getElementById('localVideo').srcObject=localStream; document.getElementById('overlay').classList.add('hidden'); } return localStream; }
-
-document.getElementById('btnGuardarPrimero').onclick=()=>{ const v=document.getElementById('firstPhone').value; registrarNumero(v); };
-document.getElementById('btnRegistrar').onclick=()=>{ const v=document.getElementById('myPhone').value; registrarNumero(v); };
-document.getElementById('btnIniciar').onclick=async()=>{ await initMedia(); const saved=localStorage.getItem('jcv_phone'); if(saved &&!peer) conectarPeer(saved); };
-
-// LLAMAR POR NUMERO
-document.getElementById('btnLlamar').onclick=async()=>{
-  const toRaw=document.getElementById('peerPhone').value; const to=limpiarNumero(toRaw);
-  if(!to) return alert('Escribe el número a llamar');
-  const s=await initMedia();
-  const saved=localStorage.getItem('jcv_phone');
-  if(!peer && saved) conectarPeer(saved);
-  if(!peer){ const my=localStorage.getItem('jcv_phone')||'0000'; peer=new Peer('jcv-'+my); await new Promise(r=>peer.on('open',r)); }
-  const call=peer.call('jcv-'+to, s);
-  call.on('stream', rs=>{ const rv=document.getElementById('remoteVideo'); rv.srcObject=rs; rv.classList.remove('hidden'); document.getElementById('remoteLabel').innerText='Conectado: '+to; });
-  document.getElementById('status').innerText='Llamando a '+to+'...';
-};
-
-document.getElementById('btnColgar').onclick=()=>{ if(localStream){ localStream.getTracks().forEach(t=>t.stop()); localStream=null; } document.getElementById('localVideo').srcObject=null; const rv=document.getElementById('remoteVideo'); rv.srcObject=null; rv.classList.add('hidden'); document.getElementById('overlay').classList.remove('hidden'); };
-
-// TRADUCCION
-async function traducir(texto){ const lang=document.getElementById('langSelect').value; let from='es', to=lang; if(direccion==='mundo-es'){ from=lang; to='es'; } try{ const r=await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(texto)}&langpair=${from}|${to}`); const d=await r.json(); return d.responseData.translatedText||texto; }catch(e){ return texto; } }
-function hablar(texto, langCode){ const u=new SpeechSynthesisUtterance(texto); u.lang=langCode==='zh'?'zh-CN':langCode==='ja'?'ja-JP':langCode==='ko'?'ko-KR':langCode==='en'?'en-US':langCode==='pt'?'pt-BR':'es-MX'; speechSynthesis.speak(u); }
-let recognition=null; if('webkitSpeechRecognition' in window){ recognition=new webkitSpeechRecognition(); }
-const btnHablar=document.getElementById('btnHablar');
-function startRec(){ if(!recognition) return alert('Usa Chrome'); const langSel=document.getElementById('langSelect').value; recognition.lang=direccion==='es-mundo'?'es-MX':langSel==='zh'?'zh-CN':langSel; recognition.start(); btnHablar.innerText='🔴 ESCUCHANDO...'; }
-function stopRec(){ try{ recognition.stop(); }catch(e){} btnHablar.innerText='🎙️ APLASTA, SUELTA Y HABLA'; }
-if(recognition){
-btnHablar.addEventListener('touchstart', e=>{ e.preventDefault(); startRec(); });
-btnHablar.addEventListener('touchend', e=>{ e.preventDefault(); stopRec(); });
-btnHablar.addEventListener('mousedown', startRec);
-btnHablar.addEventListener('mouseup', stopRec);
-recognition.onresult=async e=>{ const txt=e.results[0][0].transcript; document.getElementById('resultado').innerText='Dijiste: '+txt; const trad=await traducir(txt); document.getElementById('resultado').innerText=trad; const lang=document.getElementById('langSelect').value; hablar(trad, direccion==='es-mundo'?lang:'es'); };
+function guardarNumero(raw){
+  let num=limpiar(raw); if(num.length<10){ alert('Escribe 10 dígitos mínimo'); return; }
+  localStorage.setItem('jcv_phone',num); document.getElementById('myPhone').value=num; document.getElementById('modalPhone').classList.add('hidden'); conectarPeer(num);
 }
-document.getElementById('btnEnviar').onclick=async()=>{ const t=document.getElementById('textInput').value.trim(); if(!t) return; const trad=await traducir(t); document.getElementById('resultado').innerText=trad; const lang=document.getElementById('langSelect').value; hablar(trad, direccion==='es-mundo'?lang:'es'); };
+document.getElementById('btnGuardarPrimero').onclick=()=>guardarNumero(document.getElementById('firstPhone').value);
+document.getElementById('btnRegistrar').onclick=()=>guardarNumero(document.getElementById('myPhone').value);
+document.getElementById('btnIniciar').onclick=async()=>{ await initMedia(); let n=localStorage.getItem('jcv_phone'); if(n &&!peer) conectarPeer(n); };
 
-// CARGAR SI YA ESTA REGISTRADO
-const savedPhone=localStorage.getItem('jcv_phone');
-if(savedPhone){ document.getElementById('myPhone').value=savedPhone; document.getElementById('firstPhone').value=savedPhone; document.getElementById('modalPhone').classList.add('hidden'); document.getElementById('myLabel').innerText='Tú: '+savedPhone.slice(-4); document.getElementById('status').innerText='Número: '+savedPhone; conectarPeer(savedPhone); }
+document.getElementById('btnLlamar').onclick=async()=>{
+  let to=limpiar(document.getElementById('peerPhone').value); if(!to){ alert('Pon el número del otro'); return; }
+  let me=localStorage.getItem('jcv_phone'); if(!me){ alert('Primero registra tu número'); return; }
+  if(!localStream){ await initMedia(); }
+  if(!peer){ conectarPeer(me); await new Promise(r=>setTimeout(r,1500)); }
+  document.getElementById('estadoConn').innerText='📞 LLAMANDO A '+to+'...';
+  try{ let call=peer.call('jcv-'+to, localStream); call.on('stream', rs=>{ document.getElementById('remoteVideo').srcObject=rs; document.getElementById('remoteVideo').classList.remove('hidden'); document.getElementById('estadoConn').innerText='🟢 CONECTADO CON '+to; }); call.on('error',e=>{ alert('No se pudo conectar. El otro no está en línea.'); }); setTimeout(()=>{ if(document.getElementById('remoteVideo').srcObject==null){ alert('El número '+to+' no contesta o no está en la app. Asegúrate que el otro abrió la app y le dio a INICIAR CÁMARA.'); document.getElementById('estadoConn').innerText='🔴 SIN RESPUESTA DE '+to; } },5000); }catch(e){ alert('Error al llamar: '+e); }
+};
+document.getElementById('btnColgar').onclick=()=>{ if(localStream){ localStream.getTracks().forEach(t=>t.stop()); localStream=null; } document.getElementById('localVideo').srcObject=null; document.getElementById('remoteVideo').srcObject=null; document.getElementById('remoteVideo').classList.add('hidden'); document.getElementById('overlay').classList.remove('hidden'); document.getElementById('estadoConn').innerText='🔴 COLGADO'; };
 
-// PREMIUM 7 DIAS
-let inicio=localStorage.getItem('jcv_inicio'); if(!inicio){ inicio=Date.now(); localStorage.setItem('jcv_inicio',inicio); }
-function check(){ const dias=(Date.now()-parseInt(inicio))/(1000*60*60*24); const rest=Math.max(0,7-Math.floor(dias)); if(rest>0){ document.getElementById('trialText').innerText=`Te quedan ${rest} días gratis. Después $10 USD/mes o $90 USD/año`; } if(dias>7 && localStorage.getItem('jcv_premium')!=='si'){ document.getElementById('paywall').classList.remove('hidden'); } } check();
+// TRADUCCION QUE SI FUNCIONA - USA API LIBRE
+async function traducir(texto){
+  const lang=document.getElementById('langSelect').value;
+  let sl= direccion==='es-mundo'?'es':lang.split('-')[0];
+  let tl= direccion==='es-mundo'?lang:'es';
+  try{
+    const url=`https://translate.googleapis.com/translate_a/single?client=gtx&sl=${sl}&tl=${tl}&dt=t&q=${encodeURIComponent(texto)}`;
+    const res=await fetch(url); const data=await res.json(); return data[0][0][0];
+  }catch(e){ console.log(e); return texto; }
+}
+function hablar(texto){
+  const lang=document.getElementById('langSelect').value;
+  let voz = direccion==='es-mundo'?lang:'es-MX';
+  let u=new SpeechSynthesisUtterance(texto); u.lang=voz; speechSynthesis.speak(u);
+}
+// VOZ
+let rec=null; if(window.webkitSpeechRecognition || window.SpeechRecognition){ rec=new (window.webkitSpeechRecognition||window.SpeechRecognition)(); rec.interimResults=false; }
+let btnHablar=document.getElementById('btnHablar');
+if(rec){
+  btnHablar.addEventListener('touchstart', e=>{ e.preventDefault(); rec.lang=direccion==='es-mundo'?'es-MX':document.getElementById('langSelect').value; try{ rec.start(); btnHablar.innerText='🔴 ESCUCHANDO... SUELTA PARA TRADUCIR'; }catch(e){} });
+  btnHablar.addEventListener('touchend', e=>{ e.preventDefault(); try{ rec.stop(); }catch(e){} btnHablar.innerText='🎙️ MANTÉN PRESIONADO Y HABLA'; });
+  btnHablar.addEventListener('mousedown', ()=>{ rec.lang=direccion==='es-mundo'?'es-MX':document.getElementById('langSelect').value; try{ rec.start(); }catch(e){} btnHablar.innerText='🔴 ESCUCHANDO...'; });
+  btnHablar.addEventListener('mouseup', ()=>{ try{ rec.stop(); }catch(e){} btnHablar.innerText='🎙️ MANTÉN PRESIONADO Y HABLA'; });
+  rec.onresult=async e=>{ let txt=e.results[0][0].transcript; document.getElementById('resultado').innerText='Dijiste: '+txt+' (traduciendo...)'; let tr=await traducir(txt); document.getElementById('resultado').innerText=tr; hablar(tr); };
+  rec.onerror=e=>{ document.getElementById('resultado').innerText='Error micro: '+e.error+' - permite microfono'; btnHablar.innerText='🎙️ MANTÉN PRESIONADO Y HABLA'; };
+}else{ btnHablar.innerText='TU NAVEGADOR NO SOPORTA VOZ - USA CHROME'; }
+
+document.getElementById('btnEnviar').onclick=async()=>{ let t=document.getElementById('textInput').value.trim(); if(!t) return; document.getElementById('resultado').innerText='Traduciendo...'; let tr=await traducir(t); document.getElementById('resultado').innerText=tr; hablar(tr); };
+
+// AUTO LOGIN
+let saved=localStorage.getItem('jcv_phone'); if(saved){ document.getElementById('myPhone').value=saved; document.getElementById('firstPhone').value=saved; document.getElementById('modalPhone').classList.add('hidden'); conectarPeer(saved); }
 </script></body></html>
